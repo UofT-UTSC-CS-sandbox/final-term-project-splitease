@@ -1,0 +1,82 @@
+05-27 Standup
+
+---
+
+Name: Zheyuan Wei
+
+What have you done since yesterday?
+	- Set up finished last week, so nothing done
+
+What are you planning on doing today?
+	- Nothing. All finished.
+
+Any impediments or stumbling blocks?
+	- None
+Name: Zheyuan Wei
+
+What have you done since yesterday?
+	- Set up finished last week, so nothing done
+
+What are you planning on doing today?
+	- Nothing. All finished.
+
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+
+Name: Longqirui Chen
+
+What have you done since yesterday?
+	- Figma pages: Home, Transaction, Pay.
+
+What are you planning on doing today?
+	- Refine existing  pages
+	- Finish another page
+
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+
+Name: Zhaohan Huang
+
+What have you done since yesterday?
+	- Finished personas
+	- Reviewed lecture
+
+What are you planning on doing today?
+	- Learn React.js cased on TUT material
+
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Yiran Yu
+
+What have you done since yesterday?
+	- Finished product_backlog.md
+	- Fill backlogs in JIRA
+
+What are you planning on doing today?
+	- Figma page: Friends, Groups
+	- Add more contents in Figma
+
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Sam Wang
+
+What have you done since yesterday?
+	- Uploaded product.md
+
+What are you planning on doing today?
+	- Finish up readme.md
+
+Any impediments or stumbling blocks?
+	- None
