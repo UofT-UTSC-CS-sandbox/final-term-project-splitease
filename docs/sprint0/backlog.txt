@@ -1,5 +1,8 @@
 List of User Stories
 
+
+• As a mobile user, I want the entire page to fit well on my mobile screen so that I don't need to zoom or scroll excessively.
+• As a web user, I want the entire page to be fully optimized for desktop browsers so that I can view and interact with all elements clearly on a wider screen.
 • As a new user, I want to create an account using my email and a secure password so that I can start using the split-the-bill website.
 • As a returning user, I want to log in using my registered email and password so that I can access my account profile and keep track of bill splits between my friends and I.
 • As a user, I want to log out of my account so that I can keep my account safe and save the transactions between members in a group.
