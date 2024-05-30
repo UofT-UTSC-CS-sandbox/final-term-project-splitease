@@ -2,7 +2,9 @@
 
 ## Prototype by Figma
 
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FetpDSjv3nR7qSIgZ6Hgm6C%2FSplitEase_Colored%3Fnode-id%3D0-1%26t%3DUtiPpcGdjqBq7Te2-1" allowfullscreen></iframe>
+<img src="res/MainPage.png" width="200" height="400" />
+
+View interactive prototype on Figma: [SplitEase](https://www.figma.com/design/42eVwTzPJYXSRaNKKPLRl1/SplitEase_Colored_for_TA?t=u83JnK5PdhNWYErF-1)
 
 ## Description
 
