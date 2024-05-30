@@ -1,5 +1,9 @@
 # SplitEase
 
+## Prototype by Figma
+
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FetpDSjv3nR7qSIgZ6Hgm6C%2FSplitEase_Colored%3Fnode-id%3D0-1%26t%3DUtiPpcGdjqBq7Te2-1" allowfullscreen></iframe>
+
 ## Description
 
 SplitEase is a mobile application designed to streamline the process of splitting bills and tracking shared expenses among multiple individuals. Whether you're dining out with friends, managing household finances with roommates, or planning group vacations, SplitEase offers a convenient solution for accurately calculating each person’s share of expenses.
