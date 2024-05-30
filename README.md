@@ -2,7 +2,10 @@
 
 ## Prototype by Figma
 
+<!-- Add a link to this image on Figma -->
+<a href="https://www.figma.com/design/42eVwTzPJYXSRaNKKPLRl1/SplitEase_Colored_for_TA?t=u83JnK5PdhNWYErF-1">
 <img src="res/MainPage.png" width="200" height="400" />
+</a>
 
 View interactive prototype on Figma: [SplitEase](https://www.figma.com/design/42eVwTzPJYXSRaNKKPLRl1/SplitEase_Colored_for_TA?t=u83JnK5PdhNWYErF-1)
 
