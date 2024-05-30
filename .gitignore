@@ -1,6 +1,6 @@
 # Ignore 'admin' directory
-admin/
-docs/sprint0/Team+Expectations+Agreement-annot.pdf
+admin/*
+!admin/sprint*_details.pdf
 
 # General
 .DS_Store
