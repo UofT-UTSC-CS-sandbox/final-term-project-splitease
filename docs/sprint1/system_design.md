@@ -70,8 +70,7 @@ The architecture of SplitEase consists of four main components:
 3.  **Database:** Persistent storage for user profiles, expenses, transactions, and related information (MongoDB).
 4.  **Database Interface:** Component responsible for interacting with the database to perform CRUD (Create, Read, Update, Delete) operations.
 
-![System architecture image](images\system.png)
-![alt text](images/system.png)
+![System architecture image](images/system.png)
 
 ### System Decomposition
 
