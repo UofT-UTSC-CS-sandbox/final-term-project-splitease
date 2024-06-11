@@ -1,0 +1,138 @@
+.may,
+.p {
+  margin: 0;
+}
+.may2 {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.may2Wrapper {
+  width: 164px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-xl) 0 0;
+  box-sizing: border-box;
+}
+.movieTickets {
+  margin-bottom: -6px;
+  flex: 1;
+  position: relative;
+  flex-shrink: 0;
+  debug_commit: bf4bc93;
+  z-index: 1;
+}
+.movieTicketsWrapper {
+  width: 164px;
+  height: 23px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+}
+.paidByGogo {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-mini);
+  color: var(--color-darkorange-200);
+  flex-shrink: 0;
+  debug_commit: bf4bc93;
+  z-index: 2;
+}
+.frameGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: -55px;
+  font-size: var(--font-size-xl);
+}
+.total5000 {
+  margin: 0;
+}
+.owe2500 {
+  margin: 0;
+  color: var(--color-darkorange-200);
+}
+.total5000Owe2500 {
+  align-self: stretch;
+  height: 50px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  z-index: 3;
+}
+.total5000Owe2500Wrapper {
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) 0 0;
+  box-sizing: border-box;
+  margin-left: -55px;
+}
+.frameChild,
+.frameItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.frameChild {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+.frameItem {
+  background-color: var(--color-crimson);
+  display: none;
+}
+.iconVideo,
+.rectangleGroup {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  width: 33.6px;
+  height: 21px;
+  z-index: 3;
+}
+.rectangleGroup {
+  top: 13px;
+  left: 69px;
+  background-color: var(--color-crimson);
+  width: 42px;
+  height: 42px;
+  z-index: 2;
+}
+.rectangleParent {
+  height: 100%;
+  width: 352px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+.frameParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-8xs) 0 var(--padding-smi) var(--padding-4xl);
+  position: relative;
+  text-align: left;
+  font-size: var(--font-size-mini);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}

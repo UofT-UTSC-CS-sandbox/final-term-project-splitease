@@ -1,0 +1,32 @@
+.mainpageChild {
+  width: 352px;
+  height: 72px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  display: none;
+  max-width: 100%;
+  z-index: 0;
+}
+.vectorIcon {
+  width: 30.8px;
+  height: 30.8px;
+  position: absolute;
+  margin: 0 !important;
+  bottom: 45.2px;
+  left: 41px;
+}
+.mainpage {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 66px 15px 286px;
+  box-sizing: border-box;
+  line-height: normal;
+  letter-spacing: normal;
+}

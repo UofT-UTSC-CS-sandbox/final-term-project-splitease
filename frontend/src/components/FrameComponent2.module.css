@@ -1,0 +1,112 @@
+.frameChild {
+  height: 100%;
+  width: 352px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  cursor: pointer;
+  z-index: 1;
+}
+.may,
+.p {
+  margin: 0;
+}
+.may24 {
+  width: 60px;
+  position: relative;
+  display: inline-block;
+  z-index: 3;
+}
+.may24Wrapper {
+  width: 164px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) var(--padding-xl) 0 0;
+  box-sizing: border-box;
+}
+.walmart {
+  margin-bottom: -8px;
+  text-decoration: none;
+  height: 35px;
+  position: relative;
+  color: inherit;
+  display: inline-block;
+  min-width: 75px;
+  flex-shrink: 0;
+  debug_commit: bf4bc93;
+  z-index: 2;
+}
+.walmartWrapper {
+  height: 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+}
+.paidByYou {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-size-mini);
+  flex-shrink: 0;
+  debug_commit: bf4bc93;
+  z-index: 3;
+}
+.frameParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: -55px;
+  font-size: var(--font-size-xl);
+}
+.div {
+  align-self: stretch;
+  height: 50px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  white-space: nowrap;
+  z-index: 4;
+}
+.frameWrapper,
+.rectangleParent,
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.wrapper {
+  width: 110px;
+  flex-direction: column;
+  padding: var(--padding-3xs) 0 0;
+  margin-left: -55px;
+  font-size: var(--font-size-5xl);
+}
+.frameWrapper,
+.rectangleParent {
+  flex-direction: row;
+  max-width: 100%;
+}
+.rectangleParent {
+  flex: 1;
+  padding: var(--padding-4xs) 0 var(--padding-10xs) var(--padding-2xl);
+  position: relative;
+}
+.frameWrapper {
+  align-self: stretch;
+  padding: 0 0 0 var(--padding-11xs);
+  text-align: left;
+  font-size: var(--font-size-mini);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}

@@ -1,0 +1,102 @@
+.recentActions {
+  flex: 1;
+  position: relative;
+  font-weight: 600;
+}
+.recentActionsWrapper {
+  width: 323px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xs);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.frameChild {
+  height: 23px;
+  width: 354px;
+  position: absolute;
+  margin: 0 !important;
+  right: 16px;
+  bottom: -3px;
+  z-index: 2;
+}
+.lastWeek,
+.vectorParent {
+  position: relative;
+  max-width: 100%;
+}
+.lastWeek {
+  flex: 1;
+  line-height: 20px;
+  display: inline-block;
+  cursor: pointer;
+  z-index: 3;
+}
+.vectorParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-4xl) 0 0;
+  box-sizing: border-box;
+}
+.frameItem {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: 0 !important;
+  right: -6px;
+  bottom: -2px;
+  cursor: pointer;
+  z-index: 1;
+}
+.lastMonth {
+  flex: 1;
+  position: relative;
+  line-height: 20px;
+  display: inline-block;
+  max-width: 100%;
+  z-index: 2;
+}
+.vectorGroup {
+  flex: 1;
+  flex-direction: row;
+  position: relative;
+}
+.frameGroup,
+.frameParent,
+.frameWrapper,
+.vectorGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameWrapper {
+  width: 351px;
+  flex-direction: row;
+  padding: 0 var(--padding-11xs);
+  box-sizing: border-box;
+}
+.frameGroup,
+.frameParent {
+  flex-direction: column;
+}
+.frameGroup {
+  align-self: stretch;
+  padding: 0 var(--padding-10xs) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-10xs-2);
+  font-size: var(--font-size-mini);
+}
+.frameParent {
+  width: 373px;
+  gap: var(--gap-lg-5);
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}
