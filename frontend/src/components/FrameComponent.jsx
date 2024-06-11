@@ -1,75 +1,48 @@
-import FrameComponent1 from "./FrameComponent1";
-import FrameComponent2 from "./FrameComponent2";
-import FrameComponent3 from "./FrameComponent3";
-import FrameComponent4 from "./FrameComponent4";
-import FrameComponent5 from "./FrameComponent5";
+import { useCallback } from "react";
 import PropTypes from "prop-types";
 import styles from "./FrameComponent.module.css";
 
-const FrameComponent = ({
-  className = "",
-  onAddATransactionClick,
-  onRectangle22Click,
-  onWZY1ImageClick,
-  onLastWeekTextClick,
-  onRectangle23Click,
-  onRectangle24Click,
-  onRectangle9Click,
-  onRectangle4Click,
-  onRectangle5Click,
-}) => {
+const FrameComponent = ({ className = "" }) => {
+  const onOwedAmountShapeClick = useCallback(() => {
+    // Please sync "AddTransactionPage" to the project
+  }, []);
+
   return (
-    <section className={[styles.frameParent, className].join(" ")}>
-      <FrameComponent1 />
-      <div className={styles.recentActionsWrapper}>
-        <b className={styles.recentActions}>Recent actions</b>
+    <div className={[styles.frameParent, className].join(" ")}>
+      <div className={styles.april28Wrapper}>
+        <a className={styles.april28}>
+          <p className={styles.april}>April</p>
+          <p className={styles.p}>28</p>
+        </a>
       </div>
-      <div className={styles.frameGroup}>
-        <div className={styles.vectorParent}>
-          <img
-            className={styles.frameChild}
-            loading="lazy"
-            alt=""
-            src="/rectangle-3.svg"
-          />
-          <div className={styles.lastWeek} onClick={onLastWeekTextClick}>
-            last week
+      <div className={styles.snacksWrapper}>
+        <a className={styles.snacks}>Snacks</a>
+      </div>
+      <div className={styles.frameWrapper}>
+        <div className={styles.paidByYouForAndrewParent}>
+          <div className={styles.paidByYouContainer}>
+            <p className={styles.paidByYou}>paid by: you</p>
+            <p className={styles.forAndrew}>for: andrew</p>
+          </div>
+          <div className={styles.total2000Owed1010}>
+            <p className={styles.total2000}>Total:$20.00</p>
+            <p className={styles.owed1010}>Owed:$10.10</p>
           </div>
         </div>
-        <FrameComponent2 />
-        <FrameComponent3 />
-        <div className={styles.frameWrapper}>
-          <div className={styles.vectorGroup}>
-            <img
-              className={styles.frameItem}
-              loading="lazy"
-              alt=""
-              src="/rectangle-3.svg"
-              onClick={onRectangle9Click}
-            />
-            <div className={styles.lastMonth}>last month</div>
-          </div>
-        </div>
-        <FrameComponent4 />
-        <FrameComponent5 />
       </div>
-    </section>
+      <div className={styles.owedAmountShapeParent}>
+        <div
+          className={styles.owedAmountShape}
+          onClick={onOwedAmountShapeClick}
+        />
+        <img className={styles.frameChild} alt="" src="/rectangle-11.svg" />
+      </div>
+    </div>
   );
 };
 
 FrameComponent.propTypes = {
   className: PropTypes.string,
-
-  /** Action props */
-  onAddATransactionClick: PropTypes.func,
-  onRectangle22Click: PropTypes.func,
-  onWZY1ImageClick: PropTypes.func,
-  onLastWeekTextClick: PropTypes.func,
-  onRectangle23Click: PropTypes.func,
-  onRectangle24Click: PropTypes.func,
-  onRectangle9Click: PropTypes.func,
-  onRectangle4Click: PropTypes.func,
-  onRectangle5Click: PropTypes.func,
 };
 
 export default FrameComponent;

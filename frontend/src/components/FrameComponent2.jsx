@@ -1,30 +1,58 @@
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./FrameComponent2.module.css";
 
 const FrameComponent2 = ({ className = "" }) => {
+  const navigate = useNavigate();
+
   const onRectangleClick = useCallback(() => {
-    // Please sync "AddTransactionPage" to the project
+    navigate("/functionselectionpage");
+  }, [navigate]);
+
+  const onWZY1ImageClick = useCallback(() => {
+    // Please sync "MyProfilePage" to the project
   }, []);
 
   return (
-    <div className={[styles.frameWrapper, className].join(" ")}>
-      <div className={styles.rectangleParent}>
-        <div className={styles.frameChild} onClick={onRectangle2Click} />
-        <div className={styles.may24Wrapper}>
-          <div className={styles.may24}>
-            <p className={styles.may}>May</p>
-            <p className={styles.p}>24</p>
+    <div className={[styles.vectorParent, className].join(" ")}>
+      <img
+        className={styles.frameChild}
+        alt=""
+        src="/rectangle-1.svg"
+        onClick={onRectangleClick}
+      />
+      <div className={styles.wzy1Wrapper}>
+        <img
+          className={styles.wzy1Icon}
+          loading="lazy"
+          alt=""
+          src="/wzy-1@2x.png"
+          onClick={onWZY1ImageClick}
+        />
+      </div>
+      <div className={styles.totalBalanceParent}>
+        <a className={styles.totalBalance}>Total balance</a>
+        <div className={styles.frameWrapper}>
+          <div className={styles.owe2500Parent}>
+            <b className={styles.owe2500}>Owe: $25.00</b>
+            <div className={styles.owed1010Parent}>
+              <b className={styles.owed1010}>Owed: $10.10</b>
+              <div className={styles.aprilCosts11069Parent}>
+                <div className={styles.aprilCosts11069}>
+                  April costs: $110.69
+                </div>
+                <div className={styles.arrowRightWrapper}>
+                  <img
+                    className={styles.arrowRightIcon}
+                    loading="lazy"
+                    alt=""
+                    src="/arrowright.svg"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={styles.frameParent}>
-          <div className={styles.walmartWrapper}>
-            <a className={styles.walmart}>Walmart</a>
-          </div>
-          <div className={styles.paidByYou}>paid by: you</div>
-        </div>
-        <div className={styles.wrapper}>
-          <div className={styles.div}>$ 80.70</div>
         </div>
       </div>
     </div>
