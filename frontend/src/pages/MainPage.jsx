@@ -1,18 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MainPage.module.css'; // Importing CSS for styling
+import styles from './MainPage.module.css';
 
 const MainPage = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  const button_functionpage = () => {
     navigate('/functionselectionpage');
   };
 
   return (
-    <div className="main-page">
-      <h1>Main Page</h1>
-      <button onClick={handleButtonClick}>Go to Function Selection Page</button>
+    <div className={styles.mainPage}> {/* Use camelCase here */}
+      <div className={styles.userDashboard}>
+        <a className={styles.helloMess}>Hello!!!!</a> 
+        <img
+            className={styles.arrowRightIcon}
+            loading="lazy"
+            alt=""
+            src="/arrowright1.svg"
+            onClick={button_functionpage}
+          />
+        </div> {/* Use camelCase here */}
     </div>
   );
 };
