@@ -11,8 +11,8 @@ const FrameComponent2 = ({ className = "" }) => {
   }, [navigate]);
 
   const onWZY1ImageClick = useCallback(() => {
-    // Please sync "MyProfilePage" to the project
-  }, []);
+    navigate("/friendsgroups");
+  }, [navigate]);
 
   return (
     <div className={[styles.vectorParent, className].join(" ")}>

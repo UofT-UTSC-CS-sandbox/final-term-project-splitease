@@ -1,0 +1,136 @@
+.addtransactionpageChild {
+  position: absolute;
+  top: 0;
+  left: -7px;
+  background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+  width: 1512px;
+  height: 98px;
+}
+.addATransaction {
+  position: absolute;
+  top: 55px;
+  left: 665px;
+  font-weight: 600;
+  display: inline-block;
+  width: 182px;
+  height: 27px;
+}
+.deleteIcon {
+  position: absolute;
+  top: 68px;
+  left: 9px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.addtransactionpageInner,
+.addtransactionpageItem {
+  position: absolute;
+  top: 185px;
+  left: 403px;
+  border-radius: var(--br-26xl);
+  background-color: var(--color-lightcyan-100);
+  width: 579px;
+  height: 78px;
+}
+.addtransactionpageInner {
+  top: 604px;
+  left: 409px;
+}
+.selectATeam {
+  position: absolute;
+  top: 203px;
+  left: 491px;
+  display: inline-block;
+  width: 530px;
+  height: 42px;
+}
+.rectangleDiv {
+  position: absolute;
+  top: 313px;
+  left: 411px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #d9d9d9;
+  width: 126px;
+  height: 115px;
+}
+.addtransactionpageChild1,
+.lineIcon {
+  position: absolute;
+  top: 425.9px;
+  left: 558.5px;
+  width: 337.3px;
+  height: 0.1px;
+  object-fit: contain;
+}
+.addtransactionpageChild1 {
+  top: 514.6px;
+  height: 1.4px;
+}
+.chooseAMethod {
+  position: absolute;
+  top: 619px;
+  left: 537px;
+  display: inline-block;
+  width: 542px;
+  height: 39px;
+}
+.vectorIcon {
+  position: absolute;
+  height: 0.92%;
+  width: 1.26%;
+  top: 67.31%;
+  right: 53.57%;
+  bottom: 31.77%;
+  left: 45.17%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.youWillPay {
+  position: absolute;
+  top: 707px;
+  left: 559px;
+  display: inline-block;
+  width: 475px;
+  height: 88px;
+}
+.addtransactionpageChild2 {
+  position: absolute;
+  top: 763px;
+  left: 609px;
+  border-radius: var(--br-26xl);
+  background-color: #cde8e5;
+  width: 167px;
+  height: 56px;
+  cursor: pointer;
+}
+.confirm,
+.save {
+  position: absolute;
+  display: inline-block;
+}
+.confirm {
+  top: 773px;
+  left: 657px;
+  width: 151px;
+  height: 25px;
+  cursor: pointer;
+}
+.save {
+  top: 50px;
+  left: 1437px;
+  width: 44px;
+  height: 32px;
+}
+.addtransactionpage {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  height: 982px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}

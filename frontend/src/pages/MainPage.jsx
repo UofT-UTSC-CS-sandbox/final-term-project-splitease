@@ -5,6 +5,7 @@ import MayTransactionDetails from "../components/MayTransactionDetails";
 import FrameComponent1 from "../components/FrameComponent1";
 import FrameComponent from "../components/FrameComponent";
 import styles from "./MainPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 const TransactionDetails = (props) => {
   return(
@@ -17,13 +18,14 @@ const TransactionDetails = (props) => {
   )
 }
 const MainPage = () => {
+  const navigate = useNavigate();
   const onLastWeekTextClick = useCallback(() => {
     // Please sync "SpecifiedTransactionsPage" to the project
   }, []);
 
   const onAddATransactionClick = useCallback(() => {
-    // Please sync "AddTransactionPage" to the project
-  }, []);
+    navigate("/addtransactionpage");
+  }, [navigate]);
 
   const onRectangle2Click = useCallback(() => {
     // Please sync "SpecifiedTransactionsPage" to the project
@@ -57,7 +59,7 @@ const MainPage = () => {
         </div>
         </div>
       <TransactionDetails date="2021-05-01" amount="20.00" paidBy="you" for="Andrew"/>
-
+      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee"/>
     </div>
   );
 };

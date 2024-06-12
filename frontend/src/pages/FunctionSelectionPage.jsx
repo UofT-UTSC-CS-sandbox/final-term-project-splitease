@@ -14,8 +14,12 @@ const FunctionSelectionPage = () => {
   }, []);
 
   const onAddATransactionClick = useCallback(() => {
-    // Please sync "AddTransactionPage" to the project
-  }, []);
+    navigate("/addtransactionpage");
+  }, [navigate]);
+  
+  const onFriendsGroupsClick = useCallback(() => {
+    navigate("/friendsgroupspage");
+  },[navigate]);
 
   return (
     <div className={styles.functionselectionpage}>
@@ -40,6 +44,7 @@ const FunctionSelectionPage = () => {
             loading="lazy"
             alt=""
             src="/arrowright1.svg"
+            onClick={onFriendsGroupsClick}
           />
         </div>
         <div className={styles.rootContentParent}>
@@ -56,7 +61,6 @@ const FunctionSelectionPage = () => {
         <div className={styles.addATransactionParent}>
           <div
             className={styles.addATransaction}
-            onClick={onAddATransactionClick}
           >
             Add a transaction
           </div>
@@ -65,6 +69,7 @@ const FunctionSelectionPage = () => {
             loading="lazy"
             alt=""
             src="/arrowright-1.svg"
+            onClick={onAddATransactionClick}
           />
         </div>
         <div className={styles.rectangleGroup}>
