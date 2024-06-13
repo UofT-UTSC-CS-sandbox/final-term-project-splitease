@@ -1,41 +1,37 @@
-﻿# YOUR PRODUCT/TEAM NAME
+﻿# SplitEase
 
  > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.
  > 
  > _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
 
-## Iteration XX - Review & Retrospect
+## Iteration 01 - Review & Retrospect
 
-* When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
-* Where: PHYSICAL LOCATION AND/OR ONLINE
+* When: June 13,2024
+* Where: Online via Zoom
 
 ## Process - Reflection
+During iteraltion 1, we managed to setup the basic pages for our app, including two features.
+Our app now features a frontend with six pages, two available features, and comprehensive backend logic.
+The group worked togther with jobs assigned and each completed their assigned user stories.
 
-(Optional) Short introduction
 
 #### Decisions that turned out well
 
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
-
-* 2 - 4 decisions.
-* Ordered from most to least important.
-* Explain why (i.e. give a supporting argument) you consider a decision to be successful.
-* Feel free to refer/link to process artifact(s).
+1. Prioritized the development of two key features to provide immediate value and functionality to users, this is important because the product
+  is led by the feature implementations, and our ultimate goal is to complete all user stories and features. Prioritizing these features
+  can reveal pain points in our development and we can start fixing or optimizing early.
+2. Developed a solid backend architecture to support the app's current and future features efficiently.
+3. Focused on intuitive UI/UX design, ensuring a user-friendly interface for a better overall experience, we kept our style mostly the same for
+  the app UI. First impressions are always important, this also applies to an App/webpage, we want our UI to be simple and graceful.
 
 #### Decisions that did not turn out as well as we hoped
 
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
-
-* 2 - 4 decisions.
-* Ordered from most to least important.
-* Feel free to refer/link to process artifact(s).
+1. The hesitation between making a App or a universal platform (web) delayed the development process of frontend.
+2. The orginal choice of using react native was unnecessary and redundant because plan changed from making an APP to making a website.
+3. The program language of using react or react native is not decided soon enough, delayed the development of frontend.
 
 #### Planned changes
-
-List any process-related changes you are planning to make (if there are any)
-
-* Ordered from most to least important.
-* Explain why you are making a change.
+1. Changed from making an App to a website and reason is making an App is lacking support for multi-platform, while website can provide a universal access.
 
 ## Product - Review
 
