@@ -31,6 +31,10 @@ const MainPage = () => {
     // Please sync "SpecifiedTransactionsPage" to the project
   }, []);
 
+  const onSettingsIconClick = useCallback(() => {
+    navigate("/settingslogoutpage");
+  },[navigate]);
+
   return (
     <div className={styles.mainpage}>
       <div className={styles.mainpageChild} />
@@ -54,7 +58,7 @@ const MainPage = () => {
         <div className={styles.frameGroup}>
           <FrameComponent2 />
           <div className={styles.recentActionsWrapper}>
-            <b className={styles.recentActions}>Recent actions</b>
+            <b className={styles.recentActions} onClick={onSettingsIconClick}>Recent actions</b>
           </div>
         </div>
         </div>
