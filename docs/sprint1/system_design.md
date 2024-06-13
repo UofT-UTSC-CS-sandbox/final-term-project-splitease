@@ -3,7 +3,7 @@
 ## SplitEase - Bill Splitting and Expense Tracking Application
 
 ### Overview
-SplitEase is a mobile application designed to streamline the process of splitting bills and tracking shared expenses among multiple individuals. The app offers a convenient solution for accurately calculating each person’s share of expenses, managing different groups, and keeping track of who owes whom. The system design outlined in this document will detail the classes, their responsibilities, interactions, system architecture, and error handling strategies.
+SplitEase is a website designed to streamline the process of splitting bills and tracking shared expenses among multiple individuals. The app offers a convenient solution for accurately calculating each person’s share of expenses, managing different groups, and keeping track of who owes whom. The system design outlined in this document will detail the classes, their responsibilities, interactions, system architecture, and error handling strategies.
 
 ---
 
