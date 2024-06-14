@@ -52,6 +52,8 @@ SplitEase is a website designed to streamline the process of splitting bills and
 
 **Collaborators:**
 - Transaction
+
+For the diagram, see the class diagram/.pdf file in the sprint1 directory.
   
 ---
 
