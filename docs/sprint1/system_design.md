@@ -21,9 +21,9 @@ SplitEase is a website designed to streamline the process of splitting bills and
 - Transaction
 
 #### 2. Group
-**Parent Class:** None
-**Subclasses:** GroupInfo
-**Responsibilities:**
+**Parent Class:** None  
+**Subclasses:** GroupInfo  
+**Responsibilities:**  
 - Create and manage groups
 - Add and remove members
 - Assign admin roles
