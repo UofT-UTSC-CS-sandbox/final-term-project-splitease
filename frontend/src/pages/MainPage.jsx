@@ -58,7 +58,7 @@ const MainPage = () => {
         <div className={styles.frameGroup}>
           <FrameComponent2 />
           <div className={styles.recentActionsWrapper}>
-            <b className={styles.recentActions} onClick={onSettingsIconClick}>Recent actions</b>
+            <b className={styles.recentActions}>Recent actions</b>
           </div>
         </div>
         </div>

@@ -11,7 +11,7 @@ const FrameComponent2 = ({ className = "" }) => {
   }, [navigate]);
 
   const onWZY1ImageClick = useCallback(() => {
-    navigate("/friendsgroups");
+    navigate("/settingslogoutpage");
   }, [navigate]);
 
   return (
@@ -48,6 +48,7 @@ const FrameComponent2 = ({ className = "" }) => {
                     loading="lazy"
                     alt=""
                     src="/arrowright.svg"
+                    onClick={onRectangleClick}
                   />
                 </div>
               </div>

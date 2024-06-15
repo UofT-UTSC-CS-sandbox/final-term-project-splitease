@@ -69,6 +69,7 @@
   width: 38px;
   height: 38px;
   overflow: hidden;
+  left: 40px;
 }
 .arrowRightWrapper {
   flex-direction: column;

@@ -10,6 +10,7 @@ import FunctionSelectionPage from "./pages/FunctionSelectionPage";
 import AddTransactionPage from "./pages/AddTransactionPage";
 import FriendsGroupsPage from "./pages/FriendsGroupsPage";
 import SettingsLogoutPage from "./pages/SettingsLogoutPage";
+import ProfileEditorPage from "./pages/ProfileEditorPage";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/addtransactionpage" element={<AddTransactionPage />} />
       <Route path="/friendsgroupspage" element={<FriendsGroupsPage />} />
       <Route path="/settingslogoutpage" element={<SettingsLogoutPage/>}/>
+      <Route path="/profileeditorpage" element={<ProfileEditorPage/>}/>
     </Routes>
   );
 }
