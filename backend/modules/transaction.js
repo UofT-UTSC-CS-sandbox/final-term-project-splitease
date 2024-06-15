@@ -2,6 +2,7 @@
 import Transaction from "../models/Transaction.js";
 import TransactionInfo from "../models/TransactionInfo.js";
 import { ObjectId } from "mongodb";
+import { verifyUserById } from "./user.js";
 
 export const geAllTransactions = async () => {
   const transaction = await Transaction.find();
@@ -10,6 +11,7 @@ export const geAllTransactions = async () => {
 };
 
 const createTransaction = async (payer, payee, amount, transactionInfoId) => {
+  // TODO: Check if payer and payee exist
   const transaction = new Transaction({
     payer,
     payee,
@@ -24,25 +26,30 @@ const createTransactionInfo = async (info) => {
   return await transactionInfo.save();
 };
 
-export const addTransaction = async (id, description, transactions) => {
-  const _id = ObjectId();
+export const addTransaction = async (uid, description, transactions) => {
+  const _id = new ObjectId();
+  // Check if uid exists
+  if (!(await verifyUserById(uid))) {
+    // return { error: "User does not exist" };
+  }
+
   const details = await Promise.all(
     transactions.map(async (transaction) => {
       const { group_id, friends, amount } = transaction;
       if (group_id !== undefined) {
-        return { amount };
-      } else {
-        const num = friends.length;
-        const average = parseFloat(amount) / friends.length;
-        const transactions = await Promise.all(
-          friends.map((item) => createTransaction(id, item.id, average, _id))
-        );
-        const transactionId = transactions.map((item) => item._id);
-        return { amount, transactionId };
+        // return { amount };
+        // TODO: Think about how to handle group transactions
       }
+      const num = friends.length;
+      const average = parseFloat(amount) / friends.length;
+      const transactions = await Promise.all(
+        friends.map((fid) => createTransaction(uid, fid, average, _id))
+      );
+      const transactionId = transactions.map((item) => item._id);
+      return { amount, transactionId };
     })
   );
-  const info = { _id, payer: id, description, details };
+  const info = { _id, payer: uid, description, details };
   return await createTransactionInfo(info);
 };
 
