@@ -13,9 +13,7 @@ user experience /interface ⇒ 4
 
 - Good job on using figma
 
-Software setup ⇒  0
-
-- No file was found
+Software setup ⇒  4
 
 readme.md ⇒ 3
 
@@ -23,3 +21,7 @@ readme.md ⇒ 3
 
 
 Overall presentation quality ⇒ 4 (for figma)
+
+============================================
+
+total : 92.5 / 100
