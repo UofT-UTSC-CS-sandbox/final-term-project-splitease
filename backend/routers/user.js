@@ -106,12 +106,8 @@ userRouter.get("/balance/:id", async function (req, res) {
     try {
       if (await verifyUserById(id)) {
         const balance = await getUserBalance(id);
-        if (balance) {
-          console.info("user balance", balance);
-          res.status(200).json({ balance: balance });
-        } else {
-          res.status(401).json({ error: "Invalid user" });
-        }
+        console.info("user balance", balance);
+        res.status(200).json({ balance: balance });
       } else {
         res.status(401).json({ error: "User not found" });
       }
