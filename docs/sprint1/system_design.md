@@ -9,7 +9,7 @@ SplitEase is a website designed to streamline the process of splitting bills and
 
 ### Classes (CRC Cards)
 
-![Class disgram](images/class diagram.png)
+![Class disgram](images/class_diagram.png)
 
 #### 1. User
 **Responsibilities:**
