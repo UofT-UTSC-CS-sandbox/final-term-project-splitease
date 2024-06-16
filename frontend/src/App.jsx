@@ -11,6 +11,7 @@ import AddTransactionPage from "./pages/AddTransactionPage";
 import FriendsGroupsPage from "./pages/FriendsGroupsPage";
 import SettingsLogoutPage from "./pages/SettingsLogoutPage";
 import ProfileEditorPage from "./pages/ProfileEditorPage";
+import LoginPage from "./pages/LoginPage";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -30,6 +31,7 @@ function App() {
       <Route path="/friendsgroupspage" element={<FriendsGroupsPage />} />
       <Route path="/settingslogoutpage" element={<SettingsLogoutPage />} />
       <Route path="/profileeditorpage" element={<ProfileEditorPage />} />
+      <Route path="/loginpage" element={<LoginPage />} />
     </Routes>
   );
 }
