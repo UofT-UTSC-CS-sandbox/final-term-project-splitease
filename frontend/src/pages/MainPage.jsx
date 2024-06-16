@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import FrameComponent2 from "../components/FrameComponent2";
 import MayTransactionDetails1 from "../components/MayTransactionDetails1";
 import MayTransactionDetails from "../components/MayTransactionDetails";
@@ -8,17 +8,30 @@ import styles from "./MainPage.module.css";
 import { useNavigate } from "react-router-dom";
 
 const TransactionDetails = (props) => {
-  return(
+  return (
     <>
       <div className={styles.balancetable}>
-      <h3>Date:{props.date} amount:{props.amount}</h3>
-      <h3>paid by:{props.paidBy} for:{props.for}</h3>
+        <h3>
+          Date:{props.date} amount:{props.amount}
+        </h3>
+        <h3>
+          paid by:{props.paidBy} for:{props.for}
+        </h3>
       </div>
     </>
-  )
-}
+  );
+};
 const MainPage = () => {
   const navigate = useNavigate();
+
+  // Check if the user is logged in
+  // If the user is not logged in, navigate to the login page
+  useEffect(() => {
+    if (!localStorage.getItem("uid")) {
+      navigate("/login");
+    }
+  }, []);
+
   const onLastWeekTextClick = useCallback(() => {
     // Please sync "SpecifiedTransactionsPage" to the project
   }, []);
@@ -33,7 +46,7 @@ const MainPage = () => {
 
   const onSettingsIconClick = useCallback(() => {
     navigate("/settingslogoutpage");
-  },[navigate]);
+  }, [navigate]);
 
   return (
     <div className={styles.mainpage}>
@@ -61,9 +74,14 @@ const MainPage = () => {
             <b className={styles.recentActions}>Recent actions</b>
           </div>
         </div>
-        </div>
-      <TransactionDetails date="2021-05-01" amount="20.00" paidBy="you" for="Andrew"/>
-      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee"/>
+      </div>
+      <TransactionDetails
+        date="2021-05-01"
+        amount="20.00"
+        paidBy="you"
+        for="Andrew"
+      />
+      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee" />
     </div>
   );
 };

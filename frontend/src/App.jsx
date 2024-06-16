@@ -4,6 +4,7 @@ import {
   Route,
   useNavigationType,
   useLocation,
+  Router,
 } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import FunctionSelectionPage from "./pages/FunctionSelectionPage";
@@ -17,8 +18,10 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3000/api";
 
 function App() {
-  localStorage.setItem("u_name", "test3");
-  localStorage.setItem("uid", "66639c533510056bb776a242");
+  // localStorage.setItem("u_name", "test3");
+  // localStorage.setItem("uid", "66639c533510056bb776a242");
+
+  // const navigate = useNavigate();
 
   return (
     <Routes>
@@ -31,8 +34,9 @@ function App() {
       <Route path="/friendsgroupspage" element={<FriendsGroupsPage />} />
       <Route path="/settingslogoutpage" element={<SettingsLogoutPage />} />
       <Route path="/profileeditorpage" element={<ProfileEditorPage />} />
-      <Route path="/loginpage" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 }
+
 export default App;

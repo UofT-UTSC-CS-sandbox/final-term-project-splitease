@@ -1,6 +1,7 @@
 import express from "express";
 import {
   checkUserPassword,
+  verifyUserByName,
   registerUser,
   getAllUsers,
   verifyUserById,
@@ -40,7 +41,7 @@ userRouter.post("/login", async function (req, res) {
     try {
       const uid = await checkUserPassword(name, password);
       if (uid === 0) {
-        res.status(401).json({ error: "User not found" });
+        res.status(404).json({ error: "User not found" });
       } else if (uid === -1) {
         res.status(401).json({ error: "Wrong password" });
       } else if (uid) {
@@ -68,6 +69,15 @@ userRouter.post("/register", async function (req, res) {
   // Create user
   else {
     try {
+      // Check if user already exists
+      if (await !verifyUserByName(name)) {
+        res.status(401).json({ error: "User already exists" });
+        console.info("User ", name, " already exists");
+        return;
+      } else {
+        console.info("User ", name, " does not exist");
+      }
+
       const uid = await registerUser(name, password);
       console.info("new user id", uid);
       res.status(200).json({ user_id: uid });

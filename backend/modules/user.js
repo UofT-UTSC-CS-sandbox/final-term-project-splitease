@@ -17,6 +17,15 @@ export const verifyUserById = async (id) => {
   return false;
 };
 
+// Check if a user exists by name
+export const verifyUserByName = async (name) => {
+  const user = await User.findOne({ name });
+  if (user) {
+    return true;
+  }
+  return false;
+};
+
 // Login a user
 export const checkUserPassword = async (name, password) => {
   const user = await User.findOne({ name });
