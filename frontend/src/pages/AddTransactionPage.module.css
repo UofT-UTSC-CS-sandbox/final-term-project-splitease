@@ -8,8 +8,8 @@
 }
 .addATransaction {
   position: absolute;
-  top: 55px;
-  left: 665px;
+  top: 5%;
+  left: 45%;
   font-weight: 600;
   display: inline-block;
   width: 182px;
@@ -26,8 +26,8 @@
 .inputDiv {
   /* No bound no bg no fg */
   position: absolute;
-  top: 450px;
-  left: 550px;
+  top: 46%;
+  left: 37%;
   width: 579px;
   height: 78px;
 }
@@ -57,22 +57,23 @@
   left: 409px;
 }
 .selectATeam {
-  position: absolute;
-  top: 203px;
-  left: 491px;
+  position: relative;
+  top: 20%;
+  left: 35%;
   display: inline-block;
   width: 530px;
   height: 42px;
 }
 .rectangleDiv {
   position: absolute;
-  top: 313px;
-  left: 411px;
+  top: 30%;
+  left: 27%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #d9d9d9;
   width: 126px;
   height: 115px;
 }
+
 .addtransactionpageChild1,
 .lineIcon {
   position: absolute;
@@ -83,13 +84,13 @@
   object-fit: contain;
 }
 .addtransactionpageChild1 {
-  top: 514.6px;
+  top: 52%;
   height: 1.4px;
 }
 .chooseAMethod {
   position: absolute;
-  top: 619px;
-  left: 537px;
+  bottom: 35%;
+  left: 36%;
   display: inline-block;
   width: 542px;
   height: 39px;
@@ -108,8 +109,8 @@
 }
 .youWillPay {
   position: absolute;
-  top: 707px;
-  left: 559px;
+  bottom: 20%;
+  left: 37%;
   display: inline-block;
   width: 475px;
   height: 88px;
@@ -127,8 +128,9 @@
 .confirm,
 .confirm {
   position: absolute;
-  top: 763px;
-  left: 609px;
+  /* top: 763px; */
+  bottom: 15%;
+  left: 40%;
   border-radius: var(--br-26xl);
   background-color: #cde8e5;
   width: 167px;

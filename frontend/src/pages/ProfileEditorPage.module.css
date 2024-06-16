@@ -20,9 +20,9 @@
   }
   
 .uploadImage {
-    position: absolute;
+    position: relative;
     top: 51px;
-    left: 681px;
+    left: 45%;
     font-weight: 600;
     display: inline-block;
     width: 182px;
@@ -62,8 +62,8 @@ margin-top: 10px;
 
 .name {
 position: absolute;
-top: 450px;
-left: 665px;
+top: 50%;
+left: 45%;
 font-weight: 600;
 display: inline-block;
 width: 182px;

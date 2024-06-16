@@ -36,7 +36,7 @@ const ProfileEditor = () => {
         <img src={avatar} alt="Avatar" className={styles.avatar} />
         <input type="file" accept="image/*" onChange={handleAvatarChange} />
       </div>
-      <div className={styles.name}>Name: Zheyuan Wei</div>
+      <div className={styles.name}>Username: W</div>
     </div>
   );
 };
