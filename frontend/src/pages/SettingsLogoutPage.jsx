@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import styles from "./SettingsLogoutPage.module.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SettingsLogoutPage = () => {
   const navigate = useNavigate();
@@ -17,9 +18,12 @@ const SettingsLogoutPage = () => {
     // Clear local storage
     localStorage.removeItem("uid");
     localStorage.removeItem("u_name");
+    localStorage.removeItem("transactions");
 
     // Navigate to login page
-    navigate("/login");
+    Swal.fire("Logged out!", "You are now logged out.", "success").then(() => {
+      navigate("/login");
+    });
   }, [navigate]);
 
   return (
