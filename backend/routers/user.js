@@ -11,6 +11,8 @@ import {
 } from "../modules/user.js";
 import {
   getUserBalance,
+  getUserCost,
+  getUserPay,
   addTransaction,
   getTransactionByUser,
   getTransactionByUserAndFriend,
@@ -115,6 +117,29 @@ userRouter.get("/balance/:id", async function (req, res) {
       console.error("e", e);
       res.status(500).json({ error: `Unknown server error: ${e}` });
     }
+  }
+});
+
+// Get user cost and pay
+userRouter.get("/cost_pay/:uid", async function (req, res) {
+  const { uid } = req.params;
+
+  // Validate uid
+  if (!uid) {
+    res.status(401).json({ error: "Invalid user id" });
+    return;
+  }
+
+  // Get user cost and pay
+  try {
+    const cost = await getUserCost(uid);
+    const pay = await getUserPay(uid);
+    console.info("cost", cost);
+    console.info("pay", pay);
+    res.status(200).json({ cost: cost, pay: pay });
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });
 

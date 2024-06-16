@@ -1,10 +1,36 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./FrameComponent2.module.css";
+import axios from "axios";
 
 const FrameComponent2 = ({ className = "" }) => {
   const navigate = useNavigate();
+
+  const [owe, setOwe] = useState(0);
+  const [owed, setOwed] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
+
+  // Update data when the page is loaded
+  useEffect(() => {
+    // Get balance data
+    console.log("uid", localStorage.getItem("uid"));
+    axios
+      .get("/user/cost_pay/" + localStorage.getItem("uid"))
+      .then((response) => {
+        console.log(response.data);
+
+        // Update the balance data
+        setOwe(response.data.cost);
+        setOwed(response.data.pay);
+        setTotalBalance(response.data.cost - response.data.pay);
+
+        // Get recent transactions
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const onRectangleClick = useCallback(() => {
     navigate("/functionselectionpage");
@@ -35,12 +61,12 @@ const FrameComponent2 = ({ className = "" }) => {
         <a className={styles.totalBalance}>Total balance</a>
         <div className={styles.frameWrapper}>
           <div className={styles.owe2500Parent}>
-            <b className={styles.owe2500}>Owe: $25.00</b>
+            <b className={styles.owe2500}>Owe: ${owe.toFixed(2)}</b>
             <div className={styles.owed1010Parent}>
-              <b className={styles.owed1010}>Owed: $10.10</b>
+              <b className={styles.owed1010}>Owed: ${owed.toFixed(2)}</b>
               <div className={styles.aprilCosts11069Parent}>
                 <div className={styles.aprilCosts11069}>
-                  April costs: $110.69
+                  April costs: ${totalBalance.toFixed(2)}
                 </div>
                 <div className={styles.arrowRightWrapper}>
                   <img
