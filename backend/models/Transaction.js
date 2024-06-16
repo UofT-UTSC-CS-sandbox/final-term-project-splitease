@@ -1,4 +1,4 @@
-import mongoose from '../db/dataBase.js';
+import mongoose from "../db/dataBase.js";
 const { Schema, ObjectId } = mongoose;
 
 const transactionSchema = new Schema({
@@ -17,8 +17,8 @@ const transactionSchema = new Schema({
   transactionInfoId: {
     type: ObjectId,
     required: true,
-    ref: 'TransactionInfo'
-  }
+    ref: "TransactionInfo",
+  },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

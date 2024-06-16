@@ -23,6 +23,25 @@
   height: 24px;
   overflow: hidden;
 }
+.inputDiv {
+  /* No bound no bg no fg */
+  position: absolute;
+  top: 450px;
+  left: 550px;
+  width: 579px;
+  height: 78px;
+}
+.input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-26xl);
+  background-color: var(--color-lightcyan-100);
+  width: 300px;
+  height: 50px;
+  /* font size 32 */
+  font-size: var(--font-size-xl);
+}
 .addtransactionpageInner,
 .addtransactionpageItem {
   position: absolute;
@@ -106,22 +125,15 @@
   cursor: pointer;
 }
 .confirm,
-.save {
-  position: absolute;
-  display: inline-block;
-}
 .confirm {
-  top: 773px;
-  left: 657px;
-  width: 151px;
-  height: 25px;
+  position: absolute;
+  top: 763px;
+  left: 609px;
+  border-radius: var(--br-26xl);
+  background-color: #cde8e5;
+  width: 167px;
+  height: 56px;
   cursor: pointer;
-}
-.save {
-  top: 50px;
-  left: 1437px;
-  width: 44px;
-  height: 32px;
 }
 .addtransactionpage {
   width: 100%;

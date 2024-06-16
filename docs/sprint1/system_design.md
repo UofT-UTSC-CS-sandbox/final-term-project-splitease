@@ -9,9 +9,11 @@ SplitEase is a website designed to streamline the process of splitting bills and
 
 ### Classes (CRC Cards)
 
+![Class disgram](images/class diagram.png)
+
 #### 1. User
 **Responsibilities:**
-- Register and log in
+- Register and login
 - Manage personal profile
 - Create and join groups
 - View and manage financial status (owe/owed)
@@ -53,7 +55,7 @@ SplitEase is a website designed to streamline the process of splitting bills and
 **Collaborators:**
 - Transaction
 
-For the diagram, see the class diagram/.pdf file in the sprint1 directory.
+For the diagram, see the class diagram.pdf file in the sprint1 directory.
   
 ---
 

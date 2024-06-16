@@ -9,6 +9,10 @@ const SettingsLogoutPage = () => {
     navigate("/");
   }, [navigate]);
 
+  const onAccountSafetyClick = useCallback(() => {
+    navigate("/profileeditorpage");
+}, [navigate]);
+
   return (
     <div className={styles.settingslogoutpage}>
       <div className={styles.settingslogoutpageChild} />
@@ -23,7 +27,7 @@ const SettingsLogoutPage = () => {
       <div className={styles.settingslogoutpageInner} />
       <div className={styles.rectangleDiv} />
       <div className={styles.settingslogoutpageChild1} />
-      <div className={styles.accountSafety}>{`Account & Safety`}</div>
+      <div className={styles.accountSafety} onClick={onAccountSafetyClick}>{`Account & Safety`}</div>
       <div className={styles.notifications}>Notifications</div>
       <div className={styles.logOut}>Log out</div>
       <div className={styles.switchAccount}>Switch account</div>
