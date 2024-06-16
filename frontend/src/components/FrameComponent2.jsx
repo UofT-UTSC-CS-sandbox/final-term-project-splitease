@@ -11,12 +11,13 @@ const FrameComponent2 = ({ className = "" }) => {
   const [owed, setOwed] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
 
+  const uid = localStorage.getItem("uid");
+
   // Update data when the page is loaded
   useEffect(() => {
     // Get balance data
-    console.log("uid", localStorage.getItem("uid"));
     axios
-      .get("/user/cost_pay/" + localStorage.getItem("uid"))
+      .get("/user/cost_pay/" + uid)
       .then((response) => {
         console.log(response.data);
 
@@ -26,23 +27,6 @@ const FrameComponent2 = ({ className = "" }) => {
         setTotalBalance(response.data.cost - response.data.pay);
       })
       .catch((error) => {
-        console.log(error);
-      });
-
-    // Get recent transactions
-    axios
-      .get("/user/transactions/" + localStorage.getItem("uid"))
-      .then((response) => {
-        console.log(response.data);
-
-        // Update the transaction data
-        localStorage.setItem(
-          "transactions",
-          JSON.stringify(response.data.transactions)
-        );
-      })
-      .catch((error) => {
-        alert(error.response.data.error);
         console.log(error);
       });
   }, []);

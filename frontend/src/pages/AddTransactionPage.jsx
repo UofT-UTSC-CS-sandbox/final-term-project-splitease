@@ -22,7 +22,7 @@ const AddTransactionPage = () => {
         amount: parseFloat(amount),
       },
     ];
-    const description = "Sample description";
+    const description = "Test Trans";
     const id = localStorage.getItem("uid");
 
     // POST request to add a transaction

@@ -6,6 +6,7 @@ import FrameComponent1 from "../components/FrameComponent1";
 import FrameComponent from "../components/FrameComponent";
 import styles from "./MainPage.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const TransactionDetails = (props) => {
   return (
@@ -21,8 +22,10 @@ const TransactionDetails = (props) => {
     </>
   );
 };
+
 const MainPage = () => {
   const navigate = useNavigate();
+  const uid = localStorage.getItem("uid");
 
   // Check if the user is logged in
   // If the user is not logged in, navigate to the login page
@@ -30,6 +33,56 @@ const MainPage = () => {
     if (!localStorage.getItem("uid")) {
       navigate("/login");
     }
+  }, []);
+
+  // Update recent transactions
+  useEffect(() => {
+    // Get recent transactions
+    axios
+      .get("/user/transactions/" + uid)
+      .then((response) => {
+        console.log(response.data);
+
+        // Update the transaction data
+        localStorage.setItem(
+          "transactions",
+          JSON.stringify(response.data.transactions)
+        );
+
+        // Update on the page
+        const transactions = response.data.transactions;
+        if (transactions.length == 0) {
+          document.querySelector("." + styles.aprilCosts11069).textContent =
+            "You have no recent transactions";
+          return;
+        }
+
+        for (let i = 0; i < transactions.length; i++) {
+          let transaction = transactions[i];
+          let details = transaction.details;
+          let total = 0;
+          for (let j = 0; j < details.length; j++) {
+            total += details[j].amount;
+          }
+          let date_str = transaction.createdAt.split(".")[0];
+          let desc_str = transaction.description;
+          let amount_str = total.toFixed(2);
+          let total_str = `${date_str} '${desc_str}': $${amount_str}`;
+          console.log(total_str);
+
+          // Update the transaction data on the page
+          let transactionElement = document.createElement("div");
+          transactionElement.textContent = total_str;
+          //Find element by text "Recent actions"
+          let recentActionsElement = document.querySelector(
+            "." + styles.recentActions
+          );
+          recentActionsElement.appendChild(transactionElement);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const onLastWeekTextClick = useCallback(() => {
@@ -75,13 +128,13 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <TransactionDetails
+      {/* <TransactionDetails
         date="2021-05-01"
         amount="20.00"
         paidBy="you"
         for="Andrew"
       />
-      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee" />
+      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee" /> */}
     </div>
   );
 };
