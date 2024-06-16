@@ -18,11 +18,6 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3000/api";
 
 function App() {
-  // localStorage.setItem("u_name", "test3");
-  // localStorage.setItem("uid", "66639c533510056bb776a242");
-
-  // const navigate = useNavigate();
-
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />

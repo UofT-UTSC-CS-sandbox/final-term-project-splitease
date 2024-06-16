@@ -21,13 +21,28 @@ const FrameComponent2 = ({ className = "" }) => {
         console.log(response.data);
 
         // Update the balance data
-        setOwe(response.data.cost);
-        setOwed(response.data.pay);
+        setOwe(response.data.pay);
+        setOwed(response.data.cost);
         setTotalBalance(response.data.cost - response.data.pay);
-
-        // Get recent transactions
       })
       .catch((error) => {
+        console.log(error);
+      });
+
+    // Get recent transactions
+    axios
+      .get("/user/transactions/" + localStorage.getItem("uid"))
+      .then((response) => {
+        console.log(response.data);
+
+        // Update the transaction data
+        localStorage.setItem(
+          "transactions",
+          JSON.stringify(response.data.transactions)
+        );
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
         console.log(error);
       });
   }, []);

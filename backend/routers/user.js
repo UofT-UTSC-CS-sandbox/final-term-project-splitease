@@ -155,7 +155,7 @@ userRouter.get("/transactions/:id", async function (req, res) {
   // Get recent transactions
   else {
     try {
-      const transactions = getRecentTransactions(id);
+      const transactions = getTransactionByUser(id);
       if (transactions) {
         console.info("recent transactions", transactions);
         res.status(200).json({ transactions: transactions });

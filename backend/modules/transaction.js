@@ -195,9 +195,7 @@ export async function getUserPay(uid) {
     { $project: { _id: null, transactions: "$amount" } },
     { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
-  console.log(pay);
   const total_pay = pay.length === 0 ? 0 : pay[0].totalAmount;
-  console.log(total_pay);
   return total_pay;
 }
 
@@ -207,8 +205,6 @@ export async function getUserCost(uid) {
     { $project: { _id: null, transactions: "$amount" } },
     { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
-  console.log(cost);
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
-  console.log(total_cost);
   return total_cost;
 }
