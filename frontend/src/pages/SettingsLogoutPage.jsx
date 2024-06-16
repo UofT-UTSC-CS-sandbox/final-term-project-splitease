@@ -4,17 +4,22 @@ import { useNavigate } from "react-router-dom";
 
 const SettingsLogoutPage = () => {
   const navigate = useNavigate();
-  
+
   const onDeleteIconClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
 
   const onAccountSafetyClick = useCallback(() => {
     navigate("/profileeditorpage");
-}, [navigate]);
+  }, [navigate]);
 
   const onLogoutClick = useCallback(() => {
-    navigate("/loginpage");
+    // Clear local storage
+    localStorage.removeItem("uid");
+    localStorage.removeItem("u_name");
+
+    // Navigate to login page
+    navigate("/login");
   }, [navigate]);
 
   return (
@@ -31,9 +36,14 @@ const SettingsLogoutPage = () => {
       <div className={styles.settingslogoutpageInner} />
       <div className={styles.rectangleDiv} />
       <div className={styles.settingslogoutpageChild1} />
-      <div className={styles.accountSafety} onClick={onAccountSafetyClick}>{`Account & Safety`}</div>
+      <div
+        className={styles.accountSafety}
+        onClick={onAccountSafetyClick}
+      >{`Account & Safety`}</div>
       <div className={styles.notifications}>Notifications</div>
-      <div className={styles.logOut} onClick={onLogoutClick}>Log out</div>
+      <div className={styles.logOut} onClick={onLogoutClick}>
+        Log out
+      </div>
       <div className={styles.switchAccount}>Switch account</div>
     </div>
   );

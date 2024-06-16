@@ -68,7 +68,6 @@
   width: 207px;
   height: 28px;
 }
-.logOut,
 .switchAccount {
   width: 271px;
   height: 29px;
@@ -77,6 +76,7 @@
   top: 844px;
   left: 704px;
   color: #dc0c0c;
+  cursor: pointer;
 }
 .switchAccount {
   top: 738px;

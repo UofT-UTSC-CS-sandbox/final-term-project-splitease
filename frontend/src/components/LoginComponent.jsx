@@ -56,7 +56,6 @@ const LoginForm = ({ className = "" }) => {
               console.error("error", error);
             });
         } else if (response.status === 401) {
-          alert("Wrong password");
           alert(error.response.data.error);
         }
       });
