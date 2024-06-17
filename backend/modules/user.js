@@ -1,12 +1,12 @@
-import bcrypt from 'bcrypt';
-import User from '../models/User.js';
-import Group from '../models/Group.js';
-import ObjectId from '../models/ObjectId.js';
+import bcrypt from "bcrypt";
+import User from "../models/User.js";
+import Group from "../models/Group.js";
+import ObjectId from "../models/ObjectId.js";
 
 // Get all users
 export const getAllUsers = async () => {
   return await User.find();
-}
+};
 
 // Verify that a user exists
 export const verifyUserById = async (id) => {
@@ -15,7 +15,16 @@ export const verifyUserById = async (id) => {
     return true;
   }
   return false;
-}
+};
+
+// Check if a user exists by name
+export const verifyUserByName = async (name) => {
+  const user = await User.findOne({ name });
+  if (user) {
+    return true;
+  }
+  return false;
+};
 
 // Login a user
 export const checkUserPassword = async (name, password) => {
@@ -28,19 +37,19 @@ export const checkUserPassword = async (name, password) => {
     return -1; // Invalid password
   }
   return 0; // User not found
-}
+};
 
 // Register a new user
 export const registerUser = async (name, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = new User({
     name,
-    password: hashedPassword
+    password: hashedPassword,
   });
-  console.log(password, hashedPassword)
+  console.log(password, hashedPassword);
   const result = await user.save(); // returns the user object
   return result._id;
-}
+};
 
 // Get friends by user id
 export const getFriends = async (id) => {
@@ -49,7 +58,7 @@ export const getFriends = async (id) => {
     return user.friends;
   }
   return null;
-}
+};
 
 // Add a friend to a user
 export const addFriend = async (id, friendId) => {
@@ -71,7 +80,7 @@ export const addFriend = async (id, friendId) => {
     return true;
   }
   return 0; // User not found
-}
+};
 
 // Get groups by user id
 export const getGroups = async (id) => {
@@ -80,7 +89,7 @@ export const getGroups = async (id) => {
     return user.groups;
   }
   return null;
-}
+};
 
 // Add/Create a group to a user
 export const createGroup = async (id, groupName, friends) => {
@@ -93,7 +102,9 @@ export const createGroup = async (id, groupName, friends) => {
     if (!user.friends.includes(friend)) {
       // Remove users from group
       friends = friends.filter((f) => f !== friend);
-      console.warn(`User ${friend} is not a friend of user ${id}, removed from group`);
+      console.warn(
+        `User ${friend} is not a friend of user ${id}, removed from group`
+      );
     }
   }
 
@@ -104,23 +115,21 @@ export const createGroup = async (id, groupName, friends) => {
 
   // TODO: Check if user is already in a group with the same name
 
-
   // Create group
   const group = new Group({
     name: groupName,
-    members: [...friends, id]
+    members: [...friends, id],
   });
 
   try {
     const result = await group.save();
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
     if (e.code === 11000) {
-      console.error('Duplicate group name');
+      console.error("Duplicate group name");
       return 11000;
     } else {
-      console.error('Unknown error');
+      console.error("Unknown error");
       return false;
     }
   }
@@ -137,7 +146,7 @@ export const createGroup = async (id, groupName, friends) => {
       await memberUser.save();
     }
   }
-}
+};
 
 // Remove a group from a user
 export const removeGroup = async (id, groupId) => {
@@ -162,4 +171,4 @@ export const removeGroup = async (id, groupId) => {
     return true;
   }
   return false;
-}
+};

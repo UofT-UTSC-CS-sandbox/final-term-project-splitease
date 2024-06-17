@@ -1,0 +1,71 @@
+.editor {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 982px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+}
+
+.profileEditorInner {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    width: 1512px;
+    height: 98px;
+  }
+  
+.uploadImage {
+    position: relative;
+    top: 51px;
+    left: 45%;
+    font-weight: 600;
+    display: inline-block;
+    width: 182px;
+    height: 27px;
+  }
+
+.deleteIcon {
+position: absolute;
+top: 68px;
+left: 9px;
+width: 24px;
+height: 24px;
+overflow: hidden;
+cursor: pointer;
+}
+
+.avatarsection {
+padding: 150px;
+top: 185px;
+}
+
+.avatar {
+width: 245px;
+height: 245px;
+border-radius: 20px;
+object-fit: cover;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+
+input[type="file"] {
+display: block;
+margin: 0 auto;
+margin-top: 10px;
+}
+
+.name {
+position: absolute;
+top: 50%;
+left: 45%;
+font-weight: 600;
+display: inline-block;
+width: 182px;
+height: 27px;
+}

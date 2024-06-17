@@ -3,27 +3,29 @@
 ## SplitEase - Bill Splitting and Expense Tracking Application
 
 ### Overview
-SplitEase is a mobile application designed to streamline the process of splitting bills and tracking shared expenses among multiple individuals. The app offers a convenient solution for accurately calculating each person’s share of expenses, managing different groups, and keeping track of who owes whom. The system design outlined in this document will detail the classes, their responsibilities, interactions, system architecture, and error handling strategies.
+SplitEase is a website designed to streamline the process of splitting bills and tracking shared expenses among multiple individuals. The app offers a convenient solution for accurately calculating each person’s share of expenses, managing different groups, and keeping track of who owes whom. The system design outlined in this document will detail the classes, their responsibilities, interactions, system architecture, and error handling strategies.
 
 ---
 
 ### Classes (CRC Cards)
 
+![Class disgram](images/class_diagram.png)
+
 #### 1. User
 **Responsibilities:**
-- Register and log in
+- Register and login
 - Manage personal profile
 - Create and join groups
 - View and manage financial status (owe/owed)
 
 **Collaborators:**
 - Group
-- Expense
+- Transaction
 
 #### 2. Group
-**Parent Class:** None
-**Subclasses:** GroupInfo
-**Responsibilities:**
+**Parent Class:** None  
+**Subclasses:** GroupInfo  
+**Responsibilities:**  
 - Create and manage groups
 - Add and remove members
 - Assign admin roles
@@ -31,25 +33,32 @@ SplitEase is a mobile application designed to streamline the process of splittin
 
 **Collaborators:**
 - User
-- Expense
+- Transaction
 
 #### 3. Transaction
 **Responsibilities:**
--   Record individual transactions between users
--   Track the payer, payee, and amount of each transaction
--   Maintain references to associated transaction information
+- Record individual transactions between users
+- Track the payer, payee, and amount of each transaction
+- Maintain references to associated transaction information
+
+**Collaborators:**
+- User
+- Group
+- Database
 
 #### 4. Database
 **Responsibilities:**
--   Handle data storage and retrieval operations
--   Ensure data integrity and consistency
--   Interface with the backend server to store and retrieve user and transaction data
+- Handle data storage and retrieval operations
+- Ensure data integrity and consistency
+- Interface with the backend server to store and retrieve user and transaction data
 
 **Collaborators:**
--   User
--   Expense
--   Transaction
+- Transaction
+
+For the diagram, see the class diagram.pdf file in the sprint1 directory.
+  
 ---
+
 ### System Interaction with the Environment
 
 **Dependencies:**
@@ -88,6 +97,7 @@ The architecture of SplitEase consists of four main components:
 -   **Role:** Stores and retrieves user data, expenses, transactions, and related information.
 -   **Detailed Design:** Utilizes MongoDB as the backend database to store collections for users, expenses, transactions, etc. Defines schemas and indexes for efficient data storage and retrieval.
 -   **Error Handling Strategy:** Utilize MongoDB's built-in error handling mechanisms to handle database errors such as duplicate key errors, connection errors, etc. Implement retry logic for transient errors. Regularly backup data to prevent data loss in case of catastrophic failures.
+
 ### Error Handling and Exceptional Cases
 
 #### 1. Invalid User Input

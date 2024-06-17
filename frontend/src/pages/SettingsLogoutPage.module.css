@@ -1,0 +1,95 @@
+.settingslogoutpageChild {
+  position: absolute;
+  top: 0;
+  left: -7px;
+  background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+  width: 1512px;
+  height: 98px;
+}
+.deleteIcon {
+  position: absolute;
+  top: 65px;
+  left: 13px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.settings {
+  position: absolute;
+  top: 51px;
+  left: 681px;
+  font-weight: 600;
+  display: inline-block;
+  width: 182px;
+  height: 27px;
+}
+.settingslogoutpageInner,
+.settingslogoutpageItem {
+  position: absolute;
+  top: 265px;
+  left: 594px;
+  background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
+  width: 323px;
+  height: 60px;
+}
+.settingslogoutpageInner {
+  top: 394px;
+}
+.rectangleDiv,
+.settingslogoutpageChild1 {
+  position: absolute;
+  top: 829px;
+  left: 587px;
+  background-color: var(--color-gainsboro-100);
+  width: 323px;
+  height: 60px;
+}
+.settingslogoutpageChild1 {
+  top: 723px;
+}
+.accountSafety {
+  top: 280px;
+  left: 674px;
+  width: 271px;
+  height: 29px;
+}
+.accountSafety,
+.logOut,
+.notifications,
+.switchAccount {
+  position: absolute;
+  font-weight: 500;
+  display: inline-block;
+}
+.notifications {
+  top: 410px;
+  left: 681px;
+  width: 207px;
+  height: 28px;
+}
+.switchAccount {
+  width: 271px;
+  height: 29px;
+}
+.logOut {
+  top: 844px;
+  left: 704px;
+  color: #dc0c0c;
+  cursor: pointer;
+}
+.switchAccount {
+  top: 738px;
+  left: 673px;
+}
+.settingslogoutpage {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  height: 982px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}

@@ -1,0 +1,100 @@
+.friendsgroupspageChild {
+  position: absolute;
+  top: 0;
+  left: -7px;
+  background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+  width: 1512px;
+  height: 98px;
+}
+.friendsGroups {
+  position: absolute;
+  top: 63px;
+  left: 683px;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  display: inline-block;
+  width: 182px;
+  height: 27px;
+}
+.deleteIcon {
+  position: absolute;
+  top: 68px;
+  left: 9px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.friendsgroupspageItem {
+  position: absolute;
+  top: 272px;
+  left: 579px;
+  border-radius: var(--br-6xl);
+  background: linear-gradient(
+    86.28deg,
+    rgba(205, 232, 229, 0.5),
+    rgba(238, 247, 255, 0.5)
+  );
+  width: 353px;
+  height: 90px;
+}
+.arrowRightIcon,
+.friends {
+  position: absolute;
+  top: 292px;
+}
+.arrowRightIcon {
+  left: 841px;
+  width: 47px;
+  height: 47px;
+  overflow: hidden;
+}
+.friends {
+  left: 639px;
+  font-weight: 600;
+  display: inline-block;
+  width: 202px;
+  height: 79px;
+}
+.friendsgroupspageInner {
+  position: absolute;
+  top: 553px;
+  left: 579px;
+  border-radius: var(--br-6xl);
+  background: linear-gradient(
+    86.28deg,
+    rgba(205, 232, 229, 0.5),
+    rgba(238, 247, 255, 0.5)
+  );
+  width: 353px;
+  height: 90px;
+}
+.arrowRightIcon1,
+.groups {
+  position: absolute;
+  top: 573px;
+}
+.arrowRightIcon1 {
+  left: 841px;
+  width: 47px;
+  height: 47px;
+  overflow: hidden;
+}
+.groups {
+  left: 639px;
+  font-weight: 600;
+  display: inline-block;
+  width: 202px;
+  height: 79px;
+}
+.friendsgroupspage {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  height: 982px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-11xl);
+  color: var(--color-black);
+  font-family: var(--font-kanit);
+}
