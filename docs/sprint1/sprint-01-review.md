@@ -32,20 +32,30 @@ The group worked togther with jobs assigned and each completed their assigned us
 
 #### Planned changes
 1. Changed from making an App to a website and reason is making an App is lacking support for multi-platform, while website can provide a universal access.
+2. 
 
 ## Product - Review
 
 #### Goals and/or tasks that were met/completed
 
-* From most to least important.
-* Refer/link to artifact(s) that show that a goal/task was met/completed.
-* If a goal/task was not part of the original iteration plan, please mention it.
+1.Completed the feature of simple transactions that does not include friends or groups sharing. The total amount will be shown in the dashboard page.
+
+![Transaciton before](images/Trans_before.jpg)
+![Transaction after](images/Trans_after.jpg)
+
+
+2.Completed the Login/register feature, the user is able to create a new account and login, logging in requires a correct password.
+
+![Logged in](images/Logged_in.jpg)
+![Login failed](images/Login_failed.jpg)
 
 #### Goals and/or tasks that were planned but not met/completed
 
-* From most to least important.
-* For each goal/task, explain why it was not met/completed.
-   e.g. Did you change your mind, or did you just not get to it yet?
+1.We did not complete the feature of displaying friends and groups of the current user.
+  The reason why we failed to achieve to due to the lack of react feature knowledge.
+  
+2.We did not yet implement the feature of changing the user avatar.
+  The reason for this is the backend features on this part is not yet implemented. 
 
 ## Meeting Highlights
 
@@ -56,3 +66,5 @@ Going into the next iteration, our main insights are:
 * High-level concepts that should guide your work for the next iteration.
 * These concepts should help you decide on where to focus your efforts.
 * Can be related to product and/or process.
+
+
