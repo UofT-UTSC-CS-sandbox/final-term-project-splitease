@@ -1,10 +1,11 @@
 import { useState, useCallback } from 'react';
-import styles from './ProfileEditorPage.module.css';
+import './ProfileEditorPage.css';
 import { useNavigate } from "react-router-dom";
 
 const ProfileEditor = () => {
   const [avatar, setAvatar] = useState('https://via.placeholder.com/245');
 
+  // Function to handle the input of an avatar
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -18,25 +19,25 @@ const ProfileEditor = () => {
 
   const navigate = useNavigate();
   const onDeleteIconClick = useCallback(() => {
-    navigate("/");
+    navigate("/settingslogoutpage");
   }, [navigate]);
 
   return (
-    <div className={styles.editor}>
-      <div className={styles.profileEditorInner} />
+    <div className="editor">
+      <div className="profileEditorInner" />
       <img
-        className={styles.deleteIcon}
+        className="deleteIcon"
         alt=""
         src="/delete.svg"
         onClick={onDeleteIconClick}
       />
-      <div className={styles.uploadImage}>Upload Image</div>
+      <div className="uploadAvatar">Upload Avatar</div>
     
-      <div className={styles.avatarsection}>
-        <img src={avatar} alt="Avatar" className={styles.avatar} />
+      <div className="avatarsection">
+        <img src={avatar} alt="Avatar" className="avatar" />
         <input type="file" accept="image/*" onChange={handleAvatarChange} />
       </div>
-      <div className={styles.name}>Username: W</div>
+      <div className="name">Username: W</div>
     </div>
   );
 };

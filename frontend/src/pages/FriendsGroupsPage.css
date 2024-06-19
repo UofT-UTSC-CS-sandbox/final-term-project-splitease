@@ -1,0 +1,112 @@
+.friendsgroupspage {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 982px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.friendsgroupspageChild {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    width: 100%;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.friendsGroups {
+    position: absolute;
+    top: 51px;
+    text-align: center;
+    font-weight: 600;
+    display: inline-block;
+    width: 182px;
+    height: 27px;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 68px;
+    left: 9px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.friendsBox {
+    position: relative;
+    top: -132px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.friendsarrowRightIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.friends {
+    font-weight: 600;
+    display: inline-block;
+    width: auto;
+    height: 29px;
+    text-align: center;
+}
+
+.groupsBox {
+    position: relative;
+    top: 80px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.groupsarrowRightIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.groups {
+    font-weight: 600;
+    display: inline-block;
+    width: auto;
+    height: 29px;
+    text-align: center;
+}
