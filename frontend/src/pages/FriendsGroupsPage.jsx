@@ -8,6 +8,14 @@ const FriendsGroupsPage = () => {
     navigate("/");
   }, [navigate]);
 
+  const onFriendsPageClick = useCallback(() => {
+    navigate("/friendspage");
+  }, [navigate]);
+
+  const onGroupsPageClick = useCallback(() => {
+    navigate("/groupspage");
+  }, [navigate]);
+
   return (
     <div className="friendsgroupspage">
       <div className="friendsgroupspageChild" />
@@ -19,12 +27,12 @@ const FriendsGroupsPage = () => {
         onClick={onDeleteIconClick}
       />
       <div className="friendsBox">
-        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg" />
+        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg" onClick={onFriendsPageClick}/>
         <div className="friends">Friends</div>
       </div>
 
       <div className="groupsBox">
-        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg" />
+        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg" onClick={onGroupsPageClick}/>
         <div className="groups">Groups</div>
       </div>
       

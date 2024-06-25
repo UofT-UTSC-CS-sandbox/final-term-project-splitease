@@ -1,0 +1,100 @@
+.add-groups-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 700px;
+    margin: auto;
+}
+
+.add-groups-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.add-groups-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.close-button {
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.add-groups-input {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.add-groups-members {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.add-groups-member {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.add-groups-member input {
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    flex: 1;
+}
+
+.add-groups-member .remove-member {
+    color: red;
+    cursor: pointer;
+}
+
+.add-groups-add-member {
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.add-groups-group-type {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.add-groups-group-type select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.add-groups-save-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff7a32;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
