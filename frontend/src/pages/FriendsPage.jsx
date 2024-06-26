@@ -17,7 +17,7 @@ const FriendsPage = () => {
   return (
     <div className="friendspage">
       <div className="friendspageChild" />
-      <div className="friends">Friends</div>
+      <div className="friendsHeader">Friends</div>
       <img
         className="deleteIcon"
         alt=""

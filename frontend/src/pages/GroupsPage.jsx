@@ -17,7 +17,7 @@ const GroupsPage = () => {
   return (
     <div className="groupspage">
       <div className="groupspageChild" />
-      <div className="friends">Groups</div>
+      <div className="groupsHeader">Groups</div>
       <img
         className="deleteIcon"
         alt=""

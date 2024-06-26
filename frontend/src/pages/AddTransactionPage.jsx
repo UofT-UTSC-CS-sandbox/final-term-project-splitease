@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import styles from "./AddTransactionPage.module.css";
+import "./AddTransactionPage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -45,38 +45,35 @@ const AddTransactionPage = () => {
     navigate("/");
   }, [navigate]);
   return (
-    <div className={styles.addtransactionpage}>
-      <div className={styles.addtransactionpageChild} />
-      <div className={styles.addATransaction}>Add a Transaction</div>
+    <div className={"addtransactionpage"}>
+      <div className={"addtransactionpageChild"} />
+      <div className={"addATransactionHeader"}>Add a Transaction</div>
       <img
-        className={styles.deleteIcon}
+        className={"deleteIcon"}
         alt=""
         src="/delete.svg"
         onClick={onDeleteIconClick}
       />
-      <div className={styles.addtransactionpageItem} />
-      <div className={styles.addtransactionpageInner} />
-      <div className={styles.selectATeam}>
+      <div className={"selectATeam"}>
         Select a team or friend to share this bill
       </div>
-      <div className={styles.rectangleDiv} />
-      {/* Add float input here */}
-      <div className={styles.inputDiv}>
+      <div className={"rectangleDiv"} />
+      <div className={"inputDiv"}>
         <input
-          className={styles.input}
+          className={"input"}
           type="text"
           placeholder="Enter Amount"
           id="amount"
         />
       </div>
-      <img className={styles.lineIcon} alt="" src="/line-1.svg" />
-      <img className={styles.addtransactionpageChild1} alt="" />
-      <div className={styles.chooseAMethod}>
+      <img className={"lineIcon"} alt="" src="/line-1.svg" />
+      <img className={"line"} alt="" />
+      <div className={"chooseAMethod"}>
         Choose a method to split this bill
       </div>
-      <img className={styles.vectorIcon} alt="" src="/vector.svg" />
-      <div className={styles.youWillPay}>You will pay a total of $ 0.00</div>
-      <div className={styles.confirm} onClick={onConfirmTextClick}>
+      <img className={"vectorIcon"} alt="" src="/vector.svg" />
+      <div className={"youWillPay"}>You will pay a total of $ 0.00</div>
+      <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
       </div>
     </div>

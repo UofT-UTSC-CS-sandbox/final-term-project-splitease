@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./FunctionSelectionPage.module.css";
+import "./FunctionSelectionPage.css";
 
 const FunctionSelectionPage = () => {
   const navigate = useNavigate();
@@ -9,73 +9,60 @@ const FunctionSelectionPage = () => {
     navigate("/");
   }, [navigate]);
 
-  const onRootContentClick = useCallback(() => {
-    // Please sync "FriendsGroupsPage" to the project
-  }, []);
-
   const onAddATransactionClick = useCallback(() => {
     navigate("/addtransactionpage");
   }, [navigate]);
-  
+
   const onFriendsGroupsClick = useCallback(() => {
     navigate("/friendsgroupspage");
-  },[navigate]);
+  }, [navigate]);
 
   return (
-    <div className={styles.functionselectionpage}>
-      <header className={styles.rectangleParent}>
-        <div className={styles.frameChild} />
-        <div className={styles.deleteWrapper}>
-          <img
-            className={styles.deleteIcon}
-            loading="lazy"
-            alt=""
-            src="/delete.svg"
-            onClick={onDeleteIconClick}
-          />
-        </div>
-        <a className={styles.selectAnAction}>Select an action</a>
+    <div className={"functionselectionpage"}>
+      <header className={"headerParent"}>
+        <img
+          className={"deleteIcon"}
+          loading="lazy"
+          alt=""
+          src="/delete.svg"
+          onClick={onDeleteIconClick}
+        />
+        <a className={"selectAnAction"}>Select an action</a>
       </header>
-      <section className={styles.frameParent}>
-        <div className={styles.friendsGroupsParent}>
-          <div className={styles.friendsGroups}>{`Friends & Groups`}</div>
+      <section className={"friendsGroupsParent"}>
+        <div className={"friendsGroupsChild"}>
+          <div className={"friendsGroups"}>Friends & Groups</div>
           <img
-            className={styles.arrowRightIcon}
+            className={"arrowRightIcon"}
             loading="lazy"
             alt=""
             src="/arrowright1.svg"
             onClick={onFriendsGroupsClick}
           />
         </div>
-        <div className={styles.rootContentParent}>
-          <div className={styles.rootContent} onClick={onRootContentClick} />
+        <div className={"userCheck"}>
           <img
-            className={styles.userCheckIcon}
+            className={"userCheckIcon"}
             loading="lazy"
             alt=""
             src="/usercheck.svg"
           />
         </div>
       </section>
-      <section className={styles.frameGroup}>
-        <div className={styles.addATransactionParent}>
-          <div
-            className={styles.addATransaction}
-          >
-            Add a transaction
-          </div>
+      <section className={"addTransactionGroup"}>
+        <div className={"addATransactionParent"}>
+          <div className={"addATransaction"}>Add a transaction</div>
           <img
-            className={styles.arrowRightIcon1}
+            className={"arrowRightIcon1"}
             loading="lazy"
             alt=""
             src="/arrowright-1.svg"
             onClick={onAddATransactionClick}
           />
         </div>
-        <div className={styles.rectangleGroup}>
-          <div className={styles.frameItem} />
+        <div className={"dollarSign"}>
           <img
-            className={styles.dollarSignIcon}
+            className={"dollarSignIcon"}
             loading="lazy"
             alt=""
             src="/dollarsign.svg"

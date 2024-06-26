@@ -1,0 +1,192 @@
+.functionselectionpage {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 982px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerParent {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    width: 100%;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 68px;
+    left: 9px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.deleteWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--padding-10xs) 0 0;
+}
+
+.selectAnAction {
+    position: absolute;
+    top: 51px;
+    text-align: center;
+    font-weight: 600;
+    display: inline-block;
+    width: 182px;
+    height: 27px;
+}
+
+.friendsGroupsParent {
+    position: relative;
+    top: -132px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.friendsGroupsChild {
+    position: absolute;
+    width: 307px;
+    /* top: 22px; */
+    height: 47px;
+}
+
+.friendsGroups {
+    position: relative;
+    margin-top: 10px;
+    left: 80px;
+    font-weight: 600;
+    display: inline-block;
+    width: 317px;
+    height: 30px;
+    z-index: 1;
+}
+
+.arrowRightIcon {
+    position: absolute;
+    top: 0;
+    left: 260px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.userCheck {
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 100%;
+    height: 100%;
+}
+
+.userCheckIcon {
+    position: absolute;
+    top: 29px;
+    left: 33px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.dollarSign {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    border-radius: var(--br-6xl);
+    margin: 0 auto;
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 29px var(--padding-11xl) var(--padding-11xl);
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.dollarSignIcon {
+    height: 31px;
+    width: 31px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.addTransactionGroup {
+    position: relative;
+    top: 80px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addATransactionParent {
+    position: absolute;
+    top: 22px;
+    left: 90px;
+    width: 306px;
+    height: 47px;
+}
+
+.addATransaction {
+    position: relative;
+    margin-top: 10px;
+    font-weight: 600;
+    display: inline-block;
+    width: 317px;
+    height: 30px;
+    z-index: 1;
+}
+
+.arrowRightIcon1 {
+    position: absolute;
+    top: 0;
+    left: 190px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    z-index: 2;
+    cursor: pointer;
+}

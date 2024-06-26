@@ -26,7 +26,7 @@
     justify-content: center;
 }
 
-.friendsGroups {
+.friendsAndGroups {
     position: absolute;
     top: 51px;
     text-align: center;
@@ -72,6 +72,8 @@
 }
 
 .friends {
+    margin-left: -100px;
+    margin-top: -20px;
     font-weight: 600;
     display: inline-block;
     width: auto;
@@ -104,6 +106,8 @@
 }
 
 .groups {
+    margin-left: -100px;
+    margin-top: -20px;
     font-weight: 600;
     display: inline-block;
     width: auto;

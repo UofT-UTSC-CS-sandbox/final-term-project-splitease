@@ -19,7 +19,7 @@ const FriendsGroupsPage = () => {
   return (
     <div className="friendsgroupspage">
       <div className="friendsgroupspageChild" />
-      <div className="friendsGroups">Friends & Groups</div>
+      <div className="friendsAndGroups">Friends & Groups</div>
       <img
         className="deleteIcon"
         alt=""

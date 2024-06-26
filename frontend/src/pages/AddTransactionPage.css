@@ -1,0 +1,122 @@
+.addtransactionpage {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 982px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.addtransactionpageChild {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    width: 100%;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addATransactionHeader {
+    position: absolute;
+    top: 51px;
+    text-align: center;
+    font-weight: 600;
+    display: inline-block;
+    width: 182px;
+    height: 27px;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 68px;
+    left: 9px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.inputDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.input {
+    border-radius: var(--br-26xl);
+    background-color: var(--color-lightcyan-100);
+    width: 300px;
+    height: 50px;
+    font-size: var(--font-size-xl);
+}
+
+.selectATeam {
+    display: inline-block;
+    width: 530px;
+    height: 42px;
+    text-align: center;
+}
+
+.rectangleDiv {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #d9d9d9;
+    width: 126px;
+    height: 115px;
+    margin: 20px auto;
+}
+
+.line,
+.lineIcon {
+    width: 337.3px;
+    height: 0.1px;
+    object-fit: contain;
+    margin: 20px auto;
+}
+
+.line {
+    margin-top: 0px;
+    height: 1.4px;
+}
+
+.chooseAMethod {
+    display: inline-block;
+    width: 542px;
+    height: 39px;
+    text-align: center;
+}
+
+.vectorIcon {
+    height: 0.92%;
+    width: 1.26%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+.youWillPay {
+    display: inline-block;
+    width: 475px;
+    height: 88px;
+    text-align: center;
+}
+
+.confirm {
+    border-radius: var(--br-26xl);
+    background-color: #cde8e5;
+    width: 167px;
+    height: 56px;
+    cursor: pointer;
+    margin: 20px auto;
+}
