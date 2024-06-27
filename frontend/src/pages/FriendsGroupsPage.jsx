@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FriendsGroupsPage = () => {
   const navigate = useNavigate();
   const onDeleteIconClick = useCallback(() => {
-    navigate("/");
+    navigate("/functionselectionpage");
   }, [navigate]);
 
   const onFriendsPageClick = useCallback(() => {
@@ -26,13 +26,13 @@ const FriendsGroupsPage = () => {
         src="/delete.svg"
         onClick={onDeleteIconClick}
       />
-      <div className="friendsBox">
-        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg" onClick={onFriendsPageClick}/>
+      <div className="friendsBox" onClick={onFriendsPageClick}>
+        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg"/>
         <div className="friends">Friends</div>
       </div>
 
-      <div className="groupsBox">
-        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg" onClick={onGroupsPageClick}/>
+      <div className="groupsBox" onClick={onGroupsPageClick}>
+        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg"/>
         <div className="groups">Groups</div>
       </div>
       

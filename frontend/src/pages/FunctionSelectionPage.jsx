@@ -29,15 +29,16 @@ const FunctionSelectionPage = () => {
         />
         <a className={"selectAnAction"}>Select an action</a>
       </header>
-      <section className={"friendsGroupsParent"}>
+      <section className={"friendsGroupsParent"} onClick={onFriendsGroupsClick}>
         <div className={"friendsGroupsChild"}>
-          <div className={"friendsGroups"}>Friends & Groups</div>
+          <div className={"friendsGroups"}>
+            Friends & Groups
+          </div>
           <img
             className={"arrowRightIcon"}
             loading="lazy"
             alt=""
             src="/arrowright1.svg"
-            onClick={onFriendsGroupsClick}
           />
         </div>
         <div className={"userCheck"}>
@@ -49,15 +50,16 @@ const FunctionSelectionPage = () => {
           />
         </div>
       </section>
-      <section className={"addTransactionGroup"}>
-        <div className={"addATransactionParent"}>
-          <div className={"addATransaction"}>Add a transaction</div>
+      <section className={"addTransactionGroup"} onClick={onAddATransactionClick}>
+        <div className={"addATransactionParent"} >
+          <div className={"addATransaction"}>
+            Add a transaction
+          </div>
           <img
             className={"arrowRightIcon1"}
             loading="lazy"
             alt=""
             src="/arrowright-1.svg"
-            onClick={onAddATransactionClick}
           />
         </div>
         <div className={"dollarSign"}>
