@@ -1,7 +1,8 @@
 import express from "express";
 import {
   checkUserPassword,
-  verifyUserByName,
+  getUserIdByName,
+  getUserIdByName,
   registerUser,
   getAllUsers,
   verifyUserById,
@@ -27,7 +28,7 @@ userRouter.get("/", async function (req, res) {
 });
 
 // Get user id by name
-userRouter.get("/name/:name", async function (req, res) {
+userRouter.get("/id/of/:name", async function (req, res) {
   const { name } = req.params;
 
   // Validate name
@@ -42,6 +43,31 @@ userRouter.get("/name/:name", async function (req, res) {
     if (uid) {
       console.info("user id", uid);
       res.status(200).json({ user_id: uid });
+    } else {
+      res.status(401).json({ error: "User not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get user name by id
+userRouter.get("/name/of/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid user id" });
+    return;
+  }
+
+  // Get user name by id
+  try {
+    const name = await getUserNameById(id);
+    if (name) {
+      console.info("user name", name);
+      res.status(200).json({ user_name: name });
     } else {
       res.status(401).json({ error: "User not found" });
     }
@@ -96,7 +122,7 @@ userRouter.post("/register", async function (req, res) {
   else {
     try {
       // Check if user already exists
-      if (await !verifyUserByName(name)) {
+      if ((await getUserIdByName(name)) !== null) {
         res.status(401).json({ error: "User already exists" });
         console.info("User ", name, " already exists");
         return;

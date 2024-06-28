@@ -18,19 +18,19 @@ export const verifyUserById = async (id) => {
 };
 
 // Check if a user exists by name
-export const verifyUserByName = async (name) => {
-  const user = await User.findOne({ name });
-  if (user) {
-    return true;
-  }
-  return false;
-};
-
-// Get user id by name
 export const getUserIdByName = async (name) => {
   const user = await User.findOne({ name });
   if (user) {
     return user._id;
+  }
+  return null;
+};
+
+// Get user name by id
+export const getUserNameById = async (id) => {
+  const user = await User.findById(id);
+  if (user) {
+    return user.name;
   }
   return null;
 };
