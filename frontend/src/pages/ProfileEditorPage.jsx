@@ -19,7 +19,7 @@ const ProfileEditor = () => {
 
   const navigate = useNavigate();
   const onDeleteIconClick = useCallback(() => {
-    navigate("/settingslogoutpage");
+    navigate("/profilebufferpage");
   }, [navigate]);
 
   return (

@@ -17,7 +17,10 @@ import FriendsPage from "./pages/FriendsPage";
 import GroupsPage from "./pages/GroupsPage";
 import AddFriends from "./pages/AddFriends";
 import AddGroups from "./pages/AddGroups";
-import axios from "axios";
+import ProfileBufferPage from "./pages/ProfileBufferPage"; //
+import ChangepwdPage from "./pages/ChangepwdPage";
+// //记得这里也要加import
+import axios from "axios"; 
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 
@@ -38,7 +41,9 @@ function App() {
       <Route path="/groupspage" element={<GroupsPage />} />
       <Route path="/addfriends" element={<AddFriends />} />
       <Route path="/addgroups" element={<AddGroups />} />
-    </Routes>
+      <Route path="/profilebufferpage" element={<ProfileBufferPage />} />  
+      <Route path="/changepwdpage" element={<ChangepwdPage />} />  
+    </Routes>  //just added profilebufferpage
   );
 }
 

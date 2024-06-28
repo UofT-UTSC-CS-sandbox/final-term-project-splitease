@@ -11,7 +11,7 @@ const SettingsLogoutPage = () => {
   }, [navigate]);
 
   const onAccountSafetyClick = useCallback(() => {
-    navigate("/profileeditorpage");
+    navigate("/profilebufferpage");  //change to profileBufferPage
   }, [navigate]);
 
   const onLogoutClick = useCallback(() => {
