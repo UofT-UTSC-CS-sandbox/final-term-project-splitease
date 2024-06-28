@@ -5,9 +5,7 @@ import {
   registerUser,
   getAllUsers,
   verifyUserById,
-  getFriends,
   createGroup,
-  addFriend,
   getUserIdByName,
 } from "../modules/user.js";
 import {
@@ -187,62 +185,6 @@ userRouter.get("/transactions/:id", async function (req, res) {
         res.status(200).json({ transactions: transactions });
       } else {
         res.status(401).json({ error: "Invalid user" });
-      }
-    } catch (e) {
-      console.error("e", e);
-      res.status(500).json({ error: `Unknown server error: ${e}` });
-    }
-  }
-});
-
-// Get friends list
-userRouter.get("/friends/:id", async function (req, res) {
-  const { id } = req.params;
-
-  // Validate id
-  if (!id) {
-    res.status(401).json({ error: "Invalid user id" });
-  }
-
-  // Get friends list
-  else {
-    try {
-      const friends = getFriends(id);
-      if (friends) {
-        console.info("friends", friends);
-        res.status(200).json({ friends: friends });
-      } else {
-        res.status(401).json({ error: "Invalid user" });
-      }
-    } catch (e) {
-      console.error("e", e);
-      res.status(500).json({ error: `Unknown server error: ${e}` });
-    }
-  }
-});
-
-// Add a friend
-userRouter.get("/friend/add/:uid/:fid", async function (req, res) {
-  const { uid, fid } = req.params;
-
-  // Validate id and friendId
-  if (!uid || !fid) {
-    res.status(401).json({ error: "Invalid user id or friend id" });
-  }
-
-  // Add friend
-  else {
-    try {
-      const success = addFriend(uid, fid);
-      if (success === true) {
-        console.info("friend added");
-        res.status(200).json({ success: true });
-      } else if (success === -1) {
-        res.status(401).json({ error: "Friend already exists" });
-      } else if (success === 0) {
-        res.status(401).json({ error: "User not found" });
-      } else {
-        res.status(401).json({ error: "Unknown" });
       }
     } catch (e) {
       console.error("e", e);
