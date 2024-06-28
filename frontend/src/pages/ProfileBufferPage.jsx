@@ -3,19 +3,6 @@ import "./ProfileBufferPage.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
-
-
-//增加两个link
-// link to change user name password page 新添加一个ChangepwPage
-//const onChangePWClick = useCallback();
-
-//change avantar link to ProfileEditorPage.jsx
-
-
-
-
-
 const ProfileBufferPage = () => {
     const navigate = useNavigate();
     
@@ -24,7 +11,7 @@ const ProfileBufferPage = () => {
     }, [navigate]);
     
     const onChangePWClick = useCallback(() => {
-        navigate("/changepwdpage");
+        navigate("/changepasswordpage")
     }, [navigate]);
 
     const onDeleteIconClick = useCallback(() => {
@@ -49,9 +36,5 @@ const ProfileBufferPage = () => {
         </div>
     );
 };
-
-
-
-
 
 export default ProfileBufferPage;
