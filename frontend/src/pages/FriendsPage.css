@@ -55,3 +55,18 @@
     overflow: hidden;
     cursor: pointer;
 }
+
+.friendsList {
+    margin-top: 20px;
+  }
+  
+/* FriendsPage.css */
+
+.friendlistHeader {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333; /* Adjust color as needed */
+  }
+  
+  
