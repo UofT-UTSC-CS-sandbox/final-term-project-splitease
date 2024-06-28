@@ -18,7 +18,6 @@ import GroupsPage from "./pages/GroupsPage";
 import AddFriends from "./pages/AddFriends";
 import AddGroups from "./pages/AddGroups";
 import ProfileBufferPage from "./pages/ProfileBufferPage"; //
-import ChangepwdPage from "./pages/ChangepwdPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import axios from "axios"; 
 
@@ -42,7 +41,6 @@ function App() {
       <Route path="/addfriends" element={<AddFriends />} />
       <Route path="/addgroups" element={<AddGroups />} />
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />  
-      <Route path="/changepwdpage" element={<ChangepwdPage />} />  
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
     </Routes>  //just added profilebufferpage
   );
