@@ -8,6 +8,7 @@ import {
   getFriends,
   createGroup,
   addFriend,
+  getUserIdByName,
 } from "../modules/user.js";
 import {
   getUserBalance,
@@ -25,6 +26,31 @@ export const userRouter = express.Router();
 userRouter.get("/", async function (req, res) {
   console.info("You've reached the user router!");
   res.status(200).json({ "user list": await getAllUsers() });
+});
+
+// Get user id by name
+userRouter.get("/name/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid name" });
+    return;
+  }
+
+  // Get user id by name
+  try {
+    const uid = await getUserIdByName(name);
+    if (uid) {
+      console.info("user id", uid);
+      res.status(200).json({ user_id: uid });
+    } else {
+      res.status(401).json({ error: "User not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
 });
 
 // Login

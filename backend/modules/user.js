@@ -26,6 +26,15 @@ export const verifyUserByName = async (name) => {
   return false;
 };
 
+// Get user id by name
+export const getUserIdByName = async (name) => {
+  const user = await User.findOne({ name });
+  if (user) {
+    return user._id;
+  }
+  return null;
+};
+
 // Login a user
 export const checkUserPassword = async (name, password) => {
   const user = await User.findOne({ name });
