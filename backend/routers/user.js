@@ -2,12 +2,11 @@ import express from "express";
 import {
   checkUserPassword,
   getUserIdByName,
-  getUserIdByName,
+  getUserNameById,
   registerUser,
   getAllUsers,
   verifyUserById,
   createGroup,
-  getUserIdByName,
 } from "../modules/user.js";
 import {
   getUserBalance,
