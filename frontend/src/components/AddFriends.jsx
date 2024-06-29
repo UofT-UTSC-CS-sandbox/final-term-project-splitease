@@ -74,7 +74,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
                     // Hide this component
                     setIsAddFriendsOpen(false);
                     // Refresh the friends list
-                    navigate("/friendspage", { replace: true });
+                    navigate(0, { replace: true });
                   }
                 });
               } else {
@@ -128,8 +128,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
       if (result.isConfirmed) {
         // Hide this component
         setIsAddFriendsOpen(false);
-        // Refresh the friends list
-        navigate("/friendspage", { replace: true });
+        // No need to refresh the friends list
       }
     });
   }, [navigate]);
