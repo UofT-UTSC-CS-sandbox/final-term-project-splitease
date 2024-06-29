@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import "./AddGroups.css";
+import axios from "axios";
 
 const AddGroups = () => {
   const navigate = useNavigate();
@@ -60,21 +61,34 @@ const AddGroups = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       const userConfirmed = window.confirm(
         "Are you sure you want to create this group?"
       );
       if (userConfirmed) {
-        // TODO: Add the logic to handle the form submission
-        console.log("Group Name:", groupName);
-        console.log("Members:", members);
-        console.log("Group Type:", groupType);
-        navigate("/groupspage");
-        // Here you would typically send the data to the server
+        try {
+          const uid = localStorage.getItem("uid");
+          const response = await axios.post(`/user/group/add/${uid}`, {
+            id: uid,
+            groupName,
+            friends: members,
+          });
+          if (response.status === 200) {
+            console.log("Group created successfully:", response.data);
+            navigate("/groupspage");
+          } 
+          else {
+            console.error("Error creating group:", response.data.error);
+          }
+        } catch (error) {
+          console.error("Error creating group:", error);
+          if (error.response && error.response.status === 400) {
+            alert("Group name already exists. Please choose a different name.");
+          }
+        }
       } else {
-        // User canceled the action
         console.log("Group creation canceled");
       }
     } else {

@@ -35,6 +35,19 @@ export const getUserNameById = async (id) => {
   return null;
 };
 
+export const getGroupNameById = async (id) => {
+  try {
+    const group = await Group.findById(id);
+    if (group) {
+      return group.name;
+    }
+    return null;
+  } catch (error) {
+    console.error(`Error fetching group by ID: ${error}`);
+    return null;
+  }
+};
+
 // Login a user
 export const checkUserPassword = async (name, password) => {
   const user = await User.findOne({ name });
@@ -97,6 +110,7 @@ export const getGroups = async (id) => {
   if (user) {
     return user.groups;
   }
+  console.log("the user has prooblem");
   return null;
 };
 
@@ -104,22 +118,25 @@ export const getGroups = async (id) => {
 export const createGroup = async (id, groupName, friends) => {
   // Check if users are friends with the user
   const user = await User.findById(id);
+  console.log("The user who is making the group is: ", user);
   if (!user) {
     return false;
   }
+
+  const friend_list = [];
+  friend_list.push(id);
   for (const friend of friends) {
-    if (!user.friends.includes(friend)) {
-      // Remove users from group
-      friends = friends.filter((f) => f !== friend);
-      console.warn(
-        `User ${friend} is not a friend of user ${id}, removed from group`
-      );
+    const frinedUser = await User.findOne({name: friend.name});
+
+    if (frinedUser && user.friends.includes(frinedUser._id)) {
+      friend_list.push(frinedUser._id);
+    } else {
+      console.warn(`User ${friend.name} is not a friend of user ${user.name}, removed from group`);
     }
   }
 
-  // Check if user is in this group
-  if (!friends.includes(id)) {
-    friends.push(id); // Add user to group
+  if (!friend_list.includes(id)) {
+    friend_list.push(id); // Add user to group
   }
 
   // TODO: Check if user is already in a group with the same name
@@ -127,11 +144,13 @@ export const createGroup = async (id, groupName, friends) => {
   // Create group
   const group = new Group({
     name: groupName,
-    members: [...friends, id],
+    members: friend_list,
+    // TODO: Add creation date and last updated date
   });
 
+  let result;
   try {
-    const result = await group.save();
+    result = await group.save();
   } catch (e) {
     console.error(e);
     if (e.code === 11000) {
@@ -148,14 +167,17 @@ export const createGroup = async (id, groupName, friends) => {
   }
 
   // Add group to all members
-  for (const friendId of friends) {
+  for (const friendId of friend_list) {
     const memberUser = await User.findById(friendId);
     if (memberUser) {
       memberUser.groups.push(result._id);
       await memberUser.save();
     }
   }
+
+  return result._id;
 };
+
 
 // Remove a group from a user
 export const removeGroup = async (id, groupId) => {
