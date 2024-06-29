@@ -58,13 +58,15 @@ const AddFriends = () => {
       const uid = localStorage.getItem("uid");
 
       // First, fetch the friend's user ID by username
-      axios.get(`/user/id/of/${username}`)
+      axios
+        .get(`/user/id/of/${username}`)
         .then((response) => {
           const friendId = response.data.user_id;
 
           if (friendId) {
             // Send a POST request to add the friend
-            axios.post("/friend/add", { uid, fid: friendId })
+            axios
+              .post("/friend/add", { uid, fid: friendId })
               .then((res) => {
                 console.log("Response:", res.data);
                 if (res.data.success) {
@@ -96,8 +98,7 @@ const AddFriends = () => {
   };
 
   const handleClose = useCallback(() => {
-    alert("Warning: Your changes will not be saved!");
-    navigate("/friendspage");
+    // navigate("/friendspage");
   }, [navigate]);
 
   return (

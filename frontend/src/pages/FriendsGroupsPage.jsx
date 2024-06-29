@@ -27,15 +27,14 @@ const FriendsGroupsPage = () => {
         onClick={onDeleteIconClick}
       />
       <div className="friendsBox" onClick={onFriendsPageClick}>
-        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg"/>
+        <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg" />
         <div className="friends">Friends</div>
       </div>
 
       <div className="groupsBox" onClick={onGroupsPageClick}>
-        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg"/>
+        <img className="groupsarrowRightIcon" alt="" src="/arrowright1.svg" />
         <div className="groups">Groups</div>
       </div>
-      
     </div>
   );
 };

@@ -2,16 +2,19 @@ import { useCallback, useEffect, useState } from "react";
 import "./FriendsPage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AddFriends from "../components/AddFriends";
 
 const FriendsPage = () => {
   const navigate = useNavigate();
+  const [isAddFriendsOpen, setIsAddFriendsOpen] = useState(false);
   const uid = localStorage.getItem("uid");
   console.log("My UID is:", uid);
 
   const [friends, setFriends] = useState([]);
 
   const onAddFriendsClick = useCallback(() => {
-    navigate("/addfriends");
+    // navigate("/addfriends");
+    setIsAddFriendsOpen(true);
   }, [navigate]);
 
   const onDeleteIconClick = useCallback(() => {
@@ -63,9 +66,12 @@ const FriendsPage = () => {
         <button className="addfriends" onClick={onAddFriendsClick}>
           Add Friends
         </button>
+        {isAddFriendsOpen && (
+          <AddFriends onClose={() => setIsAddFriendsOpen(false)} />
+        )}
       </div>
       <div className="friendsList">
-      <div className="friendlistHeader">Your friends are:</div>
+        <div className="friendlistHeader">Your friends are:</div>
         {friends.length > 0 ? (
           <>
             {friends.map((friendName, index) => (
