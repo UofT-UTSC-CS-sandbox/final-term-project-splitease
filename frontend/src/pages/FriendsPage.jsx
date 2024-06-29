@@ -7,6 +7,7 @@ import AddFriends from "../components/AddFriends";
 const FriendsPage = () => {
   const navigate = useNavigate();
   const [isAddFriendsOpen, setIsAddFriendsOpen] = useState(false);
+
   const uid = localStorage.getItem("uid");
   console.log("My UID is:", uid);
 
@@ -67,7 +68,10 @@ const FriendsPage = () => {
           Add Friends
         </button>
         {isAddFriendsOpen && (
-          <AddFriends onClose={() => setIsAddFriendsOpen(false)} />
+          <AddFriends
+            isAddFriendsOpen={isAddFriendsOpen}
+            setIsAddFriendsOpen={setIsAddFriendsOpen}
+          />
         )}
       </div>
       <div className="friendsList">

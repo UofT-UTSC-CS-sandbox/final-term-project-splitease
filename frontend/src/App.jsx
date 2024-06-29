@@ -15,11 +15,11 @@ import ProfileEditorPage from "./pages/ProfileEditorPage";
 import LoginPage from "./pages/LoginPage";
 import FriendsPage from "./pages/FriendsPage";
 import GroupsPage from "./pages/GroupsPage";
-import AddFriends from "./pages/AddFriends";
-import AddGroups from "./pages/AddGroups";
+import AddFriends from "./components/AddFriends";
+import AddGroups from "./components/AddGroups";
 import ProfileBufferPage from "./pages/ProfileBufferPage"; //
 import ChangePasswordPage from "./pages/ChangePasswordPage";
-import axios from "axios"; 
+import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 
@@ -40,9 +40,9 @@ function App() {
       <Route path="/groupspage" element={<GroupsPage />} />
       <Route path="/addfriends" element={<AddFriends />} />
       <Route path="/addgroups" element={<AddGroups />} />
-      <Route path="/profilebufferpage" element={<ProfileBufferPage />} />  
+      <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
-    </Routes>  //just added profilebufferpage
+    </Routes> //just added profilebufferpage
   );
 }
 

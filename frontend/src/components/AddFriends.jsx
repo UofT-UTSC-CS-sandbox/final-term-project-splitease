@@ -3,8 +3,9 @@ import "./AddFriends.css";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const AddFriends = () => {
+const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
@@ -30,9 +31,6 @@ const AddFriends = () => {
     if (!username) {
       formIsValid = false;
       errors["username"] = "Username is required";
-    } else if (!validateUsername(username)) {
-      formIsValid = false;
-      errors["username"] = "Username is not valid";
     }
 
     if (!message) {
@@ -51,55 +49,94 @@ const AddFriends = () => {
       return;
     }
 
-    const userConfirmed = window.confirm(
-      "Are you sure you want to send the invite?"
-    );
-    if (userConfirmed) {
-      const uid = localStorage.getItem("uid");
+    const uid = localStorage.getItem("uid");
 
-      // First, fetch the friend's user ID by username
-      axios
-        .get(`/user/id/of/${username}`)
-        .then((response) => {
-          const friendId = response.data.user_id;
+    // First, fetch the friend's user ID by username
+    axios
+      .get(`/user/id/of/${username}`)
+      .then((response) => {
+        const friendId = response.data.user_id;
 
-          if (friendId) {
-            // Send a POST request to add the friend
-            axios
-              .post("/friend/add", { uid, fid: friendId })
-              .then((res) => {
-                console.log("Response:", res.data);
-                if (res.data.success) {
-                  console.log("Friend added successfully");
-                  navigate("/friendspage");
-                } else {
-                  alert(`Error: ${res.data.error}`);
-                }
-              })
-              .catch((error) => {
-                console.error("Error adding friend:", error);
-                if (error.response && error.response.status === 401) {
-                  alert(error.response.data.error);
-                } else {
-                  alert("An error occurred while adding the friend.");
-                }
-              });
-          } else {
-            alert("User not found");
-          }
-        })
-        .catch((err) => {
-          // console.error("Error fetching user ID:", error);
-          alert(err.response.data.error);
-        });
-    } else {
-      console.log("Invite not sent");
-    }
+        if (friendId) {
+          // Send a POST request to add the friend
+          axios
+            .post("/friend/add", { uid, fid: friendId })
+            .then((res) => {
+              console.log("Response:", res.data);
+              if (res.data.success) {
+                console.log("Friend added successfully");
+                Swal.fire({
+                  title: "Success!",
+                  text: "Friend added successfully",
+                  icon: "success",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // Hide this component
+                    setIsAddFriendsOpen(false);
+                    // Refresh the friends list
+                    navigate("/friendspage", { replace: true });
+                  }
+                });
+              } else {
+                console.error("Error adding friend:", res.data.error);
+                Swal.fire({
+                  title: "Error!",
+                  text: res.data.error,
+                  icon: "error",
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Error adding friend:", error);
+              if (error.response) {
+                Swal.fire({
+                  title: "Error!",
+                  text: error.response.data.error,
+                  icon: "error",
+                });
+              }
+            });
+        } else {
+          console.error("Friend ID not found");
+          Swal.fire({
+            title: "Error!",
+            text: "Friend not found",
+            icon: "error",
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching friend ID:", err);
+        if (err.response) {
+          Swal.fire({
+            title: "Error!",
+            text: err.response.data.error,
+            icon: "error",
+          });
+        }
+      });
   };
 
   const handleClose = useCallback(() => {
-    // navigate("/friendspage");
+    Swal.fire({
+      title: "Warning!",
+      text: "Your changes will not be saved!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Stay",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Hide this component
+        setIsAddFriendsOpen(false);
+        // Refresh the friends list
+        navigate("/friendspage", { replace: true });
+      }
+    });
   }, [navigate]);
+
+  if (!isAddFriendsOpen) {
+    return null;
+  }
 
   return (
     <div className="add-friends-container">
