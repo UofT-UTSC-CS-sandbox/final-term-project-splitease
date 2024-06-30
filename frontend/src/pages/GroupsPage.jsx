@@ -16,6 +16,17 @@ const GroupsPage = () => {
     navigate("/friendsgroupspage");
   }, [navigate]);
 
+  const onGroupClick = useCallback(() => {
+    // TODO: Display group details
+  }, [navigate]);
+
+  const onCloseButton = (index) => {
+    // Filter out the group to be deleted
+    const updatedGroups = groups.filter((_, i) => i !== index);
+    // Update the state with the new groups array
+    setGroups(updatedGroups);
+  };
+
   useEffect(() => {
     if (uid) {
       axios
@@ -32,14 +43,17 @@ const GroupsPage = () => {
                 const res = await axios.get(`/user/groupname/of/${groupId}`);
                 return res.data.group_name;
               } catch (error) {
-                console.error(`Error fetching group name for group ID ${groupId}:`, error);
+                console.error(
+                  `Error fetching group name for group ID ${groupId}:`,
+                  error
+                );
                 return null;
               }
             })
           );
 
           // Filter out any null values in case of errors
-          const validGroupNames = groupNames.filter(name => name !== null);
+          const validGroupNames = groupNames.filter((name) => name !== null);
           setGroups(validGroupNames);
         })
         .catch((error) => {
@@ -66,8 +80,17 @@ const GroupsPage = () => {
           <>
             <div className="groupsListHeader">Your groups are:</div>
             {groups.map((group, index) => (
-              <div key={index} className="groupItem">
-                {group}
+              <div key={index} className="groupItem" onClick={onGroupClick}>
+                <div
+                  className="closeButton"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the onGroupClick event
+                    onCloseButton(index);
+                  }}
+                >
+                  x
+                </div>
+                <div className="groupText">{group}</div>
               </div>
             ))}
           </>
@@ -80,5 +103,3 @@ const GroupsPage = () => {
 };
 
 export default GroupsPage;
-
-

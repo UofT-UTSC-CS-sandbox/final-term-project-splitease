@@ -57,16 +57,77 @@
 }
 
 .friendsList {
-    margin-top: 20px;
-  }
-  
-/* FriendsPage.css */
+    position: absolute;
+    top: 120px;
+    width: 100%;
+    height: 884px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 .friendlistHeader {
     font-size: 25px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333; /* Adjust color as needed */
-  }
-  
-  
+    color: #333;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.friendItem {
+    width: 300px;
+    height: 150px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.closeButton {
+    position: relative;
+    text-align: right;
+    align-items: right;
+    left: 120px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.friendText {
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    width: 100px;
+    height: 40px;
+    top: 100px;
+    text-align: center;
+    align-items: center;
+}
+
+.noFriends {
+    margin-top: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+}

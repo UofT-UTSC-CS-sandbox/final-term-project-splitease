@@ -22,6 +22,17 @@ const FriendsPage = () => {
     navigate("/friendsgroupspage");
   }, [navigate]);
 
+  const onFriendClick = useCallback(() => {
+    // TODO: Display group details
+  }, [navigate]);
+
+  const onCloseButton = (index) => {
+    // Filter out the group to be deleted
+    const updatedFriends = friends.filter((_, i) => i !== index);
+    // Update the state with the new groups array
+    setFriends(updatedFriends);
+  };
+
   useEffect(() => {
     if (uid) {
       axios
@@ -80,7 +91,16 @@ const FriendsPage = () => {
           <>
             {friends.map((friendName, index) => (
               <div key={index} className="friendItem">
-                {friendName}
+                <div
+                  className="closeButton"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the onGroupClick event
+                    onCloseButton(index);
+                  }}
+                >
+                  x
+                </div>
+                <div className="friendText" onClick={onFriendClick}>{friendName}</div>
               </div>
             ))}
           </>
