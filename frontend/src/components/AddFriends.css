@@ -1,4 +1,5 @@
 .add-friends-container {
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;

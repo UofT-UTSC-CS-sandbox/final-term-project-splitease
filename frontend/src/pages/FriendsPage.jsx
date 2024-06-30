@@ -78,13 +78,13 @@ const FriendsPage = () => {
         <button className="addfriends" onClick={onAddFriendsClick}>
           Add Friends
         </button>
-        {isAddFriendsOpen && (
-          <AddFriends
-            isAddFriendsOpen={isAddFriendsOpen}
-            setIsAddFriendsOpen={setIsAddFriendsOpen}
-          />
-        )}
       </div>
+      {isAddFriendsOpen && (
+        <AddFriends
+          isAddFriendsOpen={isAddFriendsOpen}
+          setIsAddFriendsOpen={setIsAddFriendsOpen}
+        />
+      )}
       <div className="friendsList">
         <div className="friendlistHeader">Your friends are:</div>
         {friends.length > 0 ? (
@@ -100,7 +100,9 @@ const FriendsPage = () => {
                 >
                   x
                 </div>
-                <div className="friendText" onClick={onFriendClick}>{friendName}</div>
+                <div className="friendText" onClick={onFriendClick}>
+                  {friendName}
+                </div>
               </div>
             ))}
           </>

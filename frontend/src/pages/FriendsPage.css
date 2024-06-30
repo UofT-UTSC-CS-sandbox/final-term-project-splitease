@@ -1,5 +1,6 @@
 .friendspage {
     width: 100%;
+    z-index: 1;
     position: relative;
     background-color: var(--color-white);
     height: 982px;
@@ -16,6 +17,7 @@
 
 .friendspageChild {
     position: absolute;
+    z-index: 2;
     top: 0;
     left: -7px;
     background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
@@ -28,6 +30,7 @@
 
 .friendsHeader {
     position: absolute;
+    z-index: 2;
     top: 51px;
     text-align: center;
     font-weight: 600;
@@ -58,6 +61,7 @@
 
 .friendsList {
     position: absolute;
+    z-index: 1;
     top: 120px;
     width: 100%;
     height: 884px;
@@ -69,6 +73,7 @@
 }
 
 .friendlistHeader {
+    z-index: 2;
     font-size: 25px;
     font-weight: bold;
     margin-bottom: 10px;
