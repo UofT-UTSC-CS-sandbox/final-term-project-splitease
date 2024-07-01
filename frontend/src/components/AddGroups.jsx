@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import "./AddGroups.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const AddGroups = () => {
+const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState("");
   const [members, setMembers] = useState([{ name: "", email: "" }]);
@@ -78,8 +79,7 @@ const AddGroups = () => {
           if (response.status === 200) {
             console.log("Group created successfully:", response.data);
             navigate("/groupspage");
-          } 
-          else {
+          } else {
             console.error("Error creating group:", response.data.error);
           }
         } catch (error) {
@@ -97,9 +97,24 @@ const AddGroups = () => {
   };
 
   const handleClose = useCallback(() => {
-    alert("Warning: Your changes will not be saved!");
-    navigate("/groupspage");
+    Swal.fire({
+      title: "Warning!",
+      text: "Your changes will not be saved!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Stay",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Hide this component
+        setIsAddGroupsClicked(false);
+        // No need to refresh the friends list
+      }
+    });
   }, [navigate]);
+
+  if (!isAddGroupsClicked) {
+    return null;
+  }
 
   return (
     <div className="add-groups-container">

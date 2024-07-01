@@ -2,14 +2,17 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./GroupsPage.css";
+import AddGroups from "../components/AddGroups";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
+  const [isAddGroupsClicked, setIsAddGroupsClicked] = useState(false);
   const uid = localStorage.getItem("uid");
 
   const onAddGroupsClick = useCallback(() => {
-    navigate("/addgroups");
+    // navigate("/addgroups");
+    setIsAddGroupsClicked(true);
   }, [navigate]);
 
   const onDeleteIconClick = useCallback(() => {
@@ -64,17 +67,24 @@ const GroupsPage = () => {
 
   return (
     <div className="groupspage">
-      <div className="groupspageChild" />
-      <div className="groupsHeader">Groups</div>
-      <img
-        className="deleteIcon"
-        alt=""
-        src="/delete.svg"
-        onClick={onDeleteIconClick}
-      />
-      <button className="addgroups" onClick={onAddGroupsClick}>
-        Create Groups
-      </button>
+      <div className="groupspageChild">
+        <div className="groupsHeader">Groups</div>
+        <img
+          className="deleteIcon"
+          alt=""
+          src="/delete.svg"
+          onClick={onDeleteIconClick}
+        />
+        <button className="addgroups" onClick={onAddGroupsClick}>
+          Create Groups
+        </button>
+      </div>
+      {isAddGroupsClicked && (
+        <AddGroups
+          isAddGroupsClicked={isAddGroupsClicked}
+          setIsAddGroupsClicked={setIsAddGroupsClicked}
+        />
+      )}
       <div className="groupsList">
         {groups.length > 0 ? (
           <>
