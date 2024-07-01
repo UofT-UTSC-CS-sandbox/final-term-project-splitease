@@ -27,7 +27,7 @@ const ChangePasswordPage = () => {
   };
 
   const handleBack = () => {
-    alert("Your changes has not been made!");
+    alert("Your changes will not be saved!");
     navigate('/profilebufferpage');
   };
 

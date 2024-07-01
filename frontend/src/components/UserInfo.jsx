@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import styles from "./FrameComponent2.module.css";
+import "./UserInfo.css";
 import axios from "axios";
 
-const FrameComponent2 = ({ className = "" }) => {
+const UserInfo = () => {
   const navigate = useNavigate();
 
   const [owe, setOwe] = useState(0);
@@ -40,36 +39,36 @@ const FrameComponent2 = ({ className = "" }) => {
   }, [navigate]);
 
   return (
-    <div className={[styles.vectorParent, className].join(" ")}>
+    <div className={"vectorParent"}>
       <img
-        className={styles.frameChild}
+        className={"frameChild"}
         alt=""
         src="/rectangle-1.svg"
         onClick={onRectangleClick}
       />
-      <div className={styles.wzy1Wrapper}>
+      <div className={"userWrapper"}>
         <img
-          className={styles.wzy1Icon}
+          className={"userIcon"}
           loading="lazy"
           alt=""
           src="/wzy-1@2x.png"
           onClick={onWZY1ImageClick}
         />
       </div>
-      <div className={styles.totalBalanceParent}>
-        <a className={styles.totalBalance}>Total balance</a>
-        <div className={styles.frameWrapper}>
-          <div className={styles.owe2500Parent}>
-            <b className={styles.owe2500}>Owe: ${owe.toFixed(2)}</b>
-            <div className={styles.owed1010Parent}>
-              <b className={styles.owed1010}>Owed: ${owed.toFixed(2)}</b>
-              <div className={styles.aprilCosts11069Parent}>
-                <div className={styles.aprilCosts11069}>
+      <div className={"totalBalanceParent"}>
+        <a className={"totalBalance"}>Total balance</a>
+        <div className={"frameWrapper"}>
+          <div className={"oweParent"}>
+            <b className={"owe"}>Owe: ${owe.toFixed(2)}</b>
+            <div className={"owedParent"}>
+              <b className={"owed"}>Owed: ${owed.toFixed(2)}</b>
+              <div className={"costsParent"}>
+                <div className={"costs"}>
                   April costs: ${totalBalance.toFixed(2)}
                 </div>
-                <div className={styles.arrowRightWrapper}>
+                <div className={"arrowRightWrapper"}>
                   <img
-                    className={styles.arrowRightIcon}
+                    className={"arrowRightIcon"}
                     loading="lazy"
                     alt=""
                     src="/arrowright.svg"
@@ -85,8 +84,4 @@ const FrameComponent2 = ({ className = "" }) => {
   );
 };
 
-FrameComponent2.propTypes = {
-  className: PropTypes.string,
-};
-
-export default FrameComponent2;
+export default UserInfo;

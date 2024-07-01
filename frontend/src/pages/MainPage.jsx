@@ -1,27 +1,9 @@
 import { useCallback, useEffect } from "react";
-import FrameComponent2 from "../components/FrameComponent2";
-import MayTransactionDetails1 from "../components/MayTransactionDetails1";
-import MayTransactionDetails from "../components/MayTransactionDetails";
-import FrameComponent1 from "../components/FrameComponent1";
-import FrameComponent from "../components/FrameComponent";
+import UserInfo from "../components/UserInfo";
 import styles from "./MainPage.module.css";
+// TODO: Rename the MainPage css file, remove import styles statement above and change the className values in the return statement below
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-const TransactionDetails = (props) => {
-  return (
-    <>
-      <div className={styles.balancetable}>
-        <h3>
-          Date:{props.date} amount:{props.amount}
-        </h3>
-        <h3>
-          paid by:{props.paidBy} for:{props.for}
-        </h3>
-      </div>
-    </>
-  );
-};
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -52,8 +34,10 @@ const MainPage = () => {
         // Update on the page
         const transactions = response.data.transactions;
         if (transactions.length == 0) {
-          document.querySelector("." + styles.aprilCosts11069).textContent =
-            "You have no recent transactions";
+          // TODO: modify the below code to correctly display a message when there are no transactions
+          document.querySelector(
+            "." + styles.aprilCosts11069 /*aprilCosts11069 DNE*/
+          ).textContent = "You have no recent transactions";
           return;
         }
 
@@ -75,6 +59,7 @@ const MainPage = () => {
           transactionElement.textContent = total_str;
           //Find element by text "Recent actions"
           let recentActionsElement = document.querySelector(
+            // TODO: modify the below code to correctly select the recent actions element
             "." + styles.recentActions
           );
           recentActionsElement.appendChild(transactionElement);
@@ -85,20 +70,8 @@ const MainPage = () => {
       });
   }, []);
 
-  const onLastWeekTextClick = useCallback(() => {
-    // Please sync "SpecifiedTransactionsPage" to the project
-  }, []);
-
   const onAddATransactionClick = useCallback(() => {
     navigate("/addtransactionpage");
-  }, [navigate]);
-
-  const onRectangle2Click = useCallback(() => {
-    // Please sync "SpecifiedTransactionsPage" to the project
-  }, []);
-
-  const onSettingsIconClick = useCallback(() => {
-    navigate("/settingslogoutpage");
   }, [navigate]);
 
   return (
@@ -121,20 +94,13 @@ const MainPage = () => {
             add a transaction
           </a>
         </div>
-        <div className={styles.frameGroup}>
-          <FrameComponent2 />
+        <div className={"frameGroup"}>
+          <UserInfo />
           <div className={styles.recentActionsWrapper}>
             <b className={styles.recentActions}>Recent actions</b>
           </div>
         </div>
       </div>
-      {/* <TransactionDetails
-        date="2021-05-01"
-        amount="20.00"
-        paidBy="you"
-        for="Andrew"
-      />
-      <TransactionDetails date="date" amount="111" paidBy="payer" for="payee" /> */}
     </div>
   );
 };
