@@ -19,11 +19,6 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
     setMessage(e.target.value);
   };
 
-  const validateUsername = (username) => {
-    const usernameRegex = /^[a-zA-Z0-9_]+$/; // Adjust the regex as needed for your username validation
-    return usernameRegex.test(username);
-  };
-
   const validateForm = () => {
     let formIsValid = true;
     let errors = {};
@@ -31,11 +26,6 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
     if (!username) {
       formIsValid = false;
       errors["username"] = "Username is required";
-    }
-
-    if (!message) {
-      formIsValid = false;
-      errors["message"] = "Message is required";
     }
 
     setErrors(errors);
