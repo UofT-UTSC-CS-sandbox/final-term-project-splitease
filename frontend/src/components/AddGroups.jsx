@@ -64,11 +64,23 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      const userConfirmed = window.confirm(
-        "Are you sure you want to create this group?"
-      );
-      if (userConfirmed) {
+
+    if (!validateForm()) {
+      console.log("Form validation failed");
+      return;
+    }
+    // const userConfirmed = window.confirm(
+    //   "Are you sure you want to create this group?"
+    // );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to create this group?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         try {
           const uid = localStorage.getItem("uid");
           const response = await axios.post(`/user/group/add/${uid}`, {
@@ -78,22 +90,25 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
           });
           if (response.status === 200) {
             console.log("Group created successfully:", response.data);
-            navigate("/groupspage");
+            navigate(0, { replace: true });
           } else {
             console.error("Error creating group:", response.data.error);
           }
         } catch (error) {
           console.error("Error creating group:", error);
           if (error.response && error.response.status === 400) {
-            alert("Group name already exists. Please choose a different name.");
+            console.error("Validation failed:", error.response.data);
+            Swal.fire({
+              title: "Error!",
+              text: error.response.data.error,
+              icon: "error",
+            });
           }
         }
       } else {
         console.log("Group creation canceled");
       }
-    } else {
-      console.log("Validation failed");
-    }
+    });
   };
 
   const handleClose = useCallback(() => {
