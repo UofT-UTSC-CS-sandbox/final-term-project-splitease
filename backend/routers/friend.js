@@ -1,5 +1,5 @@
 import express from "express";
-import { getFriends, addFriend } from "../modules/user.js";
+import { getFriends, addFriend } from "../modules/friend.js";
 
 export const friendRouter = express.Router();
 

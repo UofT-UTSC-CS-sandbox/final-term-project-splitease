@@ -1,5 +1,5 @@
 import express from "express";
-import { createGroup, getGroups, getGroupNameById } from "../modules/user.js";
+import { createGroup, getGroups, getGroupNameById } from "../modules/group.js";
 
 export const groupRouter = express.Router();
 
