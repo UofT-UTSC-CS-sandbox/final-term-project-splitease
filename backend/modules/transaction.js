@@ -68,38 +68,34 @@ export const getUserBalance = async (uid) => {
 };
 
 export const getUserAndFriendBalance = async (uid, fid) => {
-  const cost = Transaction.aggregate([
+  const cost = await Transaction.aggregate([
     {
       $match: {
-        payer: uid,
-        payee: fid,
+        payer: { $eq: new ObjectId(uid) },
+        payee: { $eq: new ObjectId(fid) },
       },
     },
-    {
-      $group: {
-        _id: null,
-        totalAmount: { $sum: "$amount" },
-      },
-    },
+    { $project: { _id: null, transactions: "$amount" } },
+    { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
 
-  const pay = Transaction.aggregate([
+  const pay = await Transaction.aggregate([
     {
       $match: {
-        payer: fid,
-        payee: uid,
+        payer: { $eq: new ObjectId(fid) },
+        payee: { $eq: new ObjectId(uid) },
       },
     },
-    {
-      $group: {
-        _id: null,
-        totalAmount: { $sum: "$amount" },
-      },
-    },
+    { $project: { _id: null, transactions: "$amount" } },
+    { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
 
-  console.log(await cost, await pay);
-  return (await cost) - (await pay); // sum(cost) - sum(pay)
+  console.log("cost", cost);
+  console.log("pay", pay);
+
+  const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
+  const total_pay = pay.length === 0 ? 0 : pay[0].totalAmount;
+  return total_cost - total_pay;
 };
 
 export const getUserList = async (uid) => {

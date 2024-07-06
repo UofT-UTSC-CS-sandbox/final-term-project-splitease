@@ -218,7 +218,7 @@ userRouter.get("/transactions/:id", async function (req, res) {
 
 // Create a new transaction
 userRouter.post("/transaction/add/:uid", async function (req, res) {
-  const { uid, description, transactions } = req.body;
+  const { uid, description: int, transactions } = req.body;
 
   // Validate description and transactions
   if (!description || !transactions) {
@@ -228,7 +228,11 @@ userRouter.post("/transaction/add/:uid", async function (req, res) {
   // Create transaction
   else {
     try {
-      const { tid, status } = addTransaction(uid, description, transactions);
+      const { tid, status } = await addTransaction(
+        uid,
+        description,
+        transactions
+      );
       if (tid && status) {
         console.info("transaction", tid, status);
         res.status(200).json({ tid: tid, status: status });

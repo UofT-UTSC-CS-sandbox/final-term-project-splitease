@@ -15,11 +15,11 @@ export const getFriends = async (id) => {
 
 // Add a friend to a user
 export const addFriend = async (uid, fid) => {
-  const user = User.findById(uid);
-  const friendUser = User.findById(fid);
+  const user = await User.findById(uid);
+  const friendUser = await User.findById(fid);
 
   // Validate id and friendId
-  if (!(await user) || !(await friendUser)) {
+  if (!user || !friendUser) {
     return false; // User not found
   }
 
@@ -51,11 +51,11 @@ export const isFriend = async (uid, fid) => {
 
 // Get friend details (name, info, balance, recent transactions)
 export const getFriendDetails = async (uid, fid) => {
-  const user = User.findById(uid);
-  const friend = User.findById(fid);
+  const user = await User.findById(uid);
+  const friend = await User.findById(fid);
 
   // Validate id and friendId
-  if (!(await user) || !(await friend)) {
+  if (!user || !friend) {
     return null;
   }
 
@@ -71,8 +71,8 @@ export const getFriendDetails = async (uid, fid) => {
   const transactions = getTransactionByUserAndFriend(uid, fid);
 
   return {
-    name: await friend.name,
-    balance: await balance,
-    transactions: await transactions,
+    name: friend.name,
+    balance: balance,
+    transactions: transactions,
   };
 };

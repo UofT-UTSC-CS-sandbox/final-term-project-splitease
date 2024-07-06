@@ -15,15 +15,27 @@ const AddTransactionPage = () => {
     }
 
     // No team/friend provided. Use sample data.
+    // TODO: Replace with actual friend data
     const transactions = [
       {
         group_id: 1,
-        friends: ["666d0493e6e4abae269d0bd0", "666d0495e6e4abae269d0bd2"],
+        friends: ["666eacf43ca32def0e16e943", "666ead823ca32def0e16e9f1"],
         amount: parseFloat(amount),
       },
     ];
     const description = "Test Trans";
     const id = localStorage.getItem("uid");
+
+    if (!id) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You need to log in first!",
+      }).then(() => {
+        navigate("/login");
+      });
+      return;
+    }
 
     // POST request to add a transaction
     axios
@@ -68,9 +80,7 @@ const AddTransactionPage = () => {
       </div>
       <img className={"lineIcon"} alt="" src="/line-1.svg" />
       <img className={"line"} alt="" />
-      <div className={"chooseAMethod"}>
-        Choose a method to split this bill
-      </div>
+      <div className={"chooseAMethod"}>Choose a method to split this bill</div>
       <img className={"vectorIcon"} alt="" src="/vector.svg" />
       <div className={"youWillPay"}>You will pay a total of $ 0.00</div>
       <div className={"confirm"} onClick={onConfirmTextClick}>
