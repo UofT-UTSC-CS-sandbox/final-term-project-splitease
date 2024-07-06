@@ -11,9 +11,7 @@ export const getAllUsers = async () => {
 // Verify that a user exists
 export const verifyUserById = async (id) => {
   const user = await User.findById(id);
-  if (user) {
-    return true;
-  }
+  if (user) return true;
   return false;
 };
 

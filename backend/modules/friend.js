@@ -13,20 +13,39 @@ export const getFriends = async (id) => {
   return null;
 };
 
-// Add a friend to a user
-export const addFriend = async (uid, fid) => {
+// Check if a user is friends with another user
+export const isFriend = async (uid, fid) => {
+  const user = await User.findById(uid);
+  if (user) {
+    return user.friends.includes(fid);
+  }
+  return false;
+};
+
+// Validate friend relationship
+export const validateFriend = async (uid, fid) => {
   const user = await User.findById(uid);
   const friendUser = await User.findById(fid);
 
   // Validate id and friendId
   if (!user || !friendUser) {
-    return false; // User not found
+    return { isValid: false, user: null, friendUser: null };
   }
 
-  // Check if friend already exists
-  if (user.friends.includes(fid)) {
-    return -1; // Friend already exists
+  // Check relationship
+  if (!(await isFriend(uid, fid))) {
+    return { isValid: false, user, friendUser };
   }
+
+  return { isValid: true, user, friendUser };
+};
+
+// Add a friend to a user
+export const addFriend = async (uid, fid) => {
+  // Validate id and friendId
+  const result = await validateFriend(uid, fid);
+  if (!result.isValid) return false;
+  const { user, friendUser } = result;
 
   // Add friend to user's friends list
   user.friends.push(fid);
@@ -39,40 +58,40 @@ export const addFriend = async (uid, fid) => {
   return true;
 };
 
-// Check if a user is friends with another user
-export const isFriend = async (uid, fid) => {
-  const user = await User.findById(uid);
-  if (user) {
-    console.log("user.friends", user.friends);
-    return user.friends.includes(fid);
-  }
-  return false;
-};
-
 // Get friend details (name, info, balance, recent transactions)
 export const getFriendDetails = async (uid, fid) => {
-  const user = await User.findById(uid);
-  const friend = await User.findById(fid);
-
   // Validate id and friendId
-  if (!user || !friend) {
-    return null;
-  }
-
-  // Check if user is friends with friend
-  if (!isFriend(uid, fid)) {
-    return null;
-  }
+  const result = await validateFriend(uid, fid);
+  if (!result.isValid) return null;
+  const { friendUser: friend } = result;
 
   // Get balance
-  const balance = getUserAndFriendBalance(uid, fid);
+  const balance = await getUserAndFriendBalance(uid, fid);
 
   // Get recent transactions
-  const transactions = getTransactionByUserAndFriend(uid, fid);
+  const transactions = await getTransactionByUserAndFriend(uid, fid);
 
   return {
     name: friend.name,
     balance: balance,
     transactions: transactions,
   };
+};
+
+// Delete a friend from a user
+export const deleteFriend = async (uid, fid) => {
+  // Validate id and friendId
+  const result = await validateFriend(uid, fid);
+  if (!result.isValid) return false;
+  const { user, friendUser } = result;
+
+  // Remove friend from user's friends list
+  user.friends = user.friends.filter((f) => f.toString() !== fid);
+  await user.save();
+
+  // Remove user from friend's friends list
+  friendUser.friends = friendUser.friends.filter((f) => f.toString() !== uid);
+  await friendUser.save();
+
+  return true;
 };

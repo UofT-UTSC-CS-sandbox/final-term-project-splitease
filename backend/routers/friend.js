@@ -2,8 +2,9 @@ import express from "express";
 import {
   getFriends,
   addFriend,
-  isFriend,
   getFriendDetails,
+  deleteFriend,
+  validateFriend,
 } from "../modules/friend.js";
 import { getUserAndFriendBalance } from "../modules/transaction.js";
 
@@ -116,8 +117,9 @@ friendRouter.post("/details", async function (req, res) {
   }
 
   // Check if user is friends with friend
-  else if (!isFriend(uid, fid)) {
-    res.status(404).json({ error: "User is not friends with friend" });
+  const result = await validateFriend(uid, fid);
+  if (!result.isValid) {
+    res.status(401).json({ error: "Invalid user or friend" });
   }
 
   // Get friend details
@@ -127,5 +129,38 @@ friendRouter.post("/details", async function (req, res) {
       res.status(401).json({ error: "Invalid user or friend" });
     }
     res.status(200).json({ friend: friend });
+  }
+});
+
+// Delete a friend
+friendRouter.delete("/delete", async function (req, res) {
+  const { uid, fid } = req.body;
+
+  // Validate id and friendId
+  if (!uid || !fid) {
+    res.status(401).json({ error: "Invalid user id or friend id" });
+    return;
+  }
+
+  // Delete friend
+  try {
+    // Validate id and friendId
+    const result = await validateFriend(uid, fid);
+    if (!result.isValid) {
+      res.status(404).json({ error: "Invalid user or friend" });
+      return;
+    }
+
+    // Delete friend
+    const success = await deleteFriend(uid, fid);
+    if (success) {
+      console.info("friend deleted");
+      res.status(200).json({ success: true });
+    } else {
+      res.status(401).json({ error: "Unknown" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });
