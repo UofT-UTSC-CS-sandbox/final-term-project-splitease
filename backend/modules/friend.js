@@ -42,10 +42,15 @@ export const validateFriend = async (uid, fid) => {
 
 // Add a friend to a user
 export const addFriend = async (uid, fid) => {
+  const user = await User.findById(uid);
+  const friendUser = await User.findById(fid);
+
   // Validate id and friendId
-  const result = await validateFriend(uid, fid);
-  if (!result.isValid) return false;
-  const { user, friendUser } = result;
+  if (!user || !friendUser)
+    return { isValid: false, user: null, friendUser: null };
+
+  // Check relationship
+  if (await isFriend(uid, fid)) return false;
 
   // Add friend to user's friends list
   user.friends.push(fid);

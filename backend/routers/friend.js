@@ -92,13 +92,8 @@ friendRouter.post("/add", async function (req, res) {
       if (success === true) {
         console.info("friend added");
         res.status(200).json({ success: true });
-      } else if (success === -1) {
-        res.status(401).json({ error: "Friend already exists" });
-      } else if (success === 0) {
-        res.status(401).json({ error: "User not found" });
       } else {
-        console.error(success);
-        res.status(401).json({ error: "Unknown" });
+        res.status(401).json({ error: "Friendship Validation Failed" });
       }
     } catch (e) {
       console.error("e", e);
