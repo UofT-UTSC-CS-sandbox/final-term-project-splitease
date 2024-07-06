@@ -33,7 +33,7 @@ const GroupsPage = () => {
   useEffect(() => {
     if (uid) {
       axios
-        .get(`/user/group/${uid}`)
+        .get(`/group/${uid}`)
         .then(async (response) => {
           console.log("Groups data:", response.data);
           const groupIds = response.data;
@@ -43,7 +43,7 @@ const GroupsPage = () => {
           const groupNames = await Promise.all(
             groupIds.map(async (groupId) => {
               try {
-                const res = await axios.get(`/user/groupname/of/${groupId}`);
+                const res = await axios.get(`/group/name/of/${groupId}`);
                 return res.data.group_name;
               } catch (error) {
                 console.error(

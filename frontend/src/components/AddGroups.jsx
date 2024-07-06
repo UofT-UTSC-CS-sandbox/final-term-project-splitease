@@ -83,7 +83,7 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
       if (result.isConfirmed) {
         try {
           const uid = localStorage.getItem("uid");
-          const response = await axios.post(`/user/group/add/${uid}`, {
+          const response = await axios.post(`/group/add/${uid}`, {
             id: uid,
             groupName,
             friends: members,
