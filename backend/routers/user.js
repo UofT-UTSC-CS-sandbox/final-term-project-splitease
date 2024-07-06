@@ -18,8 +18,7 @@ import {
 import e from "express";
 
 export const userRouter = express.Router();
-// root = localhost:3000/user
-// localhost:3000/user/
+
 userRouter.get("/", async function (req, res) {
   console.info("You've reached the user router!");
   res.status(200).json({ "user list": await getAllUsers() });

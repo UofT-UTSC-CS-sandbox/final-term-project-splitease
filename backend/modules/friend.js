@@ -1,4 +1,8 @@
 import User from "../models/User.js";
+import {
+  getUserAndFriendBalance,
+  getTransactionByUserAndFriend,
+} from "./transaction.js";
 
 // Get friends by user id
 export const getFriends = async (id) => {
@@ -10,23 +14,65 @@ export const getFriends = async (id) => {
 };
 
 // Add a friend to a user
-export const addFriend = async (id, friendId) => {
-  const user = await User.findById(id);
-  const friendUser = await User.findById(friendId);
-  if (user && friendUser) {
-    if (user.friends.includes(friendId)) {
-      return -1; // Friend already exists
-    }
+export const addFriend = async (uid, fid) => {
+  const user = User.findById(uid);
+  const friendUser = User.findById(fid);
 
-    // Add friend to user's friends list
-    user.friends.push(friendId);
-    await user.save();
-
-    // Add user to friend's friends list
-    friendUser.friends.push(id);
-    await friendUser.save();
-
-    return true;
+  // Validate id and friendId
+  if (!(await user) || !(await friendUser)) {
+    return false; // User not found
   }
-  return 0; // User not found
+
+  // Check if friend already exists
+  if (user.friends.includes(fid)) {
+    return -1; // Friend already exists
+  }
+
+  // Add friend to user's friends list
+  user.friends.push(fid);
+  await user.save();
+
+  // Add user to friend's friends list
+  friendUser.friends.push(uid);
+  await friendUser.save();
+
+  return true;
+};
+
+// Check if a user is friends with another user
+export const isFriend = async (uid, fid) => {
+  const user = await User.findById(uid);
+  if (user) {
+    console.log("user.friends", user.friends);
+    return user.friends.includes(fid);
+  }
+  return false;
+};
+
+// Get friend details (name, info, balance, recent transactions)
+export const getFriendDetails = async (uid, fid) => {
+  const user = User.findById(uid);
+  const friend = User.findById(fid);
+
+  // Validate id and friendId
+  if (!(await user) || !(await friend)) {
+    return null;
+  }
+
+  // Check if user is friends with friend
+  if (!isFriend(uid, fid)) {
+    return null;
+  }
+
+  // Get balance
+  const balance = getUserAndFriendBalance(uid, fid);
+
+  // Get recent transactions
+  const transactions = getTransactionByUserAndFriend(uid, fid);
+
+  return {
+    name: await friend.name,
+    balance: await balance,
+    transactions: await transactions,
+  };
 };

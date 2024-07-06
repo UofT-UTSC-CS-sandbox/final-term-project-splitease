@@ -1,6 +1,11 @@
 import User from "../models/User.js";
 import Group from "../models/Group.js";
 
+// Get all groups
+export const getAllGroups = async () => {
+  return await Group.find();
+};
+
 // Get groups by user id
 export const getGroups = async (id) => {
   const user = await User.findById(id);
@@ -39,6 +44,13 @@ export const createGroup = async (id, groupName, friends) => {
   for (const friend of friends) {
     const frinedUser = await User.findOne({ name: friend.name });
 
+    // Check if friend exists
+    if (!frinedUser) {
+      console.warn(`User ${friend.name} not found, removed from group`);
+      continue;
+    }
+
+    // Check if friend is a friend of the user
     if (frinedUser && user.friends.includes(frinedUser._id)) {
       friend_list.push(frinedUser._id);
     } else {
@@ -48,6 +60,7 @@ export const createGroup = async (id, groupName, friends) => {
     }
   }
 
+  // Check if user is already in the group
   if (!friend_list.includes(id)) {
     friend_list.push(id); // Add user to group
   }

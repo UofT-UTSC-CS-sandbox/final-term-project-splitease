@@ -1,31 +1,40 @@
 import express from "express";
-import { getFriends, addFriend } from "../modules/friend.js";
+import {
+  getFriends,
+  addFriend,
+  isFriend,
+  getFriendDetails,
+} from "../modules/friend.js";
+import { getUserAndFriendBalance } from "../modules/transaction.js";
 
 export const friendRouter = express.Router();
+let state = 200;
 
-friendRouter.get("/", async function (req, res, next) {
+friendRouter.get("/", async function (req, res) {
   console.info("You've reached the friend router!");
-  res.status(state).end("Hello World!");
+  res.status(state).end("You've reached the friend router!");
 });
 
 // Get total amount owed to user
-friendRouter.get("/balance/:uid/:fid", async function (req, res, next) {
-  const { uid, fid } = req.params;
+friendRouter.post("/balance", async function (req, res) {
+  const { uid, fid } = req.body;
 
   // Validate uid and fid
   if (!uid || !fid) {
+    console.warn("Invalid uid or fid: ", uid, fid);
     res.status(401).json({ error: "Invalid uid or fid" });
   }
 
   // Get balance of a friend
   else {
-    const balance = getFriendBalance(uid, fid);
+    const balance = await getUserAndFriendBalance(uid, fid);
+    console.info("balance", balance);
     res.status(200).json({ balance: balance });
   }
 });
 
 // Get transactions between user and friend
-friendRouter.get("/transactions/:uid/:fid", async function (req, res, next) {
+friendRouter.get("/transactions/:uid/:fid", async function (req, res) {
   const { uid, fid } = req.body;
 
   // Validate uid and fid
@@ -94,5 +103,29 @@ friendRouter.post("/add", async function (req, res) {
       console.error("e", e);
       res.status(500).json({ error: `Unknown server error: ${e}` });
     }
+  }
+});
+
+// Get friend details (name, info, balance, recent transactions)
+friendRouter.post("/details", async function (req, res) {
+  const { uid, fid } = req.body;
+
+  // Validate id and friendId
+  if (!uid || !fid) {
+    res.status(401).json({ error: "Invalid user id or friend id" });
+  }
+
+  // Check if user is friends with friend
+  else if (!isFriend(uid, fid)) {
+    res.status(404).json({ error: "User is not friends with friend" });
+  }
+
+  // Get friend details
+  else {
+    const friend = await getFriendDetails(uid, fid);
+    if (!friend) {
+      res.status(401).json({ error: "Invalid user or friend" });
+    }
+    res.status(200).json({ friend: friend });
   }
 });

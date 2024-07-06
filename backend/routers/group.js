@@ -1,9 +1,23 @@
 import express from "express";
-import { createGroup, getGroups, getGroupNameById } from "../modules/group.js";
+import {
+  createGroup,
+  getGroups,
+  getGroupNameById,
+  getAllGroups,
+} from "../modules/group.js";
 
 export const groupRouter = express.Router();
 
-// Get groups list
+// Get all groups
+groupRouter.get("/", async function (req, res, next) {
+  console.info("You've reached the group router!");
+
+  // Get all groups
+  const groups = await getAllGroups();
+  res.status(200).json(groups);
+});
+
+// Get group by user id
 groupRouter.get("/:id", async function (req, res) {
   const { id } = req.params;
 
