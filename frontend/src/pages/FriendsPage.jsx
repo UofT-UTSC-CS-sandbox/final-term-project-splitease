@@ -145,7 +145,7 @@ const FriendsPage = () => {
         {friends.length > 0 ? (
           <>
             {friends.map((friendNameBalance, index) => (
-              <div key={index} className="friendItem">
+              <div key={index} className="friendItem" onClick={onFriendClick}>
                 <div
                   className="closeButton"
                   onClick={(e) => {
@@ -155,7 +155,7 @@ const FriendsPage = () => {
                 >
                   x
                 </div>
-                <div className="friendText" onClick={onFriendClick}>
+                <div className="friendText">
                   {/* TODO: Add UNIVERSAL CSS for balance and name */}
                   {friendNameBalance.f_name}
                   <br />
