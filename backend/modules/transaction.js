@@ -58,7 +58,13 @@ export const getTransactionByUser = async (id) => {
 };
 
 export const getTransactionByUserAndFriend = async (uid, fid) => {
-  return await Transaction.find({ payer: uid, payee: fid });
+  // Both cost and pay should be returned
+  const cost = await Transaction.find({ payer: uid, payee: fid });
+  const pay = await Transaction.find({ payer: fid, payee: uid });
+
+  // Concatenate cost and pay
+  const transactions = [...cost, ...pay];
+  return transactions;
 };
 
 export const getUserBalance = async (uid) => {

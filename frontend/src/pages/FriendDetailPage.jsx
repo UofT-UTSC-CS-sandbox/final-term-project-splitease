@@ -32,6 +32,7 @@ const FriendDetailPage = () => {
       const transactions = await Promise.all(
         await friend.friend.transactions.map(async (transaction) => {
           return {
+            id: transaction._id,
             date: transaction.date,
             name: "TransactionNameFoo",
             payer: await getUserNameById(transaction.payer),
@@ -41,7 +42,7 @@ const FriendDetailPage = () => {
         })
       );
       setTransactions(transactions);
-      console.info("Transactions:", transactions);
+      console.info("Parsed Transactions:", transactions);
     });
   }, [uid, fid]);
 
@@ -76,8 +77,8 @@ const FriendDetailPage = () => {
         </div>
         <div className="recent-activities-bar">
           <h3>Recent shared activities</h3>
-          {transactions.map((transaction, index) => (
-            <div className="activity">
+          {transactions.map((transaction) => (
+            <div className="activity" key={transaction.id}>
               <div className="activity-date">{transaction.date}</div>
               <div className="activity-details">
                 <div className="activity-name">{transaction.name}</div>
