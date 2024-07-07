@@ -14,7 +14,7 @@ const ProfileBufferPage = () => {
   }, [navigate]);
 
   const onBackButtonClick = useCallback(() => {
-    navigate("/settingslogoutpage");
+    navigate(-1);
   }, [navigate]);
 
   return (

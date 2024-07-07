@@ -11,6 +11,7 @@ const UserInfo = () => {
   const [totalBalance, setTotalBalance] = useState(0);
 
   const uid = localStorage.getItem("uid");
+  const u_name = localStorage.getItem("u_name");
 
   // Update data when the page is loaded
   useEffect(() => {
@@ -56,7 +57,7 @@ const UserInfo = () => {
         />
       </div>
       <div className={"totalBalanceParent"}>
-        <a className={"totalBalance"}>Total balance</a>
+        <a className={"totalBalance"}> {u_name} </a>
         <div className={"frameWrapper"}>
           <div className={"oweParent"}>
             <b className={"owe"}>Owe: ${owe.toFixed(2)}</b>
@@ -64,7 +65,7 @@ const UserInfo = () => {
               <b className={"owed"}>Owed: ${owed.toFixed(2)}</b>
               <div className={"costsParent"}>
                 <div className={"costs"}>
-                  April costs: ${totalBalance.toFixed(2)}
+                  Balance: ${totalBalance.toFixed(2)}
                 </div>
                 <div className={"arrowRightWrapper"}>
                   <img

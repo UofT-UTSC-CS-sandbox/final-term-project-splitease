@@ -19,7 +19,7 @@ const ProfileEditor = () => {
 
   const navigate = useNavigate();
   const onBackButtonClick = useCallback(() => {
-    navigate("/profilebufferpage");
+    navigate(-1);
   }, [navigate]);
 
   return (

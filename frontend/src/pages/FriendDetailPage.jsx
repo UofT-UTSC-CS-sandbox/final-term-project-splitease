@@ -47,7 +47,7 @@ const FriendDetailPage = () => {
   }, [uid, fid]);
 
   const onDeleteIconClick = useCallback(() => {
-    navigate(-1, { replace: true });
+    navigate(-1);
   }, [navigate]);
 
   return (

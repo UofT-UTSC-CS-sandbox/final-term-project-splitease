@@ -21,7 +21,7 @@ const FriendsPage = () => {
   }, [navigate]);
 
   const onBackButtonClick = useCallback(() => {
-    navigate(-1, { replace: true });
+    navigate(-1);
   }, [navigate]);
 
   const onFriendClick = useCallback(

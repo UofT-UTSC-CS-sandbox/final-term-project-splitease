@@ -6,7 +6,7 @@ const FunctionSelectionPage = () => {
   const navigate = useNavigate();
 
   const onBackButtonClick = useCallback(() => {
-    navigate("/");
+    navigate(-1);
   }, [navigate]);
 
   const onAddATransactionClick = useCallback(() => {

@@ -5,6 +5,7 @@ import axios from "axios";
 
 const AddTransactionPage = () => {
   const navigate = useNavigate();
+  const uid = localStorage.getItem("uid");
 
   const onConfirmTextClick = useCallback(() => {
     // Find text input with id="amount"
@@ -19,7 +20,7 @@ const AddTransactionPage = () => {
     const transactions = [
       {
         group_id: 1,
-        friends: ["666eacf43ca32def0e16e943", "666ead823ca32def0e16e9f1"],
+        friends: ["666eacf43ca32def0e16e943", "666ead823ca32def0e16e9f1", uid],
         amount: parseFloat(amount),
       },
     ];
@@ -54,7 +55,7 @@ const AddTransactionPage = () => {
   }, [navigate]);
 
   const onBackButtonClick = useCallback(() => {
-    navigate("/");
+    navigate(-1);
   }, [navigate]);
   return (
     <div className={"addtransactionpage"}>
