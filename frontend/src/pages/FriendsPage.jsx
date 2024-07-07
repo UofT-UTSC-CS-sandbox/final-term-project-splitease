@@ -26,6 +26,7 @@ const FriendsPage = () => {
 
   const onFriendClick = useCallback(() => {
     // TODO: Display friend details in a dedicated page
+    navigate("/frienddetailpage");
   }, [navigate]);
 
   const onCloseButton = (index) => {
