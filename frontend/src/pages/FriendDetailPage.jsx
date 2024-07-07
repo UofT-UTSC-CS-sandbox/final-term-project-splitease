@@ -75,8 +75,10 @@ const FriendDetailPage = () => {
             </p>
           )}
         </div>
+        <div className="recent-activities-text">
+              Recent shared activities  
+          </div>
         <div className="recent-activities-bar">
-          <h3>Recent shared activities</h3>
           {transactions.map((transaction) => (
             <div className="activity" key={transaction.id}>
               <div className="activity-date">{transaction.date}</div>
