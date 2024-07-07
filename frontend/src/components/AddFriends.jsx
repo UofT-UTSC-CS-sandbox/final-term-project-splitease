@@ -81,7 +81,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
               if (error.response) {
                 Swal.fire({
                   title: "Error!",
-                  text: error.response.data.error,
+                  text: "Friend already added!",
                   icon: "error",
                 });
               }

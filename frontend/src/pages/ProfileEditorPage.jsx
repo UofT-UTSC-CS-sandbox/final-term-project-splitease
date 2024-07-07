@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react';
-import './ProfileEditorPage.css';
+import { useState, useCallback } from "react";
+import "./ProfileEditorPage.css";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEditor = () => {
-  const [avatar, setAvatar] = useState('https://via.placeholder.com/245');
+  const [avatar, setAvatar] = useState("https://via.placeholder.com/245");
 
   // Function to handle the input of an avatar
   const handleAvatarChange = (e) => {
@@ -18,7 +18,7 @@ const ProfileEditor = () => {
   };
 
   const navigate = useNavigate();
-  const onDeleteIconClick = useCallback(() => {
+  const onBackButtonClick = useCallback(() => {
     navigate("/profilebufferpage");
   }, [navigate]);
 
@@ -29,10 +29,10 @@ const ProfileEditor = () => {
         className="deleteIcon"
         alt=""
         src="/delete.svg"
-        onClick={onDeleteIconClick}
+        onClick={onBackButtonClick}
       />
       <div className="uploadAvatar">Upload Avatar</div>
-    
+
       <div className="avatarsection">
         <img src={avatar} alt="Avatar" className="avatar" />
         <input type="file" accept="image/*" onChange={handleAvatarChange} />

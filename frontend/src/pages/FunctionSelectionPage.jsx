@@ -5,7 +5,7 @@ import "./FunctionSelectionPage.css";
 const FunctionSelectionPage = () => {
   const navigate = useNavigate();
 
-  const onDeleteIconClick = useCallback(() => {
+  const onBackButtonClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
 
@@ -25,15 +25,13 @@ const FunctionSelectionPage = () => {
           loading="lazy"
           alt=""
           src="/delete.svg"
-          onClick={onDeleteIconClick}
+          onClick={onBackButtonClick}
         />
         <a className={"selectAnAction"}>Select an action</a>
       </header>
       <section className={"friendsGroupsParent"} onClick={onFriendsGroupsClick}>
         <div className={"friendsGroupsChild"}>
-          <div className={"friendsGroups"}>
-            Friends & Groups
-          </div>
+          <div className={"friendsGroups"}>Friends & Groups</div>
           <img
             className={"arrowRightIcon"}
             loading="lazy"
@@ -50,11 +48,12 @@ const FunctionSelectionPage = () => {
           />
         </div>
       </section>
-      <section className={"addTransactionGroup"} onClick={onAddATransactionClick}>
-        <div className={"addATransactionParent"} >
-          <div className={"addATransaction"}>
-            Add a transaction
-          </div>
+      <section
+        className={"addTransactionGroup"}
+        onClick={onAddATransactionClick}
+      >
+        <div className={"addATransactionParent"}>
+          <div className={"addATransaction"}>Add a transaction</div>
           <img
             className={"arrowRightIcon1"}
             loading="lazy"

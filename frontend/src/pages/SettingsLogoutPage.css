@@ -61,7 +61,7 @@
 
 .accountSafety,
 .notifications,
-.switchAccount,
+.deleteAccount,
 .logOut {
     position: relative;
     font-weight: 500;
@@ -87,7 +87,7 @@
     justify-content: center;
 }
 
-.switchAccountBox {
+.deleteAccountBox {
     position: relative;
     top: 120px;
     background: rgba(211, 211, 211, 0.417);
@@ -113,6 +113,7 @@
     justify-content: center;
 }
 
-.logOut {
+.logOut,
+.deleteAccount {
     color: #dc0c0c;
 }

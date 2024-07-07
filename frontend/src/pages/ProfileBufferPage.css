@@ -4,14 +4,14 @@
     background-color: var(--color-white);
     height: 982px;
     overflow: hidden;
-    text-align: center; /* Center text horizontally */
+    text-align: center;
     font-size: var(--font-size-xl);
     color: var(--color-black);
     font-family: var(--font-kanit);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Align items to the top */
+    justify-content: flex-start;
     padding-top: 150px;
 }
 

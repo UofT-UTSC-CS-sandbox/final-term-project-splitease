@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const FriendsGroupsPage = () => {
   const navigate = useNavigate();
-  const onDeleteIconClick = useCallback(() => {
-    navigate("/functionselectionpage");
+  const onBackButtonClick = useCallback(() => {
+    navigate(-1);
   }, [navigate]);
 
   const onFriendsPageClick = useCallback(() => {
@@ -24,7 +24,7 @@ const FriendsGroupsPage = () => {
         className="deleteIcon"
         alt=""
         src="/delete.svg"
-        onClick={onDeleteIconClick}
+        onClick={onBackButtonClick}
       />
       <div className="friendsBox" onClick={onFriendsPageClick}>
         <img className="friendsarrowRightIcon" alt="" src="/arrowright.svg" />

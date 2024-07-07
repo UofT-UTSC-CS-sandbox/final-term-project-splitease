@@ -6,12 +6,12 @@ import Swal from "sweetalert2";
 const SettingsLogoutPage = () => {
   const navigate = useNavigate();
 
-  const onDeleteIconClick = useCallback(() => {
+  const onBackButtonClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
 
   const onAccountSafetyClick = useCallback(() => {
-    navigate("/profilebufferpage");  //change to profileBufferPage
+    navigate("/profilebufferpage"); //change to profileBufferPage
   }, [navigate]);
 
   const onLogoutClick = useCallback(() => {
@@ -33,7 +33,7 @@ const SettingsLogoutPage = () => {
         className="deleteIcon"
         alt=""
         src="/delete.svg"
-        onClick={onDeleteIconClick}
+        onClick={onBackButtonClick}
       />
       <div className="settings">Settings</div>
       <div className="accountSafetyBox">
@@ -44,8 +44,8 @@ const SettingsLogoutPage = () => {
       <div className="notificationsBox">
         <div className="notifications">Notifications</div>
       </div>
-      <div className="switchAccountBox">
-        <div className="switchAccount">Switch account</div>
+      <div className="deleteAccountBox">
+        <div className="deleteAccount">Delete account</div>
       </div>
       <div className="logOutBox">
         <div className="logOut" onClick={onLogoutClick}>

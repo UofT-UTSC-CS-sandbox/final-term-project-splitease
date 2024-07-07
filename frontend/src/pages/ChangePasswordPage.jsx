@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './ChangePasswordPage.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./ChangePasswordPage.css";
+import Swal from "sweetalert2";
 
 const ChangePasswordPage = () => {
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -18,29 +19,41 @@ const ChangePasswordPage = () => {
     e.preventDefault();
     // TODO: validate current password == login password
     if (newPassword !== confirmPassword) {
-      setMessage('New password and confirm password do not match.');
+      setMessage("New password and confirm password do not match.");
       return;
     }
     // TODO: Handle password change logic to backend
-    alert('Password changed successfully.');
-    navigate('/profilebufferpage');
+    alert("Password changed successfully.");
+    navigate("/profilebufferpage");
   };
 
   const handleBack = () => {
-    alert("Your changes will not be saved!");
-    navigate('/profilebufferpage');
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want quit? Your changes will not be saved.",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/profilebufferpage");
+      }
+    });
   };
 
   return (
     <div className="change-password-page">
-      <button className="back-button" onClick={handleBack}>×</button>
+      <button className="back-button" onClick={handleBack}>
+        ×
+      </button>
       <h2>Change Password</h2>
       <form onSubmit={handleChangePassword}>
         <div className="form-group">
           <label htmlFor="current-password">Current Password</label>
           <div className="password-input">
             <input
-              type={showCurrentPassword ? 'text' : 'password'}
+              type={showCurrentPassword ? "text" : "password"}
               id="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
@@ -50,7 +63,7 @@ const ChangePasswordPage = () => {
               type="button"
               onClick={() => setShowCurrentPassword(!showCurrentPassword)}
             >
-              {showCurrentPassword ? 'Hide' : 'Show'}
+              {showCurrentPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>
@@ -58,7 +71,7 @@ const ChangePasswordPage = () => {
           <label htmlFor="new-password">New Password</label>
           <div className="password-input">
             <input
-              type={showNewPassword ? 'text' : 'password'}
+              type={showNewPassword ? "text" : "password"}
               id="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -68,7 +81,7 @@ const ChangePasswordPage = () => {
               type="button"
               onClick={() => setShowNewPassword(!showNewPassword)}
             >
-              {showNewPassword ? 'Hide' : 'Show'}
+              {showNewPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>
@@ -76,7 +89,7 @@ const ChangePasswordPage = () => {
           <label htmlFor="confirm-password">Confirm New Password</label>
           <div className="password-input">
             <input
-              type={showConfirmPassword ? 'text' : 'password'}
+              type={showConfirmPassword ? "text" : "password"}
               id="confirm-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -86,7 +99,7 @@ const ChangePasswordPage = () => {
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? 'Hide' : 'Show'}
+              {showConfirmPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>

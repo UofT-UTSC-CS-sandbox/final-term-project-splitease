@@ -1,21 +1,21 @@
 .friend-detail-page {
-  width: 100%;
-  position: relative;
-  background-color: var(--color-white);
-  height: 700px;
-  overflow: hidden;
-  text-align: left;
-  font-size: var(--font-size-xl);
-  color: var(--color-black);
-  font-family: var(--font-kanit);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 700px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .detailpageheader {
-  position: absolute;
+    position: absolute;
     z-index: 2;
     top: 0;
     left: -7px;
@@ -27,82 +27,87 @@
     justify-content: center;
 }
 
-.back-button, .add-friend-button {
-  background: none;
-  border: none;
-  font-size: 1em;
-  cursor: pointer;
+.back-button,
+.add-friend-button {
+    background: none;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 .friendsHeader {
-  font-size: 1.2em;
-  font-weight: bold;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .content {
-  width: 90%;
-  max-width: 900px;
-  margin-top: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 90%;
+    max-width: 900px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.current-balance-bar, .recent-activities-bar {
-  width: 100%;
-  background-color: #eaf8e7; /* Light green background */
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.current-balance-bar,
+.recent-activities-bar {
+    width: 100%;
+    background-color: #eaf8e7;
+    /* Light green background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .current-balance-bar h2 {
-  margin: 0;
-  font-size: 1.5em;
+    margin: 0;
+    font-size: 1.5em;
 }
 
 .current-balance-bar p {
-  margin-top: 10px;
-  font-size: 1.2em;
-  color: green;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: green;
 }
 
 .recent-activities-bar h3 {
-  margin-bottom: 20px;
-  font-size: 1.2em;
+    margin-bottom: 20px;
+    font-size: 1.2em;
 }
 
 .activity {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .activity-date {
-  width: 70px;
-  font-weight: bold;
+    width: 70px;
+    font-weight: bold;
 }
 
 .activity-details {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
 }
 
 .activity-name {
-  font-weight: bold;
+    font-weight: bold;
 }
 
-.activity-cost, .activity-split, .activity-owe {
-  margin-top: 5px;
+.activity-cost,
+.activity-split,
+.activity-owe {
+    margin-top: 5px;
 }
 
 .activity-owe {
-  color: red;
+    color: red;
 }

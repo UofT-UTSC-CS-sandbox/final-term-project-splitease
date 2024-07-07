@@ -17,7 +17,7 @@ import FriendsPage from "./pages/FriendsPage";
 import GroupsPage from "./pages/GroupsPage";
 import AddFriends from "./components/AddFriends";
 import AddGroups from "./components/AddGroups";
-import ProfileBufferPage from "./pages/ProfileBufferPage"; 
+import ProfileBufferPage from "./pages/ProfileBufferPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import FriendDetailPage from "./pages/FriendDetailPage"; //add
 import axios from "axios";
@@ -43,8 +43,8 @@ function App() {
       <Route path="/addgroups" element={<AddGroups />} />
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
-      <Route path="/frienddetailpage" element={<FriendDetailPage/>} />  
-    </Routes>  //add friend detail page
+      <Route path="/frienddetailpage" element={<FriendDetailPage />} />
+    </Routes>
   );
 }
 

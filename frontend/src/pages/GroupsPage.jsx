@@ -15,8 +15,8 @@ const GroupsPage = () => {
     setIsAddGroupsClicked(true);
   }, [navigate]);
 
-  const onDeleteIconClick = useCallback(() => {
-    navigate("/friendsgroupspage");
+  const onBackButtonClick = useCallback(() => {
+    navigate(-1);
   }, [navigate]);
 
   const onGroupClick = useCallback(() => {
@@ -73,7 +73,7 @@ const GroupsPage = () => {
           className="deleteIcon"
           alt=""
           src="/delete.svg"
-          onClick={onDeleteIconClick}
+          onClick={onBackButtonClick}
         />
         <button className="addgroups" onClick={onAddGroupsClick}>
           Create Groups

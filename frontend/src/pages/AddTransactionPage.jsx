@@ -53,7 +53,7 @@ const AddTransactionPage = () => {
       });
   }, [navigate]);
 
-  const onDeleteIconClick = useCallback(() => {
+  const onBackButtonClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
   return (
@@ -64,7 +64,7 @@ const AddTransactionPage = () => {
         className={"deleteIcon"}
         alt=""
         src="/delete.svg"
-        onClick={onDeleteIconClick}
+        onClick={onBackButtonClick}
       />
       <div className={"selectATeam"}>
         Select a team or friend to share this bill
