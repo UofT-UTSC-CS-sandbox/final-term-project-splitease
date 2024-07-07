@@ -20,8 +20,8 @@ const FriendsPage = () => {
     setIsAddFriendsOpen(true);
   }, [navigate]);
 
-  const onDeleteIconClick = useCallback(() => {
-    navigate("/friendsgroupspage");
+  const onBackButtonClick = useCallback(() => {
+    navigate(-1, { replace: true });
   }, [navigate]);
 
   const onFriendClick = useCallback(() => {
@@ -40,25 +40,28 @@ const FriendsPage = () => {
       if (result.isConfirmed) {
         const friendToDelete = fids[index];
         console.log("the friend going to be deleted is:", friendToDelete);
-  
+
         axios({
-          method: 'delete',
-          url: '/friend/delete',
-          data: { uid, fid: friendToDelete }
+          method: "delete",
+          url: "/friend/delete",
+          data: { uid, fid: friendToDelete },
         })
-        .then((res) => {
-          const updatedFriends = friends.filter((_, i) => i !== index);
-          setFriends(updatedFriends);
-          navigate(0, { replace: true });
-        })
-        .catch((error) => {
-          console.error("Error deleting friend:", error);
-          Swal.fire("Error", "Failed to delete friend. Please try again.", "error");
-        });
+          .then((res) => {
+            const updatedFriends = friends.filter((_, i) => i !== index);
+            setFriends(updatedFriends);
+            navigate(0, { replace: true });
+          })
+          .catch((error) => {
+            console.error("Error deleting friend:", error);
+            Swal.fire(
+              "Error",
+              "Failed to delete friend. Please try again.",
+              "error"
+            );
+          });
       }
     });
   };
-  
 
   useEffect(() => {
     if (uid) {
@@ -102,7 +105,7 @@ const FriendsPage = () => {
           className="deleteIcon"
           alt=""
           src="/delete.svg"
-          onClick={onDeleteIconClick}
+          onClick={onBackButtonClick}
         />
         <button className="addfriends" onClick={onAddFriendsClick}>
           Add Friends
