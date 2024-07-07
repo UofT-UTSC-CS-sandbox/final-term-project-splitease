@@ -44,10 +44,12 @@ const ChangePasswordPage = () => {
 
   return (
     <div className="change-password-page">
-      <button className="back-button" onClick={handleBack}>
-        ×
-      </button>
-      <h2>Change Password</h2>
+      <div className="change-password-header">
+        <div className="change-password-title">Change Password</div>
+        <div className="back-button" onClick={handleBack}>
+          ×
+        </div>
+      </div>
       <form onSubmit={handleChangePassword}>
         <div className="form-group">
           <label htmlFor="current-password">Current Password</label>
