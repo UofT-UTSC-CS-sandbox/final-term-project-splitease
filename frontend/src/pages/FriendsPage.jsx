@@ -24,10 +24,14 @@ const FriendsPage = () => {
     navigate(-1, { replace: true });
   }, [navigate]);
 
-  const onFriendClick = useCallback(() => {
-    // TODO: Display friend details in a dedicated page
-    navigate("/frienddetailpage");
-  }, [navigate]);
+  const onFriendClick = useCallback(
+    (e) => {
+      // TODO: Display friend details in a dedicated page
+      const fid = e.currentTarget.id;
+      navigate("/frienddetailpage/" + fid);
+    },
+    [navigate]
+  );
 
   const onCloseButton = (index) => {
     Swal.fire({
@@ -145,7 +149,12 @@ const FriendsPage = () => {
         {friends.length > 0 ? (
           <>
             {friends.map((friendNameBalance, index) => (
-              <div key={index} className="friendItem" onClick={onFriendClick}>
+              <div
+                key={index}
+                className="friendItem"
+                onClick={onFriendClick}
+                id={friendNameBalance.fid}
+              >
                 <div
                   className="closeButton"
                   onClick={(e) => {

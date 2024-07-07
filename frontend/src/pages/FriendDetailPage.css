@@ -1,3 +1,9 @@
+.balance-negative {
+    color: green;
+}
+.balance-positive {
+    color: red;
+}
 .friend-detail-page {
     width: 100%;
     position: relative;

@@ -43,7 +43,7 @@ function App() {
       <Route path="/addgroups" element={<AddGroups />} />
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
-      <Route path="/frienddetailpage" element={<FriendDetailPage />} />
+      <Route path="/frienddetailpage/:fid" element={<FriendDetailPage />} />
     </Routes>
   );
 }
