@@ -64,7 +64,7 @@ userRouter.get("/name/of/:id", async function (req, res) {
     const name = await getUserNameById(id);
     if (name) {
       console.info("user name", name);
-      res.status(200).json({ user_name: name });
+      res.status(200).json({ name });
     } else {
       res.status(401).json({ error: "User not found" });
     }

@@ -25,7 +25,7 @@ const FriendsPage = () => {
   }, [navigate]);
 
   const onFriendClick = useCallback(() => {
-    // TODO: Display group details
+    // TODO: Display friend details in a dedicated page
   }, [navigate]);
 
   const onCloseButton = (index) => {
@@ -64,37 +64,59 @@ const FriendsPage = () => {
   };
 
   useEffect(() => {
-    if (uid) {
-      axios
-        .get(`/friend/of/${uid}`)
-        .then(async (response) => {
-          console.log("Friends data:", response.data);
-          // Map over friend IDs to fetch names
-          const friendIds = response.data.friends;
-          setFriendIDs(friendIds);
-          console.log("Friends ids:", friendIds);
-          const friendNamesPromises = friendIds.map(async (friendId) => {
-            try {
-              const nameResponse = await axios.get(`/user/name/of/${friendId}`);
-              console.log("Each name is:", nameResponse);
-              return nameResponse.data.user_name;
-            } catch (error) {
-              console.error("Error fetching friend name:", error);
-              return null; // Handle error case
-            }
-          });
-          // Wait for all name fetching promises to resolve
-          const friendNames = await Promise.all(friendNamesPromises);
-          console.log("Friend names:", friendNames);
-          // Update state with friend names
-          setFriends(friendNames.filter((name) => name !== null)); // Filter out null values
-          // Optionally update the local storage
-          localStorage.setItem("friends", JSON.stringify(friendNames));
-        })
-        .catch((error) => {
-          console.error("Error fetching friends:", error);
-        });
+    if (!uid) {
+      console.error("User ID not found");
+      navigate("/login");
+      return;
     }
+
+    axios
+      .get(`/friend/of/${uid}`)
+      .then(async (response) => {
+        console.log("Friends data:", response.data);
+
+        // Map over friend IDs to fetch names
+        const friendIds = response.data.friends;
+        setFriendIDs(friendIds);
+        console.log("Friends ids:", friendIds);
+
+        // Get the name of the friend
+        const friendNameBalancePromises = friendIds.map(async (friendId) => {
+          try {
+            const nameResponse = await axios.get(`/user/name/of/${friendId}`);
+            const balanceResponse = await axios.post("/friend/balance", {
+              uid: uid,
+              fid: friendId,
+            });
+            console.log("--------------------");
+            console.log("Friend ID:", friendId);
+            console.log("Name response:", nameResponse.data);
+            console.log("Balance response:", balanceResponse.data);
+            return {
+              fid: friendId,
+              f_name: nameResponse.data.name,
+              f_balance: balanceResponse.data.balance,
+            };
+          } catch (error) {
+            console.error("Error fetching friend name:", error);
+            return null;
+          }
+        });
+
+        // Wait for all name fetching promises to resolve
+        const friendNameBalance = await Promise.all(friendNameBalancePromises);
+        console.log("Friend names:", friendNameBalance);
+
+        // Update state with friend names
+        setFriends(friendNameBalance.filter((name) => name !== null)); // Filter out null values
+
+        // Optionally update the local storage
+        // TODO: Make a dict to store friend names and IDs
+        localStorage.setItem("friends", JSON.stringify(friendNameBalance));
+      })
+      .catch((error) => {
+        console.error("Error fetching friends:", error);
+      });
   }, [uid]);
 
   return (
@@ -121,7 +143,7 @@ const FriendsPage = () => {
         <div className="friendlistHeader">Your friends are:</div>
         {friends.length > 0 ? (
           <>
-            {friends.map((friendName, index) => (
+            {friends.map((friendNameBalance, index) => (
               <div key={index} className="friendItem">
                 <div
                   className="closeButton"
@@ -133,7 +155,8 @@ const FriendsPage = () => {
                   x
                 </div>
                 <div className="friendText" onClick={onFriendClick}>
-                  {friendName}
+                  {friendNameBalance.f_name}
+                  <br />${friendNameBalance.f_balance}
                 </div>
               </div>
             ))}
