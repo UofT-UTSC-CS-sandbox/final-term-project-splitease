@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./FriendDetailPage.css";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { getUserNameById } from "../components/Functions.jsx";
+import "./FriendDetailPage.css";
 import axios from "axios";
 
 const FriendDetailPage = () => {
@@ -10,6 +11,7 @@ const FriendDetailPage = () => {
   console.info("Friend ID:", fid);
   const navigate = useNavigate();
   const [friendsInfo, setFriendsInfo] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
   const uid = localStorage.getItem("uid");
 
@@ -18,11 +20,28 @@ const FriendDetailPage = () => {
       name: "****",
       balance: "**.**",
     });
-    axios.post("/friend/details", { uid, fid }).then((res) => {
+    axios.post("/friend/details", { uid, fid }).then(async (res) => {
+      // Get friend balance
       const friend = res.data;
       friend.friend.balance = friend.friend.balance.toFixed(2);
+      friend.friend.fid = fid;
       setFriendsInfo(friend.friend);
       console.info("Friend details:", friend);
+
+      // Get transaction details
+      const transactions = await Promise.all(
+        await friend.friend.transactions.map(async (transaction) => {
+          return {
+            date: transaction.date,
+            name: "TransactionNameFoo",
+            payer: await getUserNameById(transaction.payer),
+            payerId: transaction.payer,
+            amount: transaction.amount.toFixed(2),
+          };
+        })
+      );
+      setTransactions(transactions);
+      console.info("Transactions:", transactions);
     });
   }, [uid, fid]);
 
@@ -46,7 +65,8 @@ const FriendDetailPage = () => {
           <h2>Current Balance</h2>
           {friendsInfo.balance < 0 ? (
             <p className="balance-negative">
-              You owe {friendsInfo.name} ${Math.abs(friendsInfo.balance).toFixed(2)}
+              You owe {friendsInfo.name} $
+              {Math.abs(friendsInfo.balance).toFixed(2)}
             </p>
           ) : (
             <p className="balance-positive">
@@ -56,15 +76,29 @@ const FriendDetailPage = () => {
         </div>
         <div className="recent-activities-bar">
           <h3>Recent shared activities</h3>
-          <div className="activity">
-            <div className="activity-date">April 20</div>
-            <div className="activity-details">
-              <div className="activity-name">Movie Tickets</div>
-              <div className="activity-cost">$80.00</div>
-              <div className="activity-split">paid by: you</div>
-              <div className="activity-owe">You: $40.00</div>
+          {transactions.map((transaction, index) => (
+            <div className="activity">
+              <div className="activity-date">{transaction.date}</div>
+              <div className="activity-details">
+                <div className="activity-name">{transaction.name}</div>
+                <div className="activity-split">
+                  Paid by:{" "}
+                  {transaction.payerId === uid
+                    ? transaction.payer + " (You)"
+                    : transaction.payer}
+                </div>
+                {transaction.payer === friendsInfo.name ? (
+                  <div className="activity-amount-negative">
+                    -${transaction.amount}
+                  </div>
+                ) : (
+                  <div className="activity-amount-positive">
+                    ${transaction.amount}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
