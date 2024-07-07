@@ -67,6 +67,14 @@ export const getUserBalance = async (uid) => {
   return total_cost - total_pay; // sum(cost) - sum(pay)
 };
 
+/**
+ *
+ * @param {*} uid
+ * @param {*} fid
+ * @returns total_cost - total_pay,
+ * where cost = {payer: user, payee: friend}
+ * i.e. user paid for friend, and friend owes user
+ */
 export const getUserAndFriendBalance = async (uid, fid) => {
   const cost = await Transaction.aggregate([
     {

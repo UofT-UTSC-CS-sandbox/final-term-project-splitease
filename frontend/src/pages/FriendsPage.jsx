@@ -155,8 +155,18 @@ const FriendsPage = () => {
                   x
                 </div>
                 <div className="friendText" onClick={onFriendClick}>
+                  {/* TODO: Add UNIVERSAL CSS for balance and name */}
                   {friendNameBalance.f_name}
-                  <br />${friendNameBalance.f_balance}
+                  <br />
+                  {friendNameBalance.f_balance < 0 ? (
+                    <span style={{ color: "green" }}>
+                      -${Math.abs(friendNameBalance.f_balance).toFixed(2)}
+                    </span>
+                  ) : (
+                    <span style={{ color: "red" }}>
+                      ${friendNameBalance.f_balance.toFixed(2)}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
