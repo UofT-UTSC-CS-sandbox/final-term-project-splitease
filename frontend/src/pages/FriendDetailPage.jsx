@@ -46,7 +46,7 @@ const FriendDetailPage = () => {
           <h2>Current Balance</h2>
           {friendsInfo.balance < 0 ? (
             <p className="balance-negative">
-              You owe {friendsInfo.name} ${friendsInfo.balance}
+              You owe {friendsInfo.name} ${Math.abs(friendsInfo.balance).toFixed(2)}
             </p>
           ) : (
             <p className="balance-positive">
