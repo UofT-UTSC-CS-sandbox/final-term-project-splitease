@@ -3,6 +3,7 @@ import "./FriendsPage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddFriends from "../components/AddFriends";
+import Swal from "sweetalert2";
 
 const FriendsPage = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const FriendsPage = () => {
   console.log("My UID is:", uid);
 
   const [friends, setFriends] = useState([]);
+  const [fids, setFriendIDs] = useState([]);
 
   const onAddFriendsClick = useCallback(() => {
     // navigate("/addfriends");
@@ -27,11 +29,36 @@ const FriendsPage = () => {
   }, [navigate]);
 
   const onCloseButton = (index) => {
-    // Filter out the group to be deleted
-    const updatedFriends = friends.filter((_, i) => i !== index);
-    // Update the state with the new groups array
-    setFriends(updatedFriends);
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to delete this friend?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const friendToDelete = fids[index];
+        console.log("the friend going to be deleted is:", friendToDelete);
+  
+        axios({
+          method: 'delete',
+          url: '/friend/delete',
+          data: { uid, fid: friendToDelete }
+        })
+        .then((res) => {
+          const updatedFriends = friends.filter((_, i) => i !== index);
+          setFriends(updatedFriends);
+          navigate(0, { replace: true });
+        })
+        .catch((error) => {
+          console.error("Error deleting friend:", error);
+          Swal.fire("Error", "Failed to delete friend. Please try again.", "error");
+        });
+      }
+    });
   };
+  
 
   useEffect(() => {
     if (uid) {
@@ -41,6 +68,8 @@ const FriendsPage = () => {
           console.log("Friends data:", response.data);
           // Map over friend IDs to fetch names
           const friendIds = response.data.friends;
+          setFriendIDs(friendIds);
+          console.log("Friends ids:", friendIds);
           const friendNamesPromises = friendIds.map(async (friendId) => {
             try {
               const nameResponse = await axios.get(`/user/name/of/${friendId}`);
