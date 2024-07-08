@@ -5,6 +5,8 @@ import { useCallback } from "react";
 import {
   getUserNameById,
   getTransactionInfoByTid,
+  formatTransactionDate,
+  parseTransactions,
 } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import axios from "axios";
@@ -28,57 +30,14 @@ const FriendDetailPage = () => {
       const friend = res.data;
       friend.friend.balance = friend.friend.balance.toFixed(2);
       friend.friend.fid = fid;
+
       // reverse the order of transactions
       friend.friend.transactions = friend.friend.transactions.reverse();
       setFriendsInfo(friend.friend);
       console.info("Friend details:", friend);
 
       // Get transaction details
-      const transactions = await Promise.all(
-        friend.friend.transactions.map(async (transaction) => {
-          const transactionInfo = await getTransactionInfoByTid(
-            transaction._id
-          );
-          console.info("Transaction Info:", transactionInfo);
-
-          // Get date in MM DD, YY format
-          const date = new Date(transactionInfo.createdAt).toLocaleDateString(
-            "en-US",
-            {
-              month: "long",
-              day: "numeric",
-              year: "2-digit",
-            }
-          );
-          let formattedDate = date.split(", "); // Format MM DD YY
-          formattedDate = formattedDate[0] + " " + formattedDate[1];
-
-          // Check if date is today
-          const today = new Date().toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "2-digit",
-          });
-          if (date === today) {
-            // Make it hh:mm AM/PM
-            formattedDate = new Date(
-              transactionInfo.createdAt
-            ).toLocaleTimeString("en-US", {
-              hour: "numeric",
-              minute: "numeric",
-            });
-          }
-
-          return {
-            id: transaction._id,
-            date: formattedDate,
-            name: transactionInfo.description,
-            payer: await getUserNameById(transaction.payer),
-            payerId: transaction.payer,
-            amount: transaction.amount,
-          };
-        })
-      );
+      const transactions = await parseTransactions(friend.friend.transactions);
       setTransactions(transactions);
       console.info("Parsed Transactions:", transactions);
     });

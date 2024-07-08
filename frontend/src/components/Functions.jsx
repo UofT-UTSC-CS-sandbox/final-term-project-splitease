@@ -32,3 +32,75 @@ export const getTransactionInfoByTid = async (id) => {
     return null;
   }
 };
+
+/**
+ *
+ * @param {*} transactionInfo
+ * @returns The date in `hh:mm AM/PM` if it is today, o/w `MM DD, YY`.
+ */
+export function formatTransactionDate(transactionInfo) {
+  const date = new Date(transactionInfo.createdAt).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "2-digit",
+  });
+  let formattedDate = date.split(", "); // Format MM DD YY
+  formattedDate = formattedDate[0] + " " + formattedDate[1];
+
+  // Check if date is today
+  const today = new Date().toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "2-digit",
+  });
+  if (date === today) {
+    // Make it hh:mm AM/PM
+    formattedDate = new Date(transactionInfo.createdAt).toLocaleTimeString(
+      "en-US",
+      {
+        hour: "numeric",
+        minute: "numeric",
+      }
+    );
+  }
+  return formattedDate;
+}
+
+/**
+ *
+ * @param {*} friend
+ * @returns Parsed transactions in format: See example below.
+ * @example Output Format:
+ * {
+ *   id: transaction._id,
+ *   date: formattedDate,
+ *   name: transactionInfo.description,
+ *   payer: await getUserNameById(transaction.payer),
+ *   payerId: transaction.payer,
+ *   amount: transaction.amount,
+ * }
+ * 
+ * @example Use:
+ *    const transactions = await parseTransactions(friend.friend.transactions);
+      setTransactions(transactions);
+ */
+export async function parseTransactions(transactions) {
+  return await Promise.all(
+    transactions.map(async (transaction) => {
+      const transactionInfo = await getTransactionInfoByTid(transaction._id);
+      console.info("Transaction Info:", transactionInfo);
+
+      // Get date in MM DD, YY format
+      let formattedDate = formatTransactionDate(transactionInfo);
+
+      return {
+        id: transaction._id,
+        date: formattedDate,
+        name: transactionInfo.description,
+        payer: await getUserNameById(transaction.payer),
+        payerId: transaction.payer,
+        amount: transaction.amount,
+      };
+    })
+  );
+}
