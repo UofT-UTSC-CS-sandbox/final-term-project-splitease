@@ -11,14 +11,13 @@
 
 ## Process - Reflection
 
-During iteration 2, we managed to setup the more pages for our app, including two features, adding friends and adding groups.
+During iteration 2, we managed to setup the more pages for our app, including more features, managing friends and adding groups, showing the transaction and bill split between the user and a friend. 
 Our app now features a frontend with over ten pages, two more available features, and comprehensive backend logic matching the frontend.
 The group worked together with jobs assigned and each completed their assigned user stories.
 
 #### Decisions that turned out well
 
-1. Focused on intuitive UI/UX design, ensuring a user-friendly interface for a better overall experience, we kept our style mostly the same for
-   the app UI. When adding more pages, we do our best to ensure our style stays the same.
+1.We added the transaction display split between friends, showing them from either point of view, now a user can check the total balance between them and a friend.
 2. We choose to add the option of involving adding and deleting group and friend to ensure the aspect of splitting in our website.
 3. We choose to add the change password feature to enhance the user's experience.
 
@@ -34,16 +33,16 @@ No major planned changes in this iteration.
 ## Product - Review
 
 #### Goals and/or tasks that were met/completed
-
-1.Completed the feature of adding and deleting a friend/group for a user.
-
+1.Completed the feature of adding and deleting a friend/group for a user, the split transactions are now visiable to the user the person who they split with. Added friends detail page so the user can quickly track recent activities with their friends.
+![add_friend](images/friend_add.png)
+![Transaciton](images/transaction.png)
 2.Completed the changing password feature.
 
 3.Added some buffer page to direct the user more clearly.
-
+![Setting_buffer](images/settings_buffer.png)
 #### Goals and/or tasks that were planned but not met/completed
 
-1. We did not complete the feature of displaying a transaction with friend and group. This is due to the time limitation.
+1. We did not complete the feature of choosing how to split the bill with friend/group. This is due to time limitation.
 
 2. We have not yet implemented the feature of changing the user avatar.
    The reason for this is the backend features on this part are not yet implemented.
@@ -54,7 +53,7 @@ Going into the next iteration, our main insights are,
 
 We will aim to implement the following feature in our next iteration:
 
-1. The user can check all transactions with a friend or within a group.
+1. The user can view the transaction details when they click on it.
 2. The user can select how to split a transaction, with friends or group, and how to split it.
 
 We will aim to follow the below principles and learn from our previous iteration, these are what we want to improve in the coming iteration:
