@@ -3,6 +3,7 @@ import UserInfo from "../components/UserInfo";
 import styles from "./MainPage.module.css";
 // TODO: Rename the MainPage css file, remove import styles statement above and change the className values in the return statement below
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../components/Functions.jsx";
 import axios from "axios";
 
 const MainPage = () => {
@@ -41,14 +42,15 @@ const MainPage = () => {
           return;
         }
 
-        for (let i = 0; i < transactions.length; i++) {
+        // for (let i = 0; i < transactions.length; i++) {
+        for (let i = transactions.length - 1; i >= 0; i--) {
           let transaction = transactions[i];
           let details = transaction.details;
           let total = 0;
           for (let j = 0; j < details.length; j++) {
             total += details[j].amount;
           }
-          let date_str = transaction.createdAt.split(".")[0];
+          let date_str = formatDate(transaction.createdAt);
           let desc_str = transaction.description;
           let amount_str = total.toFixed(2);
           let total_str = `${date_str} '${desc_str}': $${amount_str}`;

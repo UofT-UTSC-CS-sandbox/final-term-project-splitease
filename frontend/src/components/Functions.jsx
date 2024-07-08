@@ -35,17 +35,17 @@ export const getTransactionInfoByTid = async (id) => {
 
 /**
  *
- * @param {*} transactionInfo
+ * @param {*} transactionInfo.createdAt
  * @returns The date in `hh:mm AM/PM` if it is today, o/w `MM DD, YY`.
  */
-export function formatTransactionDate(transactionInfo) {
-  const date = new Date(transactionInfo.createdAt).toLocaleDateString("en-US", {
+export function formatDate(createdAt, comma = true) {
+  const date = new Date(createdAt).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "2-digit",
   });
   let formattedDate = date.split(", "); // Format MM DD YY
-  formattedDate = formattedDate[0] + " " + formattedDate[1];
+  formattedDate = formattedDate[0] + (comma ? ", " : " ") + formattedDate[1];
 
   // Check if date is today
   const today = new Date().toLocaleDateString("en-US", {
@@ -55,13 +55,10 @@ export function formatTransactionDate(transactionInfo) {
   });
   if (date === today) {
     // Make it hh:mm AM/PM
-    formattedDate = new Date(transactionInfo.createdAt).toLocaleTimeString(
-      "en-US",
-      {
-        hour: "numeric",
-        minute: "numeric",
-      }
-    );
+    formattedDate = new Date(createdAt).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+    });
   }
   return formattedDate;
 }
@@ -91,7 +88,7 @@ export async function parseTransactions(transactions) {
       console.info("Transaction Info:", transactionInfo);
 
       // Get date in MM DD, YY format
-      let formattedDate = formatTransactionDate(transactionInfo);
+      let formattedDate = formatDate(transactionInfo.createdAt, false);
 
       return {
         id: transaction._id,

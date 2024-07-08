@@ -2,12 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import {
-  getUserNameById,
-  getTransactionInfoByTid,
-  formatTransactionDate,
-  parseTransactions,
-} from "../components/Functions.jsx";
+import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import axios from "axios";
 
