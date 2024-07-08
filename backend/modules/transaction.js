@@ -40,8 +40,14 @@ export const addTransaction = async (uid, description, transactions) => {
         // return { amount };
         // TODO: Think about how to handle group transactions
       }
-      const num = friends.length;
-      const average = parseFloat(amount) / friends.length;
+
+      // Delete user themselves from friends
+      const index = friends.indexOf(uid);
+      if (index > -1) friends.splice(index, 1);
+
+      const num = friends.length + 1; // Including the user
+      const average = parseFloat(amount) / num;
+
       const transactions = await Promise.all(
         friends.map((fid) => createTransaction(uid, fid, average, _id))
       );
