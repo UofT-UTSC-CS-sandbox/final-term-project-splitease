@@ -12,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
 }
 
 .headerBackground {
@@ -44,4 +45,10 @@
     height: 24px;
     overflow: hidden;
     cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 5px;
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import "./AddGroups.css";
+import "../components/Universal.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 

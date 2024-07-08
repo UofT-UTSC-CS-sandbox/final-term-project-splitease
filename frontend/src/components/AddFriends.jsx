@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AddFriends.css";
+import "../components/Universal.css";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

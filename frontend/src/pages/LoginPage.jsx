@@ -22,7 +22,12 @@ const LoginPage = () => {
       <section className="loginPage">
         <div className="loginContainer">
           <div className="logoWrapper">
-            <img className="logo" loading="lazy" alt="" src="/SplitEaseLogo.jpeg" />
+            <img
+              className="logo"
+              loading="lazy"
+              alt=""
+              src="/SplitEaseLogo.png"
+            />
           </div>
           <LoginForm />
         </div>
