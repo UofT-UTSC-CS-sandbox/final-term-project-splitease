@@ -37,7 +37,7 @@ const FriendDetailPage = () => {
             name: "TransactionNameFoo",
             payer: await getUserNameById(transaction.payer),
             payerId: transaction.payer,
-            amount: transaction.amount.toFixed(2),
+            amount: transaction.amount,
           };
         })
       );
@@ -75,9 +75,7 @@ const FriendDetailPage = () => {
             </p>
           )}
         </div>
-        <div className="recent-activities-text">
-              Recent shared activities  
-          </div>
+        <div className="recent-activities-text">Recent shared activities</div>
         <div className="recent-activities-bar">
           {transactions.map((transaction) => (
             <div className="activity" key={transaction.id}>
@@ -90,13 +88,14 @@ const FriendDetailPage = () => {
                     ? transaction.payer + " (You)"
                     : transaction.payer}
                 </div>
-                {transaction.payer === friendsInfo.name ? (
+                {(transaction.payer === friendsInfo.name) ^
+                (transaction.amount < 0) ? (
                   <div className="activity-amount-negative">
-                    -${transaction.amount}
+                    -${Math.abs(transaction.amount).toFixed(2)}
                   </div>
                 ) : (
                   <div className="activity-amount-positive">
-                    ${transaction.amount}
+                    ${Math.abs(transaction.amount).toFixed(2)}
                   </div>
                 )}
               </div>
