@@ -1,6 +1,7 @@
 import express from "express";
 import { userRouter } from "./routers/user.js";
 import { friendRouter } from "./routers/friend.js";
+import { groupRouter } from "./routers/group.js";
 import { transactionRouter } from "./routers/transaction.js";
 import cors from "cors";
 
@@ -17,6 +18,7 @@ app.use(function (req, res, next) {
 
 app.use("/api/user/", userRouter);
 app.use("/api/friend/", friendRouter);
+app.use("/api/group/", groupRouter);
 app.use("/api/transaction/", transactionRouter);
 
 export const server = app.listen(PORT, function (err) {

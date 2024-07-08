@@ -1,10 +1,11 @@
 import { useCallback } from "react";
-import styles from "./AddTransactionPage.module.css";
+import "./AddTransactionPage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddTransactionPage = () => {
   const navigate = useNavigate();
+  const uid = localStorage.getItem("uid");
 
   const onConfirmTextClick = useCallback(() => {
     // Find text input with id="amount"
@@ -15,15 +16,27 @@ const AddTransactionPage = () => {
     }
 
     // No team/friend provided. Use sample data.
+    // TODO: Replace with actual friend data
     const transactions = [
       {
         group_id: 1,
-        friends: ["666d0493e6e4abae269d0bd0", "666d0495e6e4abae269d0bd2"],
+        friends: ["668b2904ce7791bfdfc4f6af", uid],
         amount: parseFloat(amount),
       },
     ];
     const description = "Test Trans";
     const id = localStorage.getItem("uid");
+
+    if (!id) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You need to log in first!",
+      }).then(() => {
+        navigate("/login");
+      });
+      return;
+    }
 
     // POST request to add a transaction
     axios
@@ -41,42 +54,37 @@ const AddTransactionPage = () => {
       });
   }, [navigate]);
 
-  const onDeleteIconClick = useCallback(() => {
-    navigate("/");
+  const onBackButtonClick = useCallback(() => {
+    navigate(-1);
   }, [navigate]);
   return (
-    <div className={styles.addtransactionpage}>
-      <div className={styles.addtransactionpageChild} />
-      <div className={styles.addATransaction}>Add a Transaction</div>
+    <div className={"addtransactionpage"}>
+      <div className={"addtransactionpageChild"} />
+      <div className={"addATransactionHeader"}>Add a Transaction</div>
       <img
-        className={styles.deleteIcon}
+        className={"deleteIcon"}
         alt=""
         src="/delete.svg"
-        onClick={onDeleteIconClick}
+        onClick={onBackButtonClick}
       />
-      <div className={styles.addtransactionpageItem} />
-      <div className={styles.addtransactionpageInner} />
-      <div className={styles.selectATeam}>
+      <div className={"selectATeam"}>
         Select a team or friend to share this bill
       </div>
-      <div className={styles.rectangleDiv} />
-      {/* Add float input here */}
-      <div className={styles.inputDiv}>
+      <div className={"rectangleDiv"} />
+      <div className={"inputDiv"}>
         <input
-          className={styles.input}
+          className={"input"}
           type="text"
           placeholder="Enter Amount"
           id="amount"
         />
       </div>
-      <img className={styles.lineIcon} alt="" src="/line-1.svg" />
-      <img className={styles.addtransactionpageChild1} alt="" />
-      <div className={styles.chooseAMethod}>
-        Choose a method to split this bill
-      </div>
-      <img className={styles.vectorIcon} alt="" src="/vector.svg" />
-      <div className={styles.youWillPay}>You will pay a total of $ 0.00</div>
-      <div className={styles.confirm} onClick={onConfirmTextClick}>
+      <img className={"lineIcon"} alt="" src="/line-1.svg" />
+      <img className={"line"} alt="" />
+      <div className={"chooseAMethod"}>Choose a method to split this bill</div>
+      <img className={"vectorIcon"} alt="" src="/vector.svg" />
+      <div className={"youWillPay"}>You will pay a total of $ 0.00</div>
+      <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
       </div>
     </div>

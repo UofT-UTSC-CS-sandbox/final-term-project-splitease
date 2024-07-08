@@ -1,120 +1,134 @@
 .frame-child2 {
-  height: 6.125rem;
-  width: 94.5rem;
-  position: relative;
-  background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-  display: none;
-  max-width: 100%;
+    height: 6.125rem;
+    width: 94.5rem;
+    position: relative;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    display: none;
+    max-width: 100%;
 }
+
 .login {
-  text-decoration: none;
-  width: 11.375rem;
-  position: absolute;
-  top:20%;
-  left:49%;
-  font-weight: 600;
-  color: inherit;
-  display: inline-block;
-  flex-shrink: 0;
-  z-index: 1;
+    text-decoration: none;
+    width: 11.375rem;
+    position: absolute;
+    top: 20%;
+    left: 49%;
+    font-weight: 600;
+    color: inherit;
+    display: inline-block;
+    flex-shrink: 0;
+    z-index: 1;
 }
+
 .rectangle-container {
-  align-self: stretch;
-  background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 3.062rem 37.25rem 1.187rem;
-  box-sizing: border-box;
-  top: 0;
-  z-index: 99;
-  position: sticky;
-  max-width: 100%;
-  text-align: left;
-  font-size: 1.25rem;
-  color: #000;
-  font-family: Kanit;
+    align-self: stretch;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 3.062rem 37.25rem 1.187rem;
+    box-sizing: border-box;
+    top: 0;
+    z-index: 99;
+    position: sticky;
+    max-width: 100%;
+    text-align: left;
+    font-size: 1.25rem;
+    color: #000;
+    font-family: Kanit;
 }
+
 .frame-child3 {
-  align-self: stretch;
-  width: 15.938rem;
-  position: relative;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  background-color: #fff;
+    align-self: stretch;
+    width: 15.938rem;
+    position: relative;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
 }
+
 .rectangle-wrapper {
-  width: 28.063rem;
-  flex: 1;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0 1.25rem;
-  box-sizing: border-box;
+    width: 28.063rem;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
 }
+
 .frame-parent1,
 .LoginPage-1-inner,
 .rectangle-wrapper {
-  display: flex;
-  align-items: flex-start;
-  max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
 }
+
 .frame-parent1 {
-  align-self: stretch;
-  width: 33.125rem;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 2.375rem;
+    align-self: stretch;
+    width: 33.125rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2.375rem;
 }
+
 .LoginPage-1-inner {
-  width: 88.625rem;
-  height: 32.188rem;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0 1.25rem;
-  box-sizing: border-box;
+    width: 88.625rem;
+    height: 32.188rem;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
 }
+
 .LoginPage-1 {
-  width: 100%;
-  position: relative;
-  background-color: #fff;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 0 0.437rem 17.187rem 0;
-  box-sizing: border-box;
-  gap: 5.875rem;
-  line-height: normal;
-  letter-spacing: normal;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 0.437rem 17.187rem 0;
+    box-sizing: border-box;
+    gap: 5.875rem;
+    line-height: normal;
+    letter-spacing: normal;
 }
+
 @media screen and (max-width: 1200px) {
-  .rectangle-container {
-    padding-left: 18.625rem;
-    padding-right: 18.625rem;
-    box-sizing: border-box;
-  }
+    .rectangle-container {
+        padding-left: 18.625rem;
+        padding-right: 18.625rem;
+        box-sizing: border-box;
+    }
 }
+
 @media screen and (max-width: 750px) {
-  .rectangle-container {
-    padding-left: 9.313rem;
-    padding-right: 9.313rem;
-    box-sizing: border-box;
-  }
-  .frame-parent1 {
-    gap: 1.188rem;
-  }
-  .LoginPage-1 {
-    gap: 2.938rem;
-  }
+    .rectangle-container {
+        padding-left: 9.313rem;
+        padding-right: 9.313rem;
+        box-sizing: border-box;
+    }
+
+    .frame-parent1 {
+        gap: 1.188rem;
+    }
+
+    .LoginPage-1 {
+        gap: 2.938rem;
+    }
 }
+
 @media screen and (max-width: 450px) {
-  .rectangle-container {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    box-sizing: border-box;
-  }
-  .LoginPage-1 {
-    gap: 1.438rem;
-  }
+    .rectangle-container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        box-sizing: border-box;
+    }
+
+    .LoginPage-1 {
+        gap: 1.438rem;
+    }
 }
