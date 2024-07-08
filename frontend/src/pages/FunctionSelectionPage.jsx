@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FunctionSelectionPage.css";
+import "../components/Universal.css";
 
 const FunctionSelectionPage = () => {
   const navigate = useNavigate();
@@ -18,17 +19,16 @@ const FunctionSelectionPage = () => {
   }, [navigate]);
 
   return (
-    <div className={"functionselectionpage"}>
-      <header className={"headerParent"}>
-        <img
-          className={"deleteIcon"}
-          loading="lazy"
-          alt=""
-          src="/delete.svg"
-          onClick={onBackButtonClick}
-        />
-        <a className={"selectAnAction"}>Select an action</a>
-      </header>
+    <div className={"pageContainer"}>
+      <div className={"headerBackground"} />
+      <div className={"headerText"}>Select an action</div>
+      <img
+        className={"deleteIcon"}
+        loading="lazy"
+        alt=""
+        src="/delete.svg"
+        onClick={onBackButtonClick}
+      />
       <section className={"friendsGroupsParent"} onClick={onFriendsGroupsClick}>
         <div className={"friendsGroupsChild"}>
           <div className={"friendsGroups"}>Friends & Groups</div>

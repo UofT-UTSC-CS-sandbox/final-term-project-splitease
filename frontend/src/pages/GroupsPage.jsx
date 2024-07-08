@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./GroupsPage.css";
 import AddGroups from "../components/AddGroups";
+import "../components/Universal.css";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
@@ -66,9 +67,9 @@ const GroupsPage = () => {
   }, [uid]);
 
   return (
-    <div className="groupspage">
-      <div className="groupspageChild">
-        <div className="groupsHeader">Groups</div>
+    <div className="pageContainer">
+      <div className="headerBackground">
+        <div className="headerText">Groups</div>
         <img
           className="deleteIcon"
           alt=""

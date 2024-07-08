@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
+import "../components/Universal.css";
 import axios from "axios";
 
 const FriendDetailPage = () => {
@@ -43,9 +44,9 @@ const FriendDetailPage = () => {
   }, [navigate]);
 
   return (
-    <div className="friend-detail-page">
-      <div className="detailpageheader">
-        <div className="friendsHeader">Friend Details</div>
+    <div className="pageContainer">
+      <div className="headerBackground">
+        <div className="headerText">Friend Details</div>
         <img
           className="deleteIcon"
           alt=""

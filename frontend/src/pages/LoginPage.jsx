@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginComponent";
+import "../components/Universal.css";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -15,15 +16,13 @@ const LoginPage = () => {
   }, [navigate]);
 
   return (
-    <div className="LoginPage-1">
-      <header className="rectangle-container">
-        <div className="frame-child2" />
-        <a className="login">Login or Register</a>
-      </header>
-      <section className="LoginPage-1-inner">
-        <div className="frame-parent1">
-          <div className="rectangle-wrapper">
-            <div className="frame-child3" />
+    <div className="pageContainer">
+      <div className="headerBackground" />
+      <div className="headerText">Login/Register</div>
+      <section className="loginPage">
+        <div className="loginContainer">
+          <div className="logoWrapper">
+            <img className="logo" loading="lazy" alt="" src="/SplitEaseLogo.jpeg" />
           </div>
           <LoginForm />
         </div>

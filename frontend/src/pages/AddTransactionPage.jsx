@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import "./AddTransactionPage.css";
+import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -58,9 +59,9 @@ const AddTransactionPage = () => {
     navigate(-1);
   }, [navigate]);
   return (
-    <div className={"addtransactionpage"}>
-      <div className={"addtransactionpageChild"} />
-      <div className={"addATransactionHeader"}>Add a Transaction</div>
+    <div className={"pageContainer"}>
+      <div className={"headerBackground"} />
+      <div className={"headerText"}>Add a Transaction</div>
       <img
         className={"deleteIcon"}
         alt=""

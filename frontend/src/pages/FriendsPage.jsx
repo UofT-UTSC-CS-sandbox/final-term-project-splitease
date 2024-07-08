@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "./FriendsPage.css";
+import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddFriends from "../components/AddFriends";
@@ -125,9 +126,9 @@ const FriendsPage = () => {
   }, [uid]);
 
   return (
-    <div className="friendspage">
-      <div className="friendspageChild">
-        <div className="friendsHeader">Friends</div>
+    <div className="pageContainer">
+      <div className="headerBackground">
+        <div className="headerText">Friends</div>
         <img
           className="deleteIcon"
           alt=""

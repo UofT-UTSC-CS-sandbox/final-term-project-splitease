@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import "./ProfileEditorPage.css";
+import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 
 const ProfileEditor = () => {
@@ -23,16 +24,15 @@ const ProfileEditor = () => {
   }, [navigate]);
 
   return (
-    <div className="editor">
-      <div className="profileEditorInner" />
+    <div className="pageContainer">
+      <div className="headerBackground" />
+      <div className="headerText">Upload Avatar</div>
       <img
         className="deleteIcon"
         alt=""
         src="/delete.svg"
         onClick={onBackButtonClick}
       />
-      <div className="uploadAvatar">Upload Avatar</div>
-
       <div className="avatarsection">
         <img src={avatar} alt="Avatar" className="avatar" />
         <input type="file" accept="image/*" onChange={handleAvatarChange} />
