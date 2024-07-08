@@ -7,7 +7,11 @@ import { verifyUserById } from "./user.js";
 export const geAllTransactions = async () => {
   const transaction = await Transaction.find();
   return transaction;
-  // return [transaction[0].payer.equals(new ObjectId("652b1a37f9e89d6b18dc1db0"))];
+};
+
+export const getAllTransactionInfo = async () => {
+  const transactionInfo = await TransactionInfo.find();
+  return transactionInfo;
 };
 
 const createTransaction = async (payer, payee, amount, transactionInfoId) => {
@@ -57,6 +61,35 @@ export const addTransaction = async (uid, description, transactions) => {
   );
   const info = { _id, payer: uid, description, details };
   return await createTransactionInfo(info);
+};
+
+/**
+ *
+ * @param {*} id : transaction._id
+ * @returns null || transaction
+ */
+export const getTransactionById = async (id) => {
+  return await TransactionInfo.findById(id);
+};
+
+/**
+ *
+ * @param {*} id : transactionInfo._id
+ * @returns null || transactionInfo
+ */
+export const getTransactionInfoByInfoId = async (id) => {
+  return await TransactionInfo.findById(id);
+};
+
+/**
+ *
+ * @param {*} id : transaction._id
+ * @returns null || transactionInfo
+ */
+export const getTransactionInfoByTid = async (id) => {
+  const transaction = await Transaction.findById(id);
+  if (!transaction) return null;
+  return await TransactionInfo.findById(transaction.transactionInfoId);
 };
 
 export const getTransactionByUser = async (id) => {

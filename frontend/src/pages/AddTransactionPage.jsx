@@ -20,11 +20,11 @@ const AddTransactionPage = () => {
     const transactions = [
       {
         group_id: 1,
-        friends: ["668b2904ce7791bfdfc4f6af", uid],
+        friends: ["666eacf43ca32def0e16e943", uid],
         amount: parseFloat(amount),
       },
     ];
-    const description = "Test Trans";
+    const description = "TransDescFoo";
     const id = localStorage.getItem("uid");
 
     if (!id) {
