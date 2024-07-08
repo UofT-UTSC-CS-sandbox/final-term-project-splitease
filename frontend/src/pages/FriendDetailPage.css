@@ -14,9 +14,11 @@
 }
 .activity-amount-positive {
     color: red;
+    margin:auto;
 }
 .activity-amount-negative {
     color: green;
+    margin:auto;
 }
 
 .balance-negative {
@@ -152,12 +154,14 @@
 
 .activity-name {
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .activity-cost,
 .activity-split,
 .activity-owe {
     margin-top: 5px;
+    margin: 0 auto;
 }
 
 .activity-owe {

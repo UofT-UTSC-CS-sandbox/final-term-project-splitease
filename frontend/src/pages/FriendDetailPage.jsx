@@ -88,7 +88,8 @@ const FriendDetailPage = () => {
                     ? transaction.payer + " (You)"
                     : transaction.payer}
                 </div>
-                {(transaction.payer === friendsInfo.name) ^
+              </div>
+              {(transaction.payer === friendsInfo.name) ^
                 (transaction.amount < 0) ? (
                   <div className="activity-amount-negative">
                     -${Math.abs(transaction.amount).toFixed(2)}
@@ -98,7 +99,6 @@ const FriendDetailPage = () => {
                     ${Math.abs(transaction.amount).toFixed(2)}
                   </div>
                 )}
-              </div>
             </div>
           ))}
         </div>
