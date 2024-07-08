@@ -20,7 +20,7 @@ const AddTransactionPage = () => {
     const transactions = [
       {
         group_id: 1,
-        friends: ["666eacf43ca32def0e16e943", "666ead823ca32def0e16e9f1", uid],
+        friends: ["668b2904ce7791bfdfc4f6af", uid],
         amount: parseFloat(amount),
       },
     ];

@@ -16,9 +16,7 @@ const SettingsLogoutPage = () => {
 
   const onLogoutClick = useCallback(() => {
     // Clear local storage
-    localStorage.removeItem("uid");
-    localStorage.removeItem("u_name");
-    localStorage.removeItem("transactions");
+    localStorage.clear();
 
     // Navigate to login page
     Swal.fire("Logged out!", "You are now logged out.", "success").then(() => {
