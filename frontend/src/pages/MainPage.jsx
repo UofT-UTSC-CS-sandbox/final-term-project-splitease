@@ -5,6 +5,7 @@ import styles from "./MainPage.module.css";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../components/Functions.jsx";
 import axios from "axios";
+import TransactionActivity from "../components/TransactionBlock.jsx";
 
 const MainPage = () => {
   const navigate = useNavigate();

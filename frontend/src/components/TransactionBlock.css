@@ -1,0 +1,73 @@
+.activity {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+}
+.activity-text {
+    font-weight: bold;
+}
+.activity-amount {
+    font-weight: bold;
+}
+.activity-amount-positive {
+    color: red;
+    margin:auto;
+}
+.activity-amount-negative {
+    color: green;
+    margin:auto;
+}
+
+
+
+.content {
+    width: 90%;
+    max-width: 900px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activity {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.activity-date {
+    width: 70px;
+    font-weight: bold;
+}
+
+.activity-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.activity-name {
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+.activity-cost,
+.activity-split,
+.activity-owe {
+    margin-top: 5px;
+    margin: 0 auto;
+}
+
+.activity-owe {
+    color: red;
+}

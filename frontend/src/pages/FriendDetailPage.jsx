@@ -6,6 +6,7 @@ import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import "../components/Universal.css";
 import axios from "axios";
+import TransactionActivity from "../components/TransactionBlock.jsx";
 
 const FriendDetailPage = () => {
   const { fid } = useParams();
@@ -69,34 +70,11 @@ const FriendDetailPage = () => {
           )}
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
-        <div className="recent-activities-bar">
-          {transactions.map((transaction) => (
-            <div className="activity" key={transaction.id}>
-              <div className="activity-date">{transaction.date}</div>
-              <div className="activity-details">
-                <div className="activity-name">{transaction.name}</div>
-                <div className="activity-split">
-                  Paid by:{" "}
-                  {transaction.payerId === uid
-                    ? transaction.payer + " (You)"
-                    : transaction.payer}
-                </div>
-              </div>
-              {(transaction.payer === friendsInfo.name) ^
-              (transaction.amount < 0) ? (
-                <div className="activity-amount-negative">
-                  -${Math.abs(transaction.amount).toFixed(2)}
-                </div>
-              ) : (
-                <div className="activity-amount-positive">
-                  ${Math.abs(transaction.amount).toFixed(2)}
-                </div>
-              )}
-            </div>
-          ))}
+            <div className="recent-activities-bar">
+              <TransactionActivity transactions={transactions} uid={uid} friendsInfo={friendsInfo} />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

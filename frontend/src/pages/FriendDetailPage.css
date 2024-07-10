@@ -58,7 +58,7 @@
     text-align: center;
     overflow-y: auto; 
     height: 400px; 
-    position: fixed;
+    position: absolute;
     top: 350px;
 }
 
@@ -70,7 +70,7 @@
     margin: 0 auto; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    position: fixed;
+    position: absolute;
     top: 100px; 
     left: 50%;
     transform: translateX(-50%);
@@ -93,7 +93,7 @@
 }
 .recent-activities-text {
     font-size: 1.3em;
-    position: fixed;
+    position: absolute;
     top: 280px; 
     left: 50%; 
     transform: translateX(-50%); 
