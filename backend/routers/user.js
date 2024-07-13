@@ -6,6 +6,7 @@ import {
   registerUser,
   getAllUsers,
   verifyUserById,
+  getUserByPartialName,
 } from "../modules/user.js";
 import {
   getUserBalance,
@@ -264,6 +265,32 @@ userRouter.get("/timeline/:id", async function (req, res) {
         res.status(200).json(timeline);
       } else {
         res.status(401).json({ error: "Invalid user" });
+      }
+    } catch (e) {
+      console.error("e", e);
+      res.status(500).json({ error: `Unknown server error: ${e}` });
+    }
+  }
+});
+
+// Get user by partial name
+userRouter.get("/partial/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid name" });
+  }
+
+  // Get user by partial name
+  else {
+    try {
+      const users = await getUserByPartialName(name);
+      if (users) {
+        console.info("users", users);
+        res.status(200).json({ users: users });
+      } else {
+        res.status(401).json({ error: "User not found" });
       }
     } catch (e) {
       console.error("e", e);

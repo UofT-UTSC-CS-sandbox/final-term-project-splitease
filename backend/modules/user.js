@@ -57,3 +57,8 @@ export const registerUser = async (name, password) => {
   const result = await user.save(); // returns the user object
   return result._id;
 };
+
+// Get user by partial name
+export const getUserByPartialName = async (name) => {
+  return await User.find({ name: { $regex: name, $options: "i" } });
+};
