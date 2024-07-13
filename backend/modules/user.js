@@ -59,6 +59,9 @@ export const registerUser = async (name, password) => {
 };
 
 // Get user by partial name
+// Match jump chars, i.e., `test1` can be found by `es1`, `est`, etc.
 export const getUserByPartialName = async (name) => {
-  return await User.find({ name: { $regex: name, $options: "i" } });
+  // Match jump chars
+  const regex = new RegExp(name.split("").join(".*"), "i");
+  return await User.find({ name: regex });
 };
