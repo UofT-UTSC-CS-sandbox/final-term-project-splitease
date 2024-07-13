@@ -4,7 +4,10 @@ import {
   getGroups,
   getGroupNameById,
   getAllGroups,
+  inviteFriend,
 } from "../modules/group.js";
+import { validateFriend } from "../modules/friend.js";
+import Group from "../models/Group.js";
 
 export const groupRouter = express.Router();
 
@@ -92,5 +95,52 @@ groupRouter.post("/add/:id", async function (req, res) {
       console.error("e", e);
       res.status(500).json({ error: `Unknown server error: ${e}` });
     }
+  }
+});
+
+// Invite a friend to a group
+groupRouter.post("/invite", async function (req, res) {
+  const { id, groupId, friendId } = req.body;
+
+  // Validate uid, groupId, and friendId
+  if (!id || !groupId || !friendId) {
+    res.status(401).json({ error: "Invalid user id, group id, or friend id" });
+    return;
+  }
+
+  // Invite friend to group
+  const { isValid, user, friendUser } = await validateFriend(id, friendId);
+  const group = await Group.findById(groupId);
+  if (!isValid) {
+    res.status(401).json({ error: "Friendship validation failed" });
+    return;
+  }
+  if (!group) {
+    res.status(401).json({ error: "Group not found" });
+    return;
+  }
+
+  // Add friend to group
+  try {
+    const result = await inviteFriend(id, groupId, friendId);
+    if (result) {
+      console.info("Successfully invited friend to group");
+      console.info(id, groupId, friendId);
+      res.status(200).json(result);
+    } else {
+      console.error("Failed to invite friend to group");
+      let error_str = "faulty user, group, or friend";
+      if (!user || !group || !friendUser)
+        error_str = "Invalid user, group, or friend";
+      if (!group.members.includes(user._id.toString()))
+        error_str = "User is not a member of the group";
+      if (friendUser.groups.includes(groupId))
+        error_str = "Friend is already a member of the group";
+      res.status(401).json({ error: error_str });
+      return;
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });

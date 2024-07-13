@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Group from "../models/Group.js";
+import { validateFriend } from "./friend.js";
 
 // Get all groups
 export const getAllGroups = async () => {
@@ -14,6 +15,17 @@ export const getGroups = async (id) => {
   }
   console.log("the user has prooblem");
   return null;
+};
+
+// Check if user is in this group
+export const validateGroup = async (uid, groupId, friendId) => {
+  const user = await User.findById(uid);
+  const group = await Group.findById(groupId);
+  const friendUser = await User.findById(friendId);
+  if (!user || !group || !friendUser) return false;
+  if (!group.members.includes(user._id.toString())) return false;
+  if (friendUser.groups.includes(groupId)) return false;
+  return true;
 };
 
 // Get group name by group id
@@ -127,4 +139,29 @@ export const removeGroup = async (id, groupId) => {
     return true;
   }
   return false;
+};
+
+// Invite a friend to a group
+export const inviteFriend = async (id, groupId, friendId) => {
+  if (!(await validateGroup(id, groupId, friendId))) return false;
+
+  const user = await User.findById(id);
+  const group = await Group.findById(groupId);
+  if (!user || !group) return false;
+
+  const { isValid, _, friendUser } = await validateFriend(id, friendId);
+  if (!isValid) return false;
+
+  // Check if friend is already in the group
+  if (group.members.includes(friendUser._id)) return false;
+
+  // Add friend to group
+  group.members.push(friendUser._id);
+  await group.save();
+
+  // Add group to friend
+  friendUser.groups.push(groupId);
+  await friendUser.save();
+
+  return true;
 };
