@@ -106,6 +106,10 @@ export const getTransactionByUserAndFriend = async (uid, fid) => {
   return transactions;
 };
 
+export const getTransactionByGroup = async (gid) => {
+  return await TransactionInfo.find({ group_id: gid });
+};
+
 export const getUserBalance = async (uid) => {
   const cost = await getUserCost(uid);
   const pay = await getUserPay(uid);

@@ -8,6 +8,7 @@ import {
 } from "../modules/group.js";
 import { validateFriend } from "../modules/friend.js";
 import Group from "../models/Group.js";
+import { getTransactionByGroup } from "../modules/transaction.js";
 
 export const groupRouter = express.Router();
 
@@ -138,6 +139,34 @@ groupRouter.post("/invite", async function (req, res) {
         error_str = "Friend is already a member of the group";
       res.status(401).json({ error: error_str });
       return;
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group details (name, members, recent transactions)
+groupRouter.get("/details/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid group id" });
+    return;
+  }
+
+  // Get group details
+  try {
+    const group = await Group.findById(id);
+    // Get recent transactions
+    const transactions = await getTransactionByGroup(id);
+    if (group) {
+      console.info("group", group);
+      group.transactions = transactions;
+      res.status(200).json(group);
+    } else {
+      res.status(401).json({ error: "Group not found" });
     }
   } catch (e) {
     console.error("e", e);
