@@ -7,6 +7,7 @@ import {
   getAllUsers,
   verifyUserById,
   getUserByPartialName,
+  changePassword,
 } from "../modules/user.js";
 import {
   getUserBalance,
@@ -291,6 +292,32 @@ userRouter.get("/partial/:name", async function (req, res) {
         res.status(200).json({ users: users });
       } else {
         res.status(401).json({ error: "User not found" });
+      }
+    } catch (e) {
+      console.error("e", e);
+      res.status(500).json({ error: `Unknown server error: ${e}` });
+    }
+  }
+});
+
+// Change password
+userRouter.post("/password/change", async function (req, res) {
+  const { uid, password } = req.body;
+
+  // Validate uid and password
+  if (!uid || !password) {
+    res.status(401).json({ error: "Invalid user id or password" });
+  }
+
+  // Change password
+  else {
+    try {
+      const status = await changePassword(uid, password);
+      if (status) {
+        console.info("password changed", status);
+        res.status(200).json({ status: status });
+      } else {
+        res.status(401).json({ error: "Password not changed" });
       }
     } catch (e) {
       console.error("e", e);

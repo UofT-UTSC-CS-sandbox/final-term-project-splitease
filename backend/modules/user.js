@@ -65,3 +65,15 @@ export const getUserByPartialName = async (name) => {
   const regex = new RegExp(name.split("").join(".*"), "i");
   return await User.find({ name: regex });
 };
+
+// Change password
+export const changePassword = async (id, password) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await User.findById(id);
+  if (await bcrypt.compare(password, user.password)) {
+    return false;
+  }
+  user.password = hashedPassword;
+  await user.save();
+  return true;
+};
