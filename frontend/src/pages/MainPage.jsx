@@ -98,6 +98,8 @@ const MainPage = () => {
     navigate("/addtransactionpage");
   }, [navigate]);
 
+  
+
   return (
     <div className="mainpage">
       <div className="addTransactionParent">
