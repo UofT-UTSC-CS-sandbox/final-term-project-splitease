@@ -112,7 +112,8 @@ const MainPage = () => {
         <div className="recentActionsWrapper">
           <b className="recentActions">Recent actions</b>
         </div>
-        <div className="fix-transactions">
+      </div>
+      <div className="fix-transactions">
           <div className="transaction-wrapper">
             <TransactionActivity
               transactions={test_transactions}
@@ -121,7 +122,6 @@ const MainPage = () => {
             />
           </div>
         </div>
-      </div>
     </div>
   );
 };
