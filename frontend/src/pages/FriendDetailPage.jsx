@@ -1,7 +1,5 @@
-import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { React, useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import "../components/Universal.css";
@@ -47,7 +45,7 @@ const FriendDetailPage = () => {
   return (
     <div className="pageContainer">
       <div className="headerBackground">
-        <div className="headerText">Friend Details</div>
+        <div className="headerText">Friend Transaction Details</div>
         <img
           className="deleteIcon"
           alt=""
@@ -70,11 +68,15 @@ const FriendDetailPage = () => {
           )}
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
-            <div className="recent-activities-bar">
-              <TransactionActivity transactions={transactions} uid={uid} friendsInfo={friendsInfo} />
-          </div>
+        <div className="recent-activities-bar">
+          <TransactionActivity
+            transactions={transactions}
+            uid={uid}
+            friendsInfo={friendsInfo}
+          />
         </div>
       </div>
+    </div>
   );
 };
 

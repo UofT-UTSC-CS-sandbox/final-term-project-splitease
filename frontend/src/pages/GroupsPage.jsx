@@ -20,8 +20,12 @@ const GroupsPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const onGroupClick = useCallback(() => {
+  const onGroupClick = useCallback((e) => {
     // TODO: Display group details
+    // console.log("Group clicked:", e.currentTarget.id);
+    // const gid = e.currentTarget.id;
+    // navigate("/groupdetailpage/" + gid);
+    navigate("/groupdetailpage");
   }, [navigate]);
 
   const onCloseButton = (index) => {

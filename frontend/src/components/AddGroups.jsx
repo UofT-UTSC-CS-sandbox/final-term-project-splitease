@@ -70,9 +70,6 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
       console.log("Form validation failed");
       return;
     }
-    // const userConfirmed = window.confirm(
-    //   "Are you sure you want to create this group?"
-    // );
     Swal.fire({
       title: "Are you sure?",
       text: "Are you sure you want to create this group?",

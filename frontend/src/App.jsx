@@ -19,7 +19,8 @@ import AddFriends from "./components/AddFriends";
 import AddGroups from "./components/AddGroups";
 import ProfileBufferPage from "./pages/ProfileBufferPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
-import FriendDetailPage from "./pages/FriendDetailPage"; //add
+import FriendDetailPage from "./pages/FriendDetailPage";
+import GroupDetailPage from "./pages/GroupDetailPage";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -44,6 +45,7 @@ function App() {
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
       <Route path="/frienddetailpage/:fid" element={<FriendDetailPage />} />
+      <Route path="/groupdetailpage" element={<GroupDetailPage />} />
     </Routes>
   );
 }
