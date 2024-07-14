@@ -28,11 +28,18 @@
                 "<node_internals>/**"
             ],
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Start Frontend & Backend (silent)",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "Start Frontend & Backend",
+            "problemMatcher": []
         }
     ],
     "compounds": [
         {
-            "name": "Start Frontend & Backend",
+            "name": "Start Frontend & Backend (with bar)",
             "configurations": [
                 "Start Frontend",
                 "Start Backend"

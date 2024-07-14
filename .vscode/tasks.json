@@ -31,7 +31,7 @@
                 "Start Frontend",
                 "Start Backend"
             ],
-            // "dependsOrder": "parallel",
+            "dependsOrder": "parallel",
             "problemMatcher": []
         }
     ]
