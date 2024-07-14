@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import UserInfo from "../components/UserInfo";
-import styles from "./MainPage.module.css";
+import "./MainPage.css";
 // TODO: Rename the MainPage css file, remove import styles statement above and change the className values in the return statement below
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../components/Functions.jsx";
@@ -26,7 +26,7 @@ const MainPage = () => {
       name: "test1",
       payerId: "test1",
       payer: "test1",
-      amount: 100
+      amount: 100,
     },
     {
       id: "2",
@@ -34,7 +34,7 @@ const MainPage = () => {
       name: "test2",
       payerId: "test2",
       payer: "test2",
-      amount: 100
+      amount: 100,
     },
   ];
 
@@ -99,30 +99,28 @@ const MainPage = () => {
   }, [navigate]);
 
   return (
-    <div className={styles.mainpage}>
-      <div className={styles.mainpageChild} />
-      <div className={styles.vectorParent}>
-      </div>
-      <div className={styles.frameParent}>
-        <div className={styles.addATransactionWrapper}>
-          <a
-            className={styles.addATransaction}
-            onClick={onAddATransactionClick}
-          >
-            add a transaction
+    <div className="mainpage">
+      <div className="addTransactionParent">
+        <div className="addTransactionWrapper">
+          <a className="addTransaction" onClick={onAddATransactionClick}>
+            Add a transaction
           </a>
         </div>
-        <div className={"frameGroup"}>
+        <div className="recentActionsParent">
           <UserInfo />
-          <div className={styles.recentActionsWrapper}>
-            <b className={styles.recentActions}>Recent actions</b>
+        </div>
+        <div className="recentActionsWrapper">
+          <b className="recentActions">Recent actions</b>
+        </div>
+        <div className="fix-transactions">
+          <div className="transaction-wrapper">
+            <TransactionActivity
+              transactions={test_transactions}
+              uid={test_uid}
+              friendsInfo={test_friendsInfo}
+            />
           </div>
         </div>
-        <div className="fix-transactions ">
-          <div className="transaction-wrapper">
-            <TransactionActivity transactions={test_transactions} uid={test_uid} friendsInfo={test_friendsInfo} />
-          </div>
-          </div>
       </div>
     </div>
   );
