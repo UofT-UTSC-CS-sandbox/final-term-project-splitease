@@ -43,6 +43,11 @@ const AddTransactionPage = () => {
     }
   };
 
+  const onSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+
   const handleMethodTypeChange = (e) => {
     setMethodType(e.target.value);
   };
@@ -153,7 +158,11 @@ const AddTransactionPage = () => {
         {suggestions.length > 0 && (
           <ul className="suggestions-list">
             {suggestions.map((suggestion, index) => (
-              <li key={index} className="suggestion-item">
+              <li
+                key={index}
+                className="suggestion-item"
+                onClick={() => onSuggestionClick(suggestion)}
+              >
                 {suggestion}
               </li>
             ))}
