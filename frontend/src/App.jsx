@@ -21,6 +21,7 @@ import ProfileBufferPage from "./pages/ProfileBufferPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import FriendDetailPage from "./pages/FriendDetailPage";
 import GroupDetailPage from "./pages/GroupDetailPage";
+import TransactionDetailPage from "./pages/TransactionDetailPage";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
@@ -46,6 +47,7 @@ function App() {
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
       <Route path="/frienddetailpage/:fid" element={<FriendDetailPage />} />
       <Route path="/groupdetailpage" element={<GroupDetailPage />} />
+      <Route path="/transactiondetailpage" element={<TransactionDetailPage />} />
     </Routes>
   );
 }

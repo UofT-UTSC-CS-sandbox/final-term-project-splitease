@@ -42,10 +42,17 @@ const FriendDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
+  const handleTransactionClick = useCallback((e) => {
+    // create a special link to 特定的transactionDetail Page
+    const uid = e.currentTarget.uid;
+    navigate("/transactiondetailpage/");
+  },
+    [navigate]
+  );
   return (
     <div className="pageContainer">
       <div className="headerBackground">
-        <div className="headerText">Friend Transaction Details</div>
+        <div className="headerText">Friend Details</div>
         <img
           className="deleteIcon"
           alt=""
@@ -68,16 +75,16 @@ const FriendDetailPage = () => {
           )}
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
-        <div className="recent-activities-bar">
-          <TransactionActivity
-            transactions={transactions}
-            uid={uid}
-            friendsInfo={friendsInfo}
-          />
+        <div className="recent-activities-bar"
+          onClick={handleTransactionClick} style={{ cursor: 'pointer' }}>
+          <TransactionActivity transactions={transactions} uid={uid} friendsInfo={friendsInfo} />
+
+
+
         </div>
       </div>
     </div>
-  );
+  );        //go to transcation detail page 这里添加 跳转到 Transaction detail page的方式 onClick
 };
 
 export default FriendDetailPage;
