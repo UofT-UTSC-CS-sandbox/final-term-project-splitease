@@ -18,7 +18,28 @@ const MainPage = () => {
       navigate("/login");
     }
   }, []);
+  //mock data
+  const test_transactions = [
+    {
+      id: "1",
+      date: "July 13",
+      name: "test1",
+      payerId: "test1",
+      payer: "test1",
+      amount: 100
+    },
+    {
+      id: "2",
+      date: "June 3",
+      name: "test2",
+      payerId: "test2",
+      payer: "test2",
+      amount: 100
+    },
+  ];
 
+  const test_uid = "1";
+  const test_friendsInfo = { name: "1" };
   // Update recent transactions
   useEffect(() => {
     // Get recent transactions
@@ -34,14 +55,14 @@ const MainPage = () => {
         );
 
         // Update on the page
-        const transactions = response.data.transactions;
-        if (transactions.length == 0) {
-          // TODO: modify the below code to correctly display a message when there are no transactions
-          document.querySelector(
-            "." + styles.aprilCosts11069 /*aprilCosts11069 DNE*/
-          ).textContent = "You have no recent transactions";
-          return;
-        }
+        // const transactions = response.data.transactions;
+        // if (transactions.length == 0) {
+        //   // TODO: modify the below code to correctly display a message when there are no transactions
+        //   document.querySelector(
+        //     "." + styles.aprilCosts11069 /*aprilCosts11069 DNE*/
+        //   ).textContent = "You have no recent transactions";
+        //   return;
+        // }
 
         // for (let i = 0; i < transactions.length; i++) {
         for (let i = transactions.length - 1; i >= 0; i--) {
@@ -57,14 +78,14 @@ const MainPage = () => {
           let total_str = `${date_str} '${desc_str}': $${amount_str}`;
           console.log(total_str);
 
-          // Update the transaction data on the page
-          let transactionElement = document.createElement("div");
-          transactionElement.textContent = total_str;
-          //Find element by text "Recent actions"
-          let recentActionsElement = document.querySelector(
-            // TODO: modify the below code to correctly select the recent actions element
-            "." + styles.recentActions
-          );
+          // // Update the transaction data on the page
+          // let transactionElement = document.createElement("div");
+          // transactionElement.textContent = total_str;
+          // //Find element by text "Recent actions"
+          // let recentActionsElement = document.querySelector(
+          //   // TODO: modify the below code to correctly select the recent actions element
+          //   "." + styles.recentActions
+          // );
           recentActionsElement.appendChild(transactionElement);
         }
       })
@@ -81,12 +102,6 @@ const MainPage = () => {
     <div className={styles.mainpage}>
       <div className={styles.mainpageChild} />
       <div className={styles.vectorParent}>
-        <img
-          className={styles.frameChild}
-          loading="lazy"
-          alt=""
-          src="/rectangle-3.svg"
-        />
       </div>
       <div className={styles.frameParent}>
         <div className={styles.addATransactionWrapper}>
@@ -103,6 +118,11 @@ const MainPage = () => {
             <b className={styles.recentActions}>Recent actions</b>
           </div>
         </div>
+        <div className="fix-transactions ">
+          <div className="transaction-wrapper">
+            <TransactionActivity transactions={test_transactions} uid={test_uid} friendsInfo={test_friendsInfo} />
+          </div>
+          </div>
       </div>
     </div>
   );

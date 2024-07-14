@@ -43,7 +43,6 @@ const FriendDetailPage = () => {
   }, [navigate]);
 
   const handleTransactionClick = useCallback((e) => {
-    // create a special link to 特定的transactionDetail Page
     const uid = e.currentTarget.uid;
     navigate("/transactiondetailpage/");
   },
@@ -78,13 +77,10 @@ const FriendDetailPage = () => {
         <div className="recent-activities-bar"
           onClick={handleTransactionClick} style={{ cursor: 'pointer' }}>
           <TransactionActivity transactions={transactions} uid={uid} friendsInfo={friendsInfo} />
-
-
-
         </div>
       </div>
     </div>
-  );        //go to transcation detail page 这里添加 跳转到 Transaction detail page的方式 onClick
+  );       
 };
 
 export default FriendDetailPage;

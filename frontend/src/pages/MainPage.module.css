@@ -157,7 +157,6 @@
 }
 
 .mainpage {
-    width: 100%;
     position: relative;
     background-color: var(--color-white);
     overflow: hidden;
@@ -186,4 +185,22 @@
     .mainpage {
         gap: 18px;
     }
+}
+
+.transaction-wrapper {
+    width: 90%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    overflow-y: auto; 
+    height: 400px; 
+    position: absolute;
+    top: 350px;
+    border: 2px solid red; 
+}
+.fix-transactions   {
+    min-width: 400px;
+    margin:auto;
 }
