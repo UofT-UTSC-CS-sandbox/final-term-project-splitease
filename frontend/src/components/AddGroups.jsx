@@ -88,7 +88,17 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
           });
           if (response.status === 200) {
             console.log("Group created successfully:", response.data);
-            navigate(0, { replace: true });
+            Swal.fire({
+              title: "Success!",
+              text: "Group created successfully",
+              icon: "success",
+            }).then(async (result) => {
+              if (result.isConfirmed) { {
+                navigate(0, { replace: true });
+              }
+            }
+            });
+            // navigate(0, { replace: true });
           } else {
             console.error("Error creating group:", response.data.error);
           }
