@@ -5,6 +5,7 @@ import {
   getGroupNameById,
   getAllGroups,
   inviteFriend,
+  deleteGroup,
 } from "../modules/group.js";
 import { validateFriend } from "../modules/friend.js";
 import Group from "../models/Group.js";
@@ -173,3 +174,31 @@ groupRouter.get("/details/:id", async function (req, res) {
     res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });
+
+// Delete a group
+groupRouter.delete("/delete/:id", async function (req, res) {
+  const { id } = req.params;
+  const { groupId } = req.body;
+
+  // Validate id and groupId
+  if (!id || !groupId) {
+    res.status(401).json({ error: "Invalid user id or group id" });
+    return;
+  }
+
+  // Remove group
+  try {
+    const { result, error } = await deleteGroup(id, groupId);
+    if (result) {
+      console.info("Successfully removed group");
+      res.status(200).json(result);
+    } else {
+      res.status(401).json({ error: error });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// TODO: Quit a group
