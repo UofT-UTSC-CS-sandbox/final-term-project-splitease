@@ -1,22 +1,19 @@
+import axios from "axios";
 import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { formatDate, validateUser } from "../components/Functions.jsx";
+import TransactionActivity from "../components/TransactionActivity.jsx";
 import UserInfo from "../components/UserInfo";
 import "./MainPage.css";
-import { useNavigate } from "react-router-dom";
-import { formatDate } from "../components/Functions.jsx";
-import axios from "axios";
-import TransactionActivity from "../components/TransactionActivity.jsx";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const uid = localStorage.getItem("uid");
 
-  // Check if the user is logged in
-  // If the user is not logged in, navigate to the login page
-  useEffect(() => {
-    if (!localStorage.getItem("uid")) {
-      navigate("/login");
-    }
-  }, []);
+  // Validate user
+  // TODO: Add validation for each page
+  validateUser();
+
   //mock data
   const test_transactions = [
     {

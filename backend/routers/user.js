@@ -26,6 +26,29 @@ userRouter.get("/", async function (req, res) {
   res.status(200).json({ "user list": await getAllUsers() });
 });
 
+// Validate user id
+userRouter.get("/validate/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid user id" });
+    return;
+  }
+
+  // Validate user
+  try {
+    if (await verifyUserById(id)) {
+      res.status(200).json({ valid: true });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
 // Get user id by name
 userRouter.get("/id/of/:name", async function (req, res) {
   const { name } = req.params;

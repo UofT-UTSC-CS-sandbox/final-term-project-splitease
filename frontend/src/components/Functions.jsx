@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const getUserNameById = async (id) => {
   if (!id) {
@@ -101,3 +103,36 @@ export async function parseTransactions(transactions) {
     })
   );
 }
+
+export function validateUser() {
+  const navigate = useNavigate();
+  const uid = localStorage.getItem("uid");
+  if (!uid) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "You are not logged in!",
+    }).then(() => {
+      navigate("/login");
+    });
+  }
+
+  axios.get(`/user/validate/${uid}`).then((data) => {
+    if (data.error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Your session has expired. Please log in again!",
+      }).then(() => {
+        navigate("/login");
+      });
+    }
+  });
+
+  return true;
+}
+
+// export function withUserValidation(Component) {
+//   validateUser(); // ! why not use useEffect?
+//   return <Component />;
+// }
