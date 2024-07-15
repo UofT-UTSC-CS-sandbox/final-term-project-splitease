@@ -6,6 +6,7 @@ import {
   getAllGroups,
   inviteFriend,
   deleteGroup,
+  quitGroup,
 } from "../modules/group.js";
 import { validateFriend } from "../modules/friend.js";
 import Group from "../models/Group.js";
@@ -176,23 +177,24 @@ groupRouter.get("/details/:id", async function (req, res) {
 });
 
 // Delete a group
-groupRouter.delete("/delete/:id", async function (req, res) {
-  const { id } = req.params;
-  const { groupId } = req.body;
+groupRouter.delete("/delete", async function (req, res) {
+  const { uid, groupId } = req.body;
 
   // Validate id and groupId
-  if (!id || !groupId) {
+  if (!uid || !groupId) {
     res.status(401).json({ error: "Invalid user id or group id" });
     return;
   }
 
-  // Remove group
+  // Delete group
   try {
-    const { result, error } = await deleteGroup(id, groupId);
+    const { result, error } = await deleteGroup(uid, groupId);
     if (result) {
-      console.info("Successfully removed group");
+      console.info("Successfully deleted group");
       res.status(200).json(result);
     } else {
+      console.error("Failed to deleted group");
+      console.error("error", error);
       res.status(401).json({ error: error });
     }
   } catch (e) {
@@ -201,4 +203,29 @@ groupRouter.delete("/delete/:id", async function (req, res) {
   }
 });
 
-// TODO: Quit a group
+// Quit a group
+groupRouter.delete("/quit", async function (req, res) {
+  const { uid, groupId } = req.body;
+
+  // Validate id and groupId
+  if (!uid || !groupId) {
+    res.status(401).json({ error: "Invalid user id or group id" });
+    return;
+  }
+
+  // Quit group
+  try {
+    const { result, error } = await quitGroup(uid, groupId);
+    if (result) {
+      console.info("Successfully quit group");
+      res.status(200).json(result);
+    } else {
+      console.error("Failed to quit group");
+      console.error("error", error);
+      res.status(401).json({ error: error });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
