@@ -1,11 +1,10 @@
 import { useCallback, useEffect } from "react";
 import UserInfo from "../components/UserInfo";
 import "./MainPage.css";
-// TODO: Rename the MainPage css file, remove import styles statement above and change the className values in the return statement below
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../components/Functions.jsx";
 import axios from "axios";
-import TransactionActivity from "../components/TransactionBlock.jsx";
+import TransactionActivity from "../components/TransactionActivity.jsx";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -57,7 +56,6 @@ const MainPage = () => {
         // Update on the page
         // const transactions = response.data.transactions;
         // if (transactions.length == 0) {
-        //   // TODO: modify the below code to correctly display a message when there are no transactions
         //   document.querySelector(
         //     "." + styles.aprilCosts11069 /*aprilCosts11069 DNE*/
         //   ).textContent = "You have no recent transactions";
@@ -98,8 +96,6 @@ const MainPage = () => {
     navigate("/addtransactionpage");
   }, [navigate]);
 
-  
-
   return (
     <div className="mainpage">
       <div className="addTransactionParent">
@@ -116,14 +112,14 @@ const MainPage = () => {
         </div>
       </div>
       <div className="fix-transactions">
-          <div className="transaction-wrapper">
-            <TransactionActivity
-              transactions={test_transactions}
-              uid={test_uid}
-              friendsInfo={test_friendsInfo}
-            />
-          </div>
+        <div className="transaction-wrapper">
+          <TransactionActivity
+            transactions={test_transactions}
+            uid={test_uid}
+            friendsInfo={test_friendsInfo}
+          />
         </div>
+      </div>
     </div>
   );
 };

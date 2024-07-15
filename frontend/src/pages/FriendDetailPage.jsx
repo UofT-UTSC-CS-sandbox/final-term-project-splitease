@@ -4,7 +4,7 @@ import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import "../components/Universal.css";
 import axios from "axios";
-import TransactionActivity from "../components/TransactionBlock.jsx";
+import TransactionActivity from "../components/TransactionActivity.jsx";
 
 const FriendDetailPage = () => {
   const { fid } = useParams();
@@ -42,10 +42,11 @@ const FriendDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const handleTransactionClick = useCallback((e) => {
-    const uid = e.currentTarget.uid;
-    navigate("/transactiondetailpage/");
-  },
+  const handleTransactionClick = useCallback(
+    (e) => {
+      const uid = e.currentTarget.uid;
+      navigate("/transactiondetailpage/");
+    },
     [navigate]
   );
   return (
@@ -74,13 +75,20 @@ const FriendDetailPage = () => {
           )}
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
-        <div className="recent-activities-bar"
-          onClick={handleTransactionClick} style={{ cursor: 'pointer' }}>
-          <TransactionActivity transactions={transactions} uid={uid} friendsInfo={friendsInfo} />
+        <div
+          className="recent-activities-bar"
+          onClick={handleTransactionClick}
+          style={{ cursor: "pointer" }}
+        >
+          <TransactionActivity
+            transactions={transactions}
+            uid={uid}
+            friendsInfo={friendsInfo}
+          />
         </div>
       </div>
     </div>
-  );       
+  );
 };
 
 export default FriendDetailPage;

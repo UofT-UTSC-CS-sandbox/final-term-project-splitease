@@ -1,6 +1,7 @@
 import React from "react";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./TransactionActivity.css";
 
 const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
                 : transaction.payer}
             </div>
           </div>
-          {(transaction.payer === friendsInfo.name) ^ (transaction.amount < 0) ? (
+          {(transaction.payer === friendsInfo.name) ^
+          (transaction.amount < 0) ? (
             <div className="activity-amount-negative">
               -${Math.abs(transaction.amount).toFixed(2)}
             </div>

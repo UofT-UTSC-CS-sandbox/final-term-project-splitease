@@ -6,22 +6,24 @@
     padding: 10px;
     border-radius: 8px;
 }
+
 .activity-text {
     font-weight: bold;
 }
+
 .activity-amount {
     font-weight: bold;
 }
+
 .activity-amount-positive {
     color: red;
-    margin:auto;
+    margin: auto;
 }
+
 .activity-amount-negative {
     color: green;
-    margin:auto;
+    margin: auto;
 }
-
-
 
 .content {
     width: 90%;
@@ -42,6 +44,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border-radius: 0px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .activity-date {
