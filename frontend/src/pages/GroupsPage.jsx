@@ -4,10 +4,12 @@ import axios from "axios";
 import "./GroupsPage.css";
 import AddGroups from "../components/AddGroups";
 import "../components/Universal.css";
+import Swal from "sweetalert2";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
+  const [gids, setGroupIDs] = useState([]);
   const [isAddGroupsClicked, setIsAddGroupsClicked] = useState(false);
   const uid = localStorage.getItem("uid");
 
@@ -33,6 +35,39 @@ const GroupsPage = () => {
     const updatedGroups = groups.filter((_, i) => i !== index);
     // Update the state with the new groups array
     setGroups(updatedGroups);
+
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to quit this group?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, quit",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const groupToQuit = gids[index];
+        console.log("the group going to be quit is:", groupToQuit);
+
+        axios({
+          method: "delete",
+          url: "/group/quit",
+          data: { uid, groupId: groupToQuit },
+        })
+          .then((res) => {
+            const updatedGroups = groups.filter((_, i) => i !== index);
+            setGroups(updatedGroups);
+            navigate(0, { replace: true });
+          })
+          .catch((error) => {
+            console.error("Error quiting group:", error);
+            Swal.fire(
+              "Error",
+              "Failed to quit group. Please try again.",
+              "error"
+            );
+          });
+      }
+    });
   };
 
   useEffect(() => {
@@ -42,6 +77,7 @@ const GroupsPage = () => {
         .then(async (response) => {
           console.log("Groups data:", response.data);
           const groupIds = response.data;
+          setGroupIDs(groupIds);
           console.log("Groupids are:", groupIds);
 
           // Fetch group names for each group ID
