@@ -33,7 +33,7 @@ const FunctionSelectionPage = () => {
         <div className={"friendsGroupsChild"}>
           <div className={"friendsGroups"}>Friends & Groups</div>
           <img
-            className={"arrowRightIcon"}
+            className={"arrowRightIconFG"}
             loading="lazy"
             alt=""
             src="/arrowright1.svg"
@@ -55,7 +55,7 @@ const FunctionSelectionPage = () => {
         <div className={"addATransactionParent"}>
           <div className={"addATransaction"}>Add a transaction</div>
           <img
-            className={"arrowRightIcon1"}
+            className={"arrowRightIconT"}
             loading="lazy"
             alt=""
             src="/arrowright-1.svg"

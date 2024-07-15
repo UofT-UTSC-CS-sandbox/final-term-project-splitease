@@ -22,20 +22,18 @@ const GroupsPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const onGroupClick = useCallback((e) => {
-    // TODO: Display group details
-    // console.log("Group clicked:", e.currentTarget.id);
-    // const gid = e.currentTarget.id;
-    // navigate("/groupdetailpage/" + gid);
-    navigate("/groupdetailpage");
-  }, [navigate]);
+  const onGroupClick = useCallback(
+    (e) => {
+      // TODO: Display group details
+      // console.log("Group clicked:", e.currentTarget.id);
+      // const gid = e.currentTarget.id;
+      // navigate("/groupdetailpage/" + gid);
+      navigate("/groupdetailpage");
+    },
+    [navigate]
+  );
 
   const onCloseButton = (index) => {
-    // Filter out the group to be deleted
-    const updatedGroups = groups.filter((_, i) => i !== index);
-    // Update the state with the new groups array
-    setGroups(updatedGroups);
-
     Swal.fire({
       title: "Warning!",
       text: "Are you sure you want to quit this group?",
