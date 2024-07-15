@@ -20,7 +20,8 @@ const AddTransactionPage = () => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  // TODO: Replace with actual name
+  // TODO: Do not pull all user list at once
+  // Instead, use `get user/partial/:name` to query filtered user list
   const allChoices = [
     "Apple",
     "Banana",
