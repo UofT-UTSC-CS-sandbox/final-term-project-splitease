@@ -1,7 +1,5 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
-import Group from "../models/Group.js";
-import ObjectId from "../models/ObjectId.js";
 
 // Get all users
 export const getAllUsers = async () => {
