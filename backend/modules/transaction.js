@@ -93,7 +93,7 @@ export const getTransactionInfoByTid = async (id) => {
 };
 
 export const getTransactionByUser = async (id) => {
-  return await TransactionInfo.find({ payer: id });
+  return await Transaction.find({ payer: id });
 };
 
 export const getTransactionByUserAndFriend = async (uid, fid) => {

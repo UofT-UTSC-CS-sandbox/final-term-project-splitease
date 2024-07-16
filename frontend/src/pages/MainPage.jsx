@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate, validateUser } from "../components/Functions.jsx";
+import { formatDate, parseTransactions, validateUser } from "../components/Functions.jsx";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import UserInfo from "../components/UserInfo";
 import "./MainPage.css";
@@ -12,82 +12,43 @@ const MainPage = () => {
 
   // Validate user
   // TODO: Add validation for each page
-  validateUser();
+  // validateUser();
 
-  //mock data
-  const test_transactions = [
-    {
-      id: "1",
-      date: "July 13",
-      name: "test1",
-      payerId: "test1",
-      payer: "test1",
-      amount: 100,
-    },
-    {
-      id: "2",
-      date: "June 3",
-      name: "test2",
-      payerId: "test2",
-      payer: "test2",
-      amount: 100,
-    },
-  ];
+  const [transactions, setTransactions] = useState([]);
 
-  const test_uid = "1";
-  const test_friendsInfo = { name: "1" };
-  // Update recent transactions
+  // const test_transactions = [
+  //   {
+  //     id: "1",
+  //     date: "July 13",
+  //     name: "test1",
+  //     payerId: "test1",
+  //     payer: "test1",
+  //     amount: 100,
+  //   },
+  //   {
+  //     id: "2",
+  //     date: "June 3",
+  //     name: "test2",
+  //     payerId: "test2",
+  //     payer: "test2",
+  //     amount: 100,
+  //   },
+  // ];
+
+  // Fetch recent transactions
   useEffect(() => {
-    // Get recent transactions
     axios
       .get("/user/transactions/" + uid)
-      .then((response) => {
-        console.log(response.data);
-
-        // Update the transaction data
-        localStorage.setItem(
-          "transactions",
-          JSON.stringify(response.data.transactions)
-        );
-
-        // Update on the page
-        // const transactions = response.data.transactions;
-        // if (transactions.length == 0) {
-        //   document.querySelector(
-        //     "." + styles.aprilCosts11069 /*aprilCosts11069 DNE*/
-        //   ).textContent = "You have no recent transactions";
-        //   return;
-        // }
-
-        // for (let i = 0; i < transactions.length; i++) {
-        for (let i = transactions.length - 1; i >= 0; i--) {
-          let transaction = transactions[i];
-          let details = transaction.details;
-          let total = 0;
-          for (let j = 0; j < details.length; j++) {
-            total += details[j].amount;
-          }
-          let date_str = formatDate(transaction.createdAt);
-          let desc_str = transaction.description;
-          let amount_str = total.toFixed(2);
-          let total_str = `${date_str} '${desc_str}': $${amount_str}`;
-          console.log(total_str);
-
-          // // Update the transaction data on the page
-          // let transactionElement = document.createElement("div");
-          // transactionElement.textContent = total_str;
-          // //Find element by text "Recent actions"
-          // let recentActionsElement = document.querySelector(
-          //   // TODO: modify the below code to correctly select the recent actions element
-          //   "." + styles.recentActions
-          // );
-          recentActionsElement.appendChild(transactionElement);
-        }
+      .then(async (response) => {
+        console.log("the response transactions are: ", response.data);
+        console.log(response.data.transactions);
+        const transaction = await parseTransactions(response.data.transactions);
+        setTransactions( transaction || []);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [uid]);
 
   const onAddATransactionClick = useCallback(() => {
     navigate("/addtransactionpage");
@@ -106,14 +67,23 @@ const MainPage = () => {
         </div>
         <div className="recentActionsWrapper">
           <b className="recentActions">Recent actions</b>
+          {/* {transactions.length === 0 ? (
+            <p>You have no recent transactions</p>
+          ) : (
+            transactions.map((transaction) => (
+              <div key={transaction.id}>
+                {`${formatDate(transaction.createdAt)} ${transaction.description}: $${transaction.details[0].amount}`}
+              </div>
+            ))
+          )} */}
         </div>
       </div>
       <div className="fix-transactions">
         <div className="transaction-wrapper">
           <TransactionActivity
-            transactions={test_transactions}
-            uid={test_uid}
-            friendsInfo={test_friendsInfo}
+            transactions={transactions}
+            uid={uid}
+            friendsInfo={{ name: "1" }}
           />
         </div>
       </div>
