@@ -31,15 +31,27 @@ const AddTransactionPage = () => {
     "Grapes",
   ];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
     if (value) {
-      const filteredChoices = allChoices.filter((choice) =>
-        choice.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filteredChoices);
-    } else {
+      // const filteredChoices = allChoices.filter((choice) =>
+      //   choice.toLowerCase().includes(value.toLowerCase())
+      // );
+      try {
+        const response = await axios.get(`/user/partial/${value}`);
+        console.log("suggestions are: ", response.data );
+        const users = response.data.users || [];
+        const userNames = users.map(user => user.name);
+        setSuggestions(userNames);
+        // setSuggestions(allChoices);
+      } catch (error) {
+        console.error("Error fetching user suggestions:", error);
+        setSuggestions([]);
+      }
+    }
+      // setSuggestions(allChoices);
+     else {
       setSuggestions([]);
     }
   };
@@ -87,7 +99,7 @@ const AddTransactionPage = () => {
     const transactions = [
       {
         group_id: 1,
-        friends: ["666eacf43ca32def0e16e943", uid],
+        friends: ["6692d4e568b2f28f205c566e", uid],
         amount: parseFloat(amount),
       },
     ];
