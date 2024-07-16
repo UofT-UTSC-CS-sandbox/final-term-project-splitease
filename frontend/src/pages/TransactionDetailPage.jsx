@@ -38,7 +38,15 @@ const TransactionDetailPage = () => {
       <div className="content">
         <div className="current-balance-bar">
           <h2>Total transaction</h2>
-          person shared with
+
+          {uid > 0 ? (
+            <p className="balance-negative"> your current total transaction { }$</p>
+          ) : (
+            <p className="balance-positive"> your current total transaction { }$</p>
+
+          )}
+
+
         </div>
 
         <div className="recent-activities-text">Persons who share the bill</div>
