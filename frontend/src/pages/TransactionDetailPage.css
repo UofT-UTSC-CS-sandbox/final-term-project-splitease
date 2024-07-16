@@ -54,18 +54,6 @@
     align-items: center;
 }
 
-.recent-activities-bar {
-    width: 50%;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-    overflow-y: auto;
-    height: 400px;
-    position: absolute;
-    top: 350px;
-}
 
 .current-balance-bar {
     width: 60%;
@@ -156,5 +144,10 @@
     overflow-y: auto;
     height: 400px;
     position: absolute;
-    top: 312px;
+    top: 315px;
+}
+
+.activity-wrapper> :first-child {
+    margin-top: 14px;
+    /* Adjust this value to move it higher */
 }

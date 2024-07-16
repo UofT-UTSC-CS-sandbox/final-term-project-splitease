@@ -6,24 +6,29 @@
     padding: 10px;
     border-radius: 8px;
 }
+
 .activity-text {
     font-weight: bold;
 }
+
 .activity-amount {
     font-weight: bold;
 }
+
 .activity-amount-positive {
     color: red;
-    margin:auto;
+    margin: auto;
 }
+
 .activity-amount-negative {
     color: green;
-    margin:auto;
+    margin: auto;
 }
 
 .balance-negative {
     color: green;
 }
+
 .balance-positive {
     color: red;
 }
@@ -44,25 +49,30 @@
     border-radius: 8px;
     margin-bottom: 20px;
     text-align: center;
-    overflow-y: auto; 
-    height: 400px; 
+    overflow-y: auto;
+    height: 400px;
     position: absolute;
     top: 350px;
 }
 
+.recent-activities-bar> :first-child {
+    margin-top: -25px;
+    /* Adjust this value to move it higher */
+}
+
 .current-balance-bar {
-    width: 60%; 
-    background-color: #eaf8e7; 
+    width: 60%;
+    background-color: #eaf8e7;
     padding: 20px;
     border-radius: 8px;
-    margin: 0 auto; 
+    margin: 0 auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     position: absolute;
-    top: 100px; 
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .current-balance-bar h2 {
@@ -79,14 +89,16 @@
     margin-bottom: 20px;
     font-size: 1.2em;
 }
+
 .recent-activities-text {
     font-size: 1.3em;
     position: absolute;
-    top: 280px; 
-    left: 50%; 
-    transform: translateX(-50%); 
+    top: 280px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
 }
+
 .activity {
     width: 70%;
     margin: auto;
