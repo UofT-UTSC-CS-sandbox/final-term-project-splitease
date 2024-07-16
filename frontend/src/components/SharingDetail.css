@@ -1,0 +1,66 @@
+.activity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    /* fix padding */
+    margin: 10px auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    width: 380px;
+    /* 固定宽度为800px */
+    height: 75px;
+    /* 固定高度为80px */
+    box-sizing: border-box;
+}
+
+
+.avatar {
+    width: 30px;
+    /* 保持头像尺寸为30px */
+    height: 30px;
+    border-radius: 1%;
+
+
+    flex-shrink: 0;
+}
+
+.activity-details {
+    display: flex;
+    align-items: center;
+    /* 确保内容垂直居中 */
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.activity-name {
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    /* 防止换行 */
+    overflow: hidden;
+    /* 隐藏溢出的文本 */
+    text-overflow: ellipsis;
+    /* 使用省略号表示被截断的文本 */
+}
+
+.activity-amount-positive {
+    color: red;
+    white-space: nowrap;
+    /* 防止换行 */
+    font-weight: bold;
+    margin-left: auto;
+    /* 确保金额对齐右边 */
+}
+
+.activity-amount-negative {
+    color: green;
+    white-space: nowrap;
+    /* 防止换行 */
+    font-weight: bold;
+    margin-left: auto;
+    /* 确保金额对齐右边 */
+}

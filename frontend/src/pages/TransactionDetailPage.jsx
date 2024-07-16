@@ -6,7 +6,7 @@ import { parseTransactions } from "../components/Functions.jsx";
 import "./TransactionDetailPage.css";
 import "../components/Universal.css";
 import axios from "axios";
-import TransactionActivity from "../components/TransactionActivity.jsx";
+import SharingDetail from "../components/SharingDetail.jsx";
 
 const TransactionDetailPage = () => {
   const { uid } = useParams();
@@ -22,6 +22,7 @@ const TransactionDetailPage = () => {
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
+
 
   return (
     <div className="pageContainer">
@@ -41,6 +42,17 @@ const TransactionDetailPage = () => {
         </div>
 
         <div className="recent-activities-text">Persons who share the bill</div>
+
+        <SharingDetail
+          avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
+          name="John Doe"
+          amount="50.00"
+        />
+        <SharingDetail
+          avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
+          name="Jason Ki"
+          amount="2.00"
+        />
       </div>
     </div> // add activities list here
   );
