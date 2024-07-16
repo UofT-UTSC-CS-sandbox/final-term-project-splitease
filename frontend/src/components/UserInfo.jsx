@@ -41,10 +41,8 @@ const UserInfo = () => {
 
   return (
     <div className={"vectorParent"}>
-      <img
+      <div
         className={"frameChild"}
-        alt=""
-        src="/rectangle-1.svg"
         onClick={onRectangleClick}
       />
       <div className={"userWrapper"}>
