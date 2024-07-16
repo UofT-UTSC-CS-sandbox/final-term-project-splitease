@@ -23,9 +23,8 @@
     /* 保持头像尺寸为30px */
     height: 30px;
     border-radius: 1%;
-
-
     flex-shrink: 0;
+    margin: auto;
 }
 
 .activity-details {

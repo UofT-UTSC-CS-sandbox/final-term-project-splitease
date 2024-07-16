@@ -15,7 +15,6 @@ const SharingDetail = ({ avatar, name, amount }) => {
 
         <div className="activity">
             <img src={avatar} className="avatar" />
-
             <div className="activity-details"><div className="activity-name">{name}</div> </div>
             <div className="activity-amount-positive"> ${amount} </div>
         </div>
