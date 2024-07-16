@@ -40,9 +40,9 @@ const TransactionDetailPage = () => {
           <h2>Total transaction</h2>
 
           {uid > 0 ? (
-            <p className="balance-negative"> your current total transaction { }$</p>
+            <p className="balance-negative"> Your current total transaction { }$</p>
           ) : (
-            <p className="balance-positive"> your current total transaction { }$</p>
+            <p className="balance-positive"> Your current total transaction { }$</p>
 
           )}
 
@@ -51,16 +51,27 @@ const TransactionDetailPage = () => {
 
         <div className="recent-activities-text">Persons who share the bill</div>
 
-        <SharingDetail
-          avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
-          name="John Doe"
-          amount="50.00"
-        />
-        <SharingDetail
-          avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
-          name="Jason Ki"
-          amount="2.00"
-        />
+        <div className="activity-wrapper">
+
+
+          <SharingDetail
+            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
+            name="John Doe"
+            amount="50.00"
+          />
+          <SharingDetail
+            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
+            name="Jason Ki"
+            amount="2.00"
+          />
+          <SharingDetail
+            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
+            name="Stark Liu"
+            amount="2.00"
+          />
+
+        </div>
+
       </div>
     </div> // add activities list here
   );
