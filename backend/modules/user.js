@@ -61,7 +61,19 @@ export const registerUser = async (name, password) => {
 export const getUserByPartialName = async (name) => {
   // Match jump chars
   const regex = new RegExp(name.split("").join(".*"), "i");
-  return await User.find({ name: regex });
+  const users = await User.find({ name: regex });
+
+  // Mask the password, friends, and groups
+  users.forEach((user) => {
+    user.password = undefined;
+    user.friends = undefined;
+    user.groups = undefined;
+    // delete user.password;
+    // delete user.friends;
+    // delete user.groups;
+  });
+  // console.log("masked users:", users);
+  return users;
 };
 
 // Change password
