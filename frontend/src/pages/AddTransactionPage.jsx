@@ -73,7 +73,7 @@ const AddTransactionPage = () => {
     setType(e.target.value);
   };
 
-  const onConfirmTextClick = useCallback(() => {
+  const onConfirmTextClick = useCallback(async () => {
     const amount = document.getElementById("amount").value;
     const newErrors = {};
 
@@ -95,14 +95,6 @@ const AddTransactionPage = () => {
       return;
     }
 
-    // TODO: Replace with actual transaction data
-    const transactions = [
-      {
-        group_id: 1,
-        friends: ["6692d4e568b2f28f205c566e", uid],
-        amount: parseFloat(amount),
-      },
-    ];
     const description = "TransDescFoo";
     const id = localStorage.getItem("uid");
 
@@ -117,20 +109,49 @@ const AddTransactionPage = () => {
       return;
     }
 
-    axios
-      .post(`/transaction/add/${id}`, {
+    try {
+      // Fetch the friend's UID using inputValue
+      const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
+      const friendUid = friendResponse.data.user_id;
+
+      if (!friendUid) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Friend not found!",
+        });
+        return;
+      }
+
+      // Create the transaction data with both UIDs
+      const transactions = [
+        {
+          group_id: 1,
+          friends: [friendUid, uid],
+          amount: parseFloat(amount),
+        },
+      ];
+
+      // Post the transaction data
+      const response = await axios.post(`/transaction/add/${id}`, {
         description,
         transactions,
-      })
-      .then((data) => {
-        console.log("Response", data);
-        if (data.error) {
-          alert(data.error);
-        } else {
-          navigate("/"); // Redirect to the main page
-        }
       });
-  }, [inputValue, methodType, navigate, uid]);
+
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        navigate("/"); // Redirect to the main page
+      }
+    } catch (error) {
+      console.error("Error fetching friend UID or creating transaction:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "An error occurred while processing the transaction.",
+      });
+    }
+  }, [inputValue, methodType, type, uid, navigate]);
 
   const onBackButtonClick = useCallback(() => {
     Swal.fire({
