@@ -37,7 +37,7 @@ const TransactionDetailPage = () => {
       </div>
       <div className="content">
         <div className="current-balance-bar">
-          <h2>Total transaction</h2>
+          <h2>Transaction date{ }</h2>
 
           {uid > 0 ? (
             <p className="balance-negative"> Your current total transaction { }$</p>
@@ -49,7 +49,7 @@ const TransactionDetailPage = () => {
 
         </div>
 
-        <div className="recent-activities-text">Persons who share the bill</div>
+        <div className="recent-activities-text">Persons who share the transaction</div>
 
         <div className="activity-wrapper">
 
