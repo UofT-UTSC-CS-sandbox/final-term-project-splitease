@@ -23,7 +23,7 @@ const TransactionDetailPage = () => {
       id: 2,
       avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
       name: "Jason Ki",
-      amount: "20.00",
+      amount: "-20.00",
     },
     {
       id: 3,
