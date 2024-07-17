@@ -69,7 +69,7 @@ export const addTransaction = async (uid, description, transactions) => {
  * @returns null || transaction
  */
 export const getTransactionById = async (id) => {
-  return await TransactionInfo.findById(id);
+  return await Transaction.findById(id);
 };
 
 /**

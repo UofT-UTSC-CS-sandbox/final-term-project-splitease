@@ -3,7 +3,9 @@ import {
   addTransaction,
   geAllTransactions,
   getAllTransactionInfo,
+  getTransactionById,
   getTransactionInfoByTid,
+  getTransactionInfoByInfoId,
 } from "../modules/transaction.js";
 
 export const transactionRouter = express.Router();
@@ -26,7 +28,7 @@ transactionRouter.get("/get/:id", async function (req, res) {
     res.status(401).json({ error: "Invalid parameters" });
   } else {
     try {
-      const transactionInfo = await getTransactionInfo(id);
+      const transactionInfo = await getTransactionById(id);
       res.status(200).json(transactionInfo);
     } catch (e) {
       console.error("e", e);
@@ -41,7 +43,7 @@ transactionRouter.get("/getInfo/:id", async function (req, res) {
     res.status(401).json({ error: "Invalid parameters" });
   } else {
     try {
-      const transactionInfo = await getTransactionInfo(id);
+      const transactionInfo = await getTransactionInfoByInfoId(id);
       res.status(200).json(transactionInfo);
     } catch (e) {
       console.error("e", e);
