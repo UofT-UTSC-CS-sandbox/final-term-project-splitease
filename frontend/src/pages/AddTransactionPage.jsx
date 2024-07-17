@@ -20,17 +20,6 @@ const AddTransactionPage = () => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  // TODO: Do not pull all user list at once
-  // Instead, use `get user/partial/:name` to query filtered user list
-  const allChoices = [
-    "Apple",
-    "Banana",
-    "Orange",
-    "Mango",
-    "Pineapple",
-    "Grapes",
-  ];
-
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -40,18 +29,15 @@ const AddTransactionPage = () => {
       // );
       try {
         const response = await axios.get(`/user/partial/${value}`);
-        console.log("suggestions are: ", response.data );
+        console.log("suggestions are: ", response.data);
         const users = response.data.users || [];
-        const userNames = users.map(user => user.name);
+        const userNames = users.map((user) => user.name);
         setSuggestions(userNames);
-        // setSuggestions(allChoices);
       } catch (error) {
         console.error("Error fetching user suggestions:", error);
         setSuggestions([]);
       }
-    }
-      // setSuggestions(allChoices);
-     else {
+    } else {
       setSuggestions([]);
     }
   };
@@ -144,7 +130,10 @@ const AddTransactionPage = () => {
         navigate("/"); // Redirect to the main page
       }
     } catch (error) {
-      console.error("Error fetching friend UID or creating transaction:", error);
+      console.error(
+        "Error fetching friend UID or creating transaction:",
+        error
+      );
       Swal.fire({
         icon: "error",
         title: "Oops...",

@@ -28,8 +28,8 @@
         {
             "label": "Start Frontend & Backend",
             "dependsOn": [
+                "Start Backend",
                 "Start Frontend",
-                "Start Backend"
             ],
             "dependsOrder": "parallel",
             "problemMatcher": []

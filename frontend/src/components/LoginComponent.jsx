@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./LoginComponent.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ className = "" }) => {
   const navigate = useNavigate();
+  const [suggestedNames, setSuggestions] = useState([]);
 
   const onButtonBackgroundClick = useCallback(() => {
     // Check if the user exists
@@ -70,10 +71,67 @@ const LoginForm = ({ className = "" }) => {
       });
   }, []);
 
+  const fetchUserList = useCallback(async (event) => {
+    const username = event.target.value;
+    if (!username) {
+      setSuggestions([]);
+      return;
+    }
+    const response = await axios.get(`/user/partial/${username}`);
+    console.log(response);
+    const users = response.data.users || [];
+    const userNames = users.map((user) => user.name);
+    setSuggestions(userNames);
+  });
+
+  // Catch enter key event
+  useEffect(() => {
+    const onEnter = (event) => {
+      if (event.key === "Enter") {
+        onButtonBackgroundClick();
+      }
+    };
+
+    document.addEventListener("keydown", onEnter);
+    return () => {
+      document.removeEventListener("keydown", onEnter);
+    };
+  }, [onButtonBackgroundClick]);
+
+  // Handle suggested name click
+  const onNameClick = (name) => {
+    document.querySelector(".username-field").value = name;
+    setSuggestions([]);
+  };
+
   return (
     <div className={`username-field-parent ${className}`}>
-      <input className="username-field" placeholder="Username:" type="text" />
-      <input className="password-field" placeholder="Password:" type="text" />
+      <div className="autocomplete-container">
+        <input
+          className="username-field"
+          placeholder="Username:"
+          type="text"
+          onChange={fetchUserList}
+        />
+        {suggestedNames.length > 0 && (
+          <ul className="suggestions-list">
+            {suggestedNames.map((suggestion, index) => (
+              <li
+                key={index}
+                className="suggestion-item"
+                onClick={() => onNameClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+        <input
+          className="password-field"
+          placeholder="Password:"
+          type="password"
+        />
+      </div>
       {/* <div className="sign-up-wrapper">
         <div className="sign-up">Sign up</div>
       </div> */}

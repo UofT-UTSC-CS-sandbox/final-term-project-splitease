@@ -41,8 +41,7 @@
 .friendItem {
     width: 300px;
     height: 150px;
-    margin-top: 80px;
-    margin-bottom: 20px;
+    margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
