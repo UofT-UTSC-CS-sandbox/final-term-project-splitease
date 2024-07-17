@@ -25,10 +25,8 @@ const GroupsPage = () => {
   const onGroupClick = useCallback(
     (e) => {
       // TODO: Display group details
-      // console.log("Group clicked:", e.currentTarget.id);
-      // const gid = e.currentTarget.id;
-      // navigate("/groupdetailpage/" + gid);
-      navigate("/groupdetailpage");
+      console.log("Group clicked:", e.currentTarget.id);
+      navigate("/groupdetailpage/" + e.currentTarget.id);
     },
     [navigate]
   );
@@ -129,7 +127,12 @@ const GroupsPage = () => {
           <>
             <div className="groupsListHeader">Your groups are:</div>
             {groups.map((group, index) => (
-              <div key={index} className="groupItem" onClick={onGroupClick}>
+              <div
+                key={index}
+                className="groupItem"
+                onClick={onGroupClick}
+                id={gids[index]}
+              >
                 <div
                   className="closeButton"
                   onClick={(e) => {

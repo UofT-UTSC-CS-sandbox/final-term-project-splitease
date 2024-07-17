@@ -39,7 +39,7 @@ function App() {
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
       <Route path="/frienddetailpage/:fid" element={<FriendDetailPage />} />
-      <Route path="/groupdetailpage" element={<GroupDetailPage />} />
+      <Route path="/groupdetailpage/:gid" element={<GroupDetailPage />} />
       <Route
         path="/transactiondetailpage"
         element={<TransactionDetailPage />}

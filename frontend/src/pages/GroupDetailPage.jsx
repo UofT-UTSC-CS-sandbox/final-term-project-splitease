@@ -7,36 +7,18 @@ import "../components/Universal.css";
 import axios from "axios";
 
 const GroupDetailPage = () => {
-  //   const { fid } = useParams();
-  //   console.info("Friend ID:", fid);
+  const uid = localStorage.getItem("uid");
+  const { gid } = useParams();
   const navigate = useNavigate();
-  //   const [friendsInfo, setFriendsInfo] = useState([]);
-  //   const [transactions, setTransactions] = useState([]);
 
-  //   const uid = localStorage.getItem("uid");
+  // Get group details
+  const [groupDetails, setGroupDetails] = useState({});
+  useEffect(() => {
+    console.log("Fetching group details for gid:", gid);
 
-  //   useEffect(() => {
-  //     setFriendsInfo({
-  //       name: "****",
-  //       balance: "**.**",
-  //     });
-  //     axios.post("/friend/details", { uid, fid }).then(async (res) => {
-  //       // Get friend balance
-  //       const friend = res.data;
-  //       friend.friend.balance = friend.friend.balance.toFixed(2);
-  //       friend.friend.fid = fid;
-
-  //       // reverse the order of transactions
-  //       friend.friend.transactions = friend.friend.transactions.reverse();
-  //       setFriendsInfo(friend.friend);
-  //       console.info("Friend details:", friend);
-
-  //       // Get transaction details
-  //       const transactions = await parseTransactions(friend.friend.transactions);
-  //       setTransactions(transactions);
-  //       console.info("Parsed Transactions:", transactions);
-  //     });
-  //   }, [uid, fid]);
+    // TODO: Finish group details API
+    // * You may want to put `group details` jsx in a dedicated component file
+  });
 
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
