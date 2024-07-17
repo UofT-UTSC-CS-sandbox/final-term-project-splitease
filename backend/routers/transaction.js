@@ -6,6 +6,7 @@ import {
   getTransactionById,
   getTransactionInfoByTid,
   getTransactionInfoByInfoId,
+  getTransactionDetails,
 } from "../modules/transaction.js";
 
 export const transactionRouter = express.Router();
@@ -85,5 +86,25 @@ transactionRouter.post("/add/:id", async function (req, res, next) {
       console.error("e", e);
       res.status(500).json({ error: `Unknown server error: ${e}` });
     }
+  }
+});
+
+/**
+ * @param {*} id : transaction._id
+ * @returns id, payer, payee, amount, description, details
+ */
+transactionRouter.get("/detail/:info_id", async function (req, res) {
+  const { info_id } = req.params;
+
+  if (!info_id) {
+    res.status(401).json({ error: "Invalid parameters" });
+  }
+
+  try {
+    const details = await getTransactionDetails(info_id);
+    res.status(200).json(details);
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });

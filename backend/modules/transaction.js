@@ -1,8 +1,8 @@
 // import ObjectId from '../models/ObjectId.js';
+import { ObjectId } from "mongodb";
 import Transaction from "../models/Transaction.js";
 import TransactionInfo from "../models/TransactionInfo.js";
-import { ObjectId } from "mongodb";
-import { verifyUserById } from "./user.js";
+import { getUserNameById, verifyUserById } from "./user.js";
 
 export const geAllTransactions = async () => {
   const transaction = await Transaction.find();
@@ -94,6 +94,39 @@ export const getTransactionInfoByTid = async (id) => {
 
 export const getTransactionByUser = async (id) => {
   return await Transaction.find({ payer: id });
+};
+
+// Get parsed transaction details by info id
+export const getTransactionDetails = async (id) => {
+  const transactionInfo = await getTransactionInfoByInfoId(id);
+  console.log("transactionInfo", transactionInfo);
+  if (!transactionInfo)
+    return { success: false, error: "Transaction info not found" };
+
+  const detail = transactionInfo.details[0];
+  const { _, transactionId } = detail;
+  const transactions = await Promise.all(
+    transactionId.map(async (tid) => {
+      const transaction = await getTransactionById(tid);
+      return {
+        id: transaction._id,
+        payee: transaction.payee,
+        payeeName: await getUserNameById(transaction.payee),
+        amount: transaction.amount,
+      };
+    })
+  );
+  const parsedTransactionInfo = {
+    id: transactionInfo._id,
+    payer: transactionInfo.payer,
+    payerName: await getUserNameById(transactionInfo.payer),
+    payee: transactionInfo.payee,
+    amount: transactionInfo.amount,
+    description: transactionInfo.description,
+    details: transactions,
+  };
+  console.log("parsedTransactionInfo", parsedTransactionInfo);
+  return parsedTransactionInfo;
 };
 
 export const getTransactionByUserAndFriend = async (uid, fid) => {
