@@ -1,20 +1,22 @@
-.activity {
+.activity_share {
     display: flex;
+    flex-direction: column;
+    /* 垂直排列每个活动项 */
     align-items: center;
-    justify-content: space-between;
+    gap: 20px;
+    /* 增加每个活动项之间的间距 */
     padding: 15px;
-    /* fix padding */
-    margin: 10px auto;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    width: 380px;
-    /* 固定宽度为800px */
-    height: 75px;
-    /* 固定高度为80px */
+    margin: 20px auto;
+    /* 调整外边距 */
+    width: 400px;
+    /* 根据需要调整宽度 */
     box-sizing: border-box;
+    background-color: transparent;
+    overflow-y: auto;
+    border: none;
+    /* 去掉边框 */
+    box-shadow: none;
+    /* 去掉阴影 */
 }
 
 
@@ -62,4 +64,21 @@
     font-weight: bold;
     margin-left: auto;
     /* 确保金额对齐右边 */
+}
+
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 20px;
+    /* 增加底部间距以分开项 */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* 占据父容器的全部宽度 */
+    box-sizing: border-box;
 }

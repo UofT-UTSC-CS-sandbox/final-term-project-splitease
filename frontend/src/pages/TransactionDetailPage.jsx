@@ -12,6 +12,28 @@ const TransactionDetailPage = () => {
   const { uid } = useParams();
   console.info("Friend ID:", uid);
   const navigate = useNavigate();
+  const test_share = [
+    {
+      id: 1,
+      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
+      name: "John Doe",
+      amount: "50.00",
+    },
+    {
+      id: 2,
+      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
+      name: "Jason Ki",
+      amount: "20.00",
+    },
+    {
+      id: 3,
+      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
+      name: "Stark Liu",
+      amount: "10.00",
+    },
+  ];
+
+
   //const [friendsInfo, setFriendsInfo] = useState([]);
   //const [transactions, setTransactions] = useState([]);
 
@@ -22,6 +44,9 @@ const TransactionDetailPage = () => {
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
+
+
+
 
 
   return (
@@ -55,19 +80,7 @@ const TransactionDetailPage = () => {
 
 
           <SharingDetail
-            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
-            name="John Doe"
-            amount="50.00"
-          />
-          <SharingDetail
-            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
-            name="Jason Ki"
-            amount="2.00"
-          />
-          <SharingDetail
-            avatar="https://via.placeholder.com/30" // 这是一个临时的图片URL
-            name="Stark Liu"
-            amount="2.00"
+            sharings={test_share}
           />
 
         </div>
