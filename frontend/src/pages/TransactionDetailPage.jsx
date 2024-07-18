@@ -57,26 +57,6 @@ const TransactionDetailPage = () => {
   console.log("the transac info is: ", transactionInfo);
   console.log("the transac details are: ", transactionDetails);
   console.log("the share is: ", Share);
-  const test_share = [
-    {
-      id: 1,
-      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
-      name: "John Doe",
-      amount: "50.00",
-    },
-    {
-      id: 2,
-      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
-      name: "Jason Ki",
-      amount: "-20.00",
-    },
-    {
-      id: 3,
-      avatar: "https://via.placeholder.com/30", // 这是一个临时的图片URL
-      name: "Stark Liu",
-      amount: "10.00",
-    },
-  ];
 
   //const [friendsInfo, setFriendsInfo] = useState([]);
   //const [transactions, setTransactions] = useState([]);
@@ -105,16 +85,23 @@ const TransactionDetailPage = () => {
           <h2>Transaction date: {transaction.date}</h2>
           {/* TODO: Total amount is not necessarily twice the amount */}
           {/* TODO: Add to fixed 2 to display $xx.xx */}
-          {uid > 0 ? (
+          {/* {uid > 0 ? (
             <p className="balance-negative">
               {" "}
-              Your current total transaction ${transaction.amount * 2}
+              Your current total transaction ${}
             </p>
           ) : (
             <p className="balance-positive">
               {" "}
-              Your current total transaction ${transaction.amount * 2}
+              Your current total transaction ${}
             </p>
+          )} */}
+          {transactionInfo ? (
+            <p className={transactionInfo.amount < 0 ? "balance-negative" : "balance-positive"}>
+              Your current total transaction ${transactionInfo.amount.toFixed(2)}
+            </p>
+          ) : (
+            <p>Loading transaction amount...</p>
           )}
         </div>
 

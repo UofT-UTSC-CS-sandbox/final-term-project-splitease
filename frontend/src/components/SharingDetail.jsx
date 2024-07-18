@@ -30,7 +30,7 @@ const SharingDetail = ({ sharings }) => {
                     <div className="activity-details">
                         <div className="activity-name">{sharing.name}</div>
                     </div>
-                    <div className={sharing.amount >= 0 ? "activity-amount-positive" : "activity-amount-negative"}>${sharing.amount}</div>
+                    <div className={sharing.amount >= 0 ? "activity-amount-positive" : "activity-amount-negative"}>${sharing.amount.toFixed(2)}</div>
                 </div>
             ))}
         </div>
