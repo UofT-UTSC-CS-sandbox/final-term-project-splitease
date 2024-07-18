@@ -103,6 +103,7 @@ const TransactionDetailPage = () => {
           ) : (
             <p>Loading transaction amount...</p>
           )}
+            <p className="payment-description">Test desciption</p>
         </div>
 
         <div className="recent-activities-text">

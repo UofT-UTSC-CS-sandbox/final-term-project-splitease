@@ -88,10 +88,9 @@
 .recent-activities-text {
     font-size: 1.3em;
     position: absolute;
-    top: 280px;
+    top: 320px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
 }
 
 .activity {
@@ -140,6 +139,7 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
+    margin-top: 30px;
     text-align: center;
     overflow-y: auto;
     height: 400px;
@@ -151,3 +151,9 @@
     margin-top: 14px;
     /* Adjust this value to move it higher */
 }
+
+.payment-description {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #555;
+  }

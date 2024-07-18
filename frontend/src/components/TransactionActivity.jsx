@@ -10,7 +10,7 @@ const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
   const onTransactionDetailsClick = useCallback((transaction) => {
     navigate("/transactiondetailpage", {state: {transaction}});
   }, [navigate]);
-
+  
   return (
     <div>
       {transactions.map((transaction) => (

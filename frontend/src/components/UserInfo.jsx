@@ -55,9 +55,9 @@ const UserInfo = () => {
         <a className={"totalBalance"}> {u_name} </a>
         <div className={"frameWrapper"}>
           <div className={"oweParent"}>
-            <b className={"owe"}>Owe: ${owe.toFixed(2)}</b>
+            <b className={"owe"}>Owe: ${Math.abs(owe).toFixed(2)}</b>
             <div className={"owedParent"}>
-              <b className={"owed"}>Owed: ${owed.toFixed(2)}</b>
+              <b className={"owed"}>Owed: ${Math.abs(owed).toFixed(2)}</b>
               <div className={"costsParent"}>
                 <div className={"costs"}>
                   Balance: {totalBalance >= 0 ? "$" : "-$"}

@@ -94,7 +94,7 @@
 .recent-activities-text {
     font-size: 1.3em;
     position: absolute;
-    top: 280px; 
+    top: 350px; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 1000;
@@ -137,4 +137,17 @@
 
 .activity-owe {
     color: red;
+}
+
+.member-list {
+    margin-top: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+.member-name {
+    margin: 5px 0;
+    font-size: 1.2em;
 }

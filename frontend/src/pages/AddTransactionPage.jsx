@@ -223,7 +223,7 @@ const AddTransactionPage = () => {
       <img className={"line"} alt="" />
       <div className="selection-box">
         <div className={"chooseAMethod"}>
-          Choose a method to split this bill
+          Choose a method to pay this bill
         </div>
         <select value={methodType} onChange={handleMethodTypeChange}>
           <option value="">No selection</option>
@@ -238,6 +238,14 @@ const AddTransactionPage = () => {
           <option value="Other">Other</option>
         </select>
         {errors.methodType && <div className="error">{errors.methodType}</div>}
+        <div className={"chooseAMethod"}>
+          Choose a method to split this bill
+        </div>
+        <select >
+          <option value="Evenly">Evenly</option>
+          <option value="Other">Other</option>
+        </select>
+
       </div>
       <div className={"youWillPay"}>
         You will pay a total of ${parseFloat(payAmount).toFixed(2)}
