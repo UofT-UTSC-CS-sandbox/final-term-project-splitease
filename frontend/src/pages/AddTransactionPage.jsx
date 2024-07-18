@@ -82,9 +82,9 @@ const AddTransactionPage = () => {
     }
 
     const description = "TransDescFoo";
-    const id = localStorage.getItem("uid");
+    const uid = localStorage.getItem("uid");
 
-    if (!id) {
+    if (!uid) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -110,18 +110,14 @@ const AddTransactionPage = () => {
       }
 
       // Create the transaction data with both UIDs
-      const transactions = [
-        {
-          group_id: 1,
-          friends: [friendUid, uid],
-          amount: parseFloat(amount),
-        },
-      ];
+      const friends = [friendUid];
 
       // Post the transaction data
-      const response = await axios.post(`/transaction/add/${id}`, {
+      const response = await axios.post(`/transaction/add`, {
+        uid,
+        amount,
         description,
-        transactions,
+        friends,
       });
 
       if (response.data.error) {

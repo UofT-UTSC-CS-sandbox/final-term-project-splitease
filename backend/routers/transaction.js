@@ -69,19 +69,20 @@ transactionRouter.get("/getInfoByTid/:id", async function (req, res) {
   }
 });
 
-transactionRouter.post("/add/:id", async function (req, res, next) {
-  const { id } = req.params;
-  const { description, transactions } = req.body;
-  if (!description || !transactions) {
+transactionRouter.post("/add", async function (req, res) {
+  const { uid, amount, description, friends } = req.body;
+  if (!uid || !amount || !description || !friends) {
     res.status(401).json({ error: "Invalid parameters" });
   } else {
     try {
-      const transactionInfo = await addTransaction(
-        id,
+      const { success, error, infoId } = await addTransaction(
+        uid,
+        amount,
         description,
-        transactions
+        friends
       );
-      res.status(200).json(transactionInfo);
+      if (!success) res.status(500).json({ error: error });
+      else res.status(200).json(infoId);
     } catch (e) {
       console.error("e", e);
       res.status(500).json({ error: `Unknown server error: ${e}` });

@@ -30,37 +30,32 @@ const createTransactionInfo = async (info) => {
   return await transactionInfo.save();
 };
 
-export const addTransaction = async (uid, description, transactions) => {
+export const addTransaction = async (uid, amount, description, friends) => {
   const _id = new ObjectId();
   // Check if uid exists
   if (!(await verifyUserById(uid))) {
-    // return { error: "User does not exist" };
+    return { success: false, error: "User not found" };
   }
 
+  amount = parseFloat(amount);
+  const average = amount / (friends.length + 1); // Including the user
+
   const details = await Promise.all(
-    transactions.map(async (transaction) => {
-      const { group_id, friends, amount } = transaction;
-      if (group_id !== undefined) {
-        // return { amount };
-        // TODO: Think about how to handle group transactions
+    friends.map(async (fid) => {
+      // Check if fid exists
+      if (!(await verifyUserById(fid))) {
+        return { success: false, error: "Friend not found" };
       }
 
-      // Delete user themselves from friends
-      const index = friends.indexOf(uid);
-      if (index > -1) friends.splice(index, 1);
+      // Create transaction for each friend
+      const transaction = await createTransaction(uid, fid, average, _id);
 
-      const num = friends.length + 1; // Including the user
-      const average = parseFloat(amount) / num;
-
-      const transactions = await Promise.all(
-        friends.map((fid) => createTransaction(uid, fid, average, _id))
-      );
-      const transactionId = transactions.map((item) => item._id);
-      return { amount, transactionId };
+      return { amount: average, transactionId: transaction._id };
     })
   );
-  const info = { _id, payer: uid, description, details };
-  return await createTransactionInfo(info);
+  const info = { _id, payer: uid, amount, description, details };
+  const infoId = await createTransactionInfo(info);
+  return { success: true, infoId };
 };
 
 /**
@@ -99,7 +94,7 @@ export const getTransactionByUser = async (id) => {
 // Get parsed transaction details by info id
 export const getTransactionDetails = async (id) => {
   const transactionInfo = await getTransactionInfoByInfoId(id);
-  console.log("transactionInfo", transactionInfo);
+  // console.log("transactionInfo", transactionInfo);
   if (!transactionInfo)
     return { success: false, error: "Transaction info not found" };
 
@@ -125,7 +120,7 @@ export const getTransactionDetails = async (id) => {
     description: transactionInfo.description,
     details: transactions,
   };
-  console.log("parsedTransactionInfo", parsedTransactionInfo);
+  // console.log("parsedTransactionInfo", parsedTransactionInfo);
   return parsedTransactionInfo;
 };
 
