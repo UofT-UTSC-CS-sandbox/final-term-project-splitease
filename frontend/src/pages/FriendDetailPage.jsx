@@ -42,13 +42,13 @@ const FriendDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const handleTransactionClick = useCallback(
-    (e) => {
-      const uid = e.currentTarget.uid;
-      navigate("/transactiondetailpage/");
-    },
-    [navigate]
-  );
+  // const handleTransactionClick = useCallback(
+  //   (e) => {
+  //     const uid = e.currentTarget.uid;
+  //     navigate("/transactiondetailpage/");
+  //   },
+  //   [navigate]
+  // );
   return (
     <div className="pageContainer">
       <div className="headerBackground">
@@ -77,8 +77,8 @@ const FriendDetailPage = () => {
         <div className="recent-activities-text">Recent shared activities</div>
         <div
           className="recent-activities-bar"
-          onClick={handleTransactionClick}
-          style={{ cursor: "pointer" }}
+          // onClick={handleTransactionClick}
+          // style={{ cursor: "pointer" }}
         >
           <TransactionActivity
             transactions={transactions}

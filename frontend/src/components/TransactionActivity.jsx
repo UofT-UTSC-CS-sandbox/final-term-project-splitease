@@ -5,15 +5,20 @@ import "./TransactionActivity.css";
 
 const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
   const navigate = useNavigate();
+  console.log("Transactions are:", transactions)
 
-  const onTransactionDetailsClick = useCallback(() => {
-    navigate("/transactiondetailpage");
+  const onTransactionDetailsClick = useCallback((transaction) => {
+    navigate("/transactiondetailpage", {state: {transaction}});
   }, [navigate]);
 
   return (
-    <div onClick={onTransactionDetailsClick}>
+    <div>
       {transactions.map((transaction) => (
-        <div className="activity" key={transaction.id}>
+        <div
+          className="activity"
+          key={transaction.id}
+          onClick={() => onTransactionDetailsClick(transaction)}
+        >
           <div className="activity-date">{transaction.date}</div>
           <div className="activity-details">
             <div className="activity-name">{transaction.name}</div>
@@ -24,8 +29,7 @@ const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
                 : transaction.payer}
             </div>
           </div>
-          {(transaction.payer === friendsInfo.name) ^
-          (transaction.amount < 0) ? (
+          {(transaction.payer === friendsInfo.name) ^ (transaction.amount < 0) ? (
             <div className="activity-amount-negative">
               -${Math.abs(transaction.amount).toFixed(2)}
             </div>

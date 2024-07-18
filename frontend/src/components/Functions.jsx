@@ -87,7 +87,7 @@ export async function parseTransactions(transactions) {
   return await Promise.all(
     transactions.map(async (transaction) => {
       const transactionInfo = await getTransactionInfoByTid(transaction._id);
-      console.info("Transaction Info:", transactionInfo);
+      // console.info("Transaction Info:", transactionInfo);
 
       // Get date in MM DD, YY format
       let formattedDate = formatDate(transactionInfo.createdAt, false);
