@@ -108,6 +108,14 @@ const AddTransactionPage = () => {
         });
         return;
       }
+      else if (friendUid == uid) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "You cannot add yourself as a friend.",
+        });
+        return;
+      }
 
       // Create the transaction data with both UIDs
       const friends = [friendUid];

@@ -17,12 +17,36 @@ const GroupDetailPage = () => {
 
   // Get group details
   const [groupDetails, setGroupDetails] = useState({});
-  useEffect(() => {
-    console.log("Fetching group details for gid:", gid);
+  const [groupMembers, setGroupMembers] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
-    // TODO: Finish group details API
-    // * You may want to put `group details` jsx in a dedicated component file
-  });
+  useEffect(() => {
+    const fetchGroupDetails = async () => {
+      try {
+        // Fetch group details
+        const groupResponse = await axios.get(`/group/details/${gid}`);
+        const groupData = groupResponse.data;
+
+        // Fetch members' names
+        const memberNames = await Promise.all(
+          groupData.members.map(async (memberId) => {
+            const userResponse = await axios.get(`/user/name/of/${memberId}`);
+            return userResponse.data.name;
+          })
+        );
+
+        setGroupDetails(groupData);
+        setGroupMembers(memberNames);
+        setTransactions(groupData.transactions);
+      } catch (error) {
+        console.error("Error fetching group details:", error);
+      }
+    };
+
+    if (gid) {
+      fetchGroupDetails();
+    }
+  }, [gid]);
   // test transactions for group
 
   const testTransactions = [
@@ -76,9 +100,9 @@ const GroupDetailPage = () => {
       <div className="group-members">
         <div className="group-balance">
           <img className="group-icon" alt="" src="/group.svg" />
-          <h2>Group Name </h2>
+          <h2>{groupDetails.name}</h2>
           <div className="member-list">
-            {testGroupMembers.map((member, index) => (
+            {groupMembers.map((member, index) => (
               <div key={index} className="member-name">{member}</div>
             ))}
           </div>
