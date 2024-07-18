@@ -88,7 +88,7 @@ export const getTransactionInfoByTid = async (id) => {
 };
 
 export const getTransactionByUser = async (id) => {
-  return await Transaction.find({ payer: id });
+  return await Transaction.find({ $or: [{ payer: id }, { payee: id }] });
 };
 
 // Get parsed transaction details by info id

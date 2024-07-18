@@ -117,16 +117,15 @@ export function validateUser() {
     });
   }
 
-  axios.get(`/user/validate/${uid}`).then((data) => {
-    if (data.error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Your session has expired. Please log in again!",
-      }).then(() => {
-        navigate("/login");
-      });
-    }
+  axios.get(`/user/validate/${uid}`).catch((e) => {
+    console.error("Error validating user:", e);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Your session has expired. Please log in again!",
+    }).then(() => {
+      navigate("/login");
+    });
   });
 
   return true;

@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate, parseTransactions, validateUser } from "../components/Functions.jsx";
+import {
+  formatDate,
+  parseTransactions,
+  validateUser,
+} from "../components/Functions.jsx";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import UserInfo from "../components/UserInfo";
 import "./MainPage.css";
@@ -12,7 +16,7 @@ const MainPage = () => {
 
   // Validate user
   // TODO: Add validation for each page
-  // validateUser();
+  validateUser();
 
   const [transactions, setTransactions] = useState([]);
 
@@ -43,7 +47,7 @@ const MainPage = () => {
         console.log("the response transactions are: ", response.data);
         console.log(response.data.transactions);
         const transaction = await parseTransactions(response.data.transactions);
-        setTransactions( transaction || []);
+        setTransactions(transaction || []);
       })
       .catch((error) => {
         console.log(error);
