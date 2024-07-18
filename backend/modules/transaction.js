@@ -287,20 +287,36 @@ export const getUserAndFriendList = async (uid, fid) => {
 };
 export async function getUserPay(uid) {
   const pay = await Transaction.aggregate([
-    { $match: { payee: { $eq: new ObjectId(uid) } } },
-    { $project: { _id: null, transactions: "$amount" } },
+    {
+      $match: {
+        $or: [
+          { payee: { $eq: new ObjectId(uid) }, amount: { $gt: 0 } },
+          { payer: { $eq: new ObjectId(uid) }, amount: { $lt: 0 } },
+        ],
+      },
+    },
+    { $project: { _id: null, transactions: { $abs: "$amount" } } },
     { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
+  console.log("user pay", pay);
   const total_pay = pay.length === 0 ? 0 : pay[0].totalAmount;
   return total_pay;
 }
 
 export async function getUserCost(uid) {
   const cost = await Transaction.aggregate([
-    { $match: { payer: { $eq: new ObjectId(uid) } } },
-    { $project: { _id: null, transactions: "$amount" } },
+    {
+      $match: {
+        $or: [
+          { payer: { $eq: new ObjectId(uid) }, amount: { $gt: 0 } },
+          { payee: { $eq: new ObjectId(uid) }, amount: { $lt: 0 } },
+        ],
+      },
+    },
+    { $project: { _id: null, transactions: { $abs: "$amount" } } },
     { $group: { _id: null, totalAmount: { $sum: "$transactions" } } },
   ]);
+  console.log("user cost", cost);
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
   return total_cost;
 }
