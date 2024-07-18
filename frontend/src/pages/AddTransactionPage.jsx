@@ -81,7 +81,7 @@ const AddTransactionPage = () => {
       return;
     }
 
-    const description = "TransDescFoo";
+    const description = type;
     const uid = localStorage.getItem("uid");
 
     if (!uid) {
