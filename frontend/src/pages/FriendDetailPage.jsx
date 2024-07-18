@@ -27,7 +27,7 @@ const FriendDetailPage = () => {
       friend.friend.fid = fid;
 
       // reverse the order of transactions
-      friend.friend.transactions = friend.friend.transactions.reverse();
+      // friend.friend.transactions = friend.friend.transactions.reverse();
       setFriendsInfo(friend.friend);
       console.info("Friend details:", friend);
 

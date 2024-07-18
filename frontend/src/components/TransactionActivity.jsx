@@ -5,12 +5,16 @@ import "./TransactionActivity.css";
 
 const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
   const navigate = useNavigate();
-  console.log("Transactions are:", transactions)
+  console.log("Transactions are:", transactions);
+  transactions.reverse();
 
-  const onTransactionDetailsClick = useCallback((transaction) => {
-    navigate("/transactiondetailpage", {state: {transaction}});
-  }, [navigate]);
-  
+  const onTransactionDetailsClick = useCallback(
+    (transaction) => {
+      navigate("/transactiondetailpage", { state: { transaction } });
+    },
+    [navigate]
+  );
+
   return (
     <div>
       {transactions.map((transaction) => (
@@ -29,7 +33,8 @@ const TransactionActivity = ({ transactions, uid, friendsInfo }) => {
                 : transaction.payer}
             </div>
           </div>
-          {(transaction.payer === friendsInfo.name) ^ (transaction.amount < 0) ? (
+          {(transaction.payer === friendsInfo.name) ^
+          (transaction.amount < 0) ? (
             <div className="activity-amount-negative">
               -${Math.abs(transaction.amount).toFixed(2)}
             </div>
