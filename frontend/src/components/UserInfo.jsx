@@ -1,7 +1,7 @@
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserInfo.css";
-import axios from "axios";
 
 const UserInfo = () => {
   const navigate = useNavigate();
@@ -41,10 +41,7 @@ const UserInfo = () => {
 
   return (
     <div className={"vectorParent"}>
-      <div
-        className={"frameChild"}
-        onClick={onRectangleClick}
-      />
+      <div className={"frameChild"} onClick={onRectangleClick} />
       <div className={"userWrapper"}>
         <img
           className={"userIcon"}
@@ -63,7 +60,8 @@ const UserInfo = () => {
               <b className={"owed"}>Owed: ${owed.toFixed(2)}</b>
               <div className={"costsParent"}>
                 <div className={"costs"}>
-                  Balance: ${totalBalance.toFixed(2)}
+                  Balance: {totalBalance >= 0 ? "$" : "-$"}
+                  {Math.abs(totalBalance).toFixed(2)}
                 </div>
                 <div className={"arrowRightWrapper"}>
                   <img

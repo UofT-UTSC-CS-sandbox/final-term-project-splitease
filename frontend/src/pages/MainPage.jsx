@@ -1,11 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  formatDate,
-  parseTransactions,
-  validateUser,
-} from "../components/Functions.jsx";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import UserInfo from "../components/UserInfo";
 import "./MainPage.css";
