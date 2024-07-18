@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { parseTransactions } from "../components/Functions.jsx";
@@ -11,7 +11,7 @@ import SharingDetail from "../components/SharingDetail.jsx";
 
 const TransactionDetailPage = () => {
   const location = useLocation();
-  const {transaction} = location.state || {};
+  const { transaction } = location.state || {};
   const trans_id = transaction.id;
   console.log("Transaction detial of current:", transaction);
   const uid = localStorage.getItem("uid");
@@ -39,17 +39,17 @@ const TransactionDetailPage = () => {
         .then((response) => {
           setTransactionDetails(response.data);
           console.log("details are:", response.data);
-          const details = response.data.details
-          .map(detail => ({
+          const details = response.data.details.map((detail) => ({
             id: detail.id,
             avatar: "https://via.placeholder.com/30", // Hardcoded image URL
-            name: detail.payee === uid ? response.data.payerName : detail.payeeName,
+            name:
+              detail.payee === uid ? response.data.payerName : detail.payeeName,
             amount: detail.amount,
           }));
           setShare(details);
         })
         .catch((error) => {
-          console.error('Error fetching transaction details:', error);
+          console.error("Error fetching transaction details:", error);
         });
     }
   }, [trans_id]);
@@ -78,7 +78,6 @@ const TransactionDetailPage = () => {
     },
   ];
 
-
   //const [friendsInfo, setFriendsInfo] = useState([]);
   //const [transactions, setTransactions] = useState([]);
 
@@ -89,10 +88,6 @@ const TransactionDetailPage = () => {
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
-
-
-
-
 
   return (
     <div className="pageContainer">
@@ -108,28 +103,28 @@ const TransactionDetailPage = () => {
       <div className="content">
         <div className="current-balance-bar">
           <h2>Transaction date: {transaction.date}</h2>
-
+          {/* TODO: Total amount is not necessarily twice the amount */}
+          {/* TODO: Add to fixed 2 to display $xx.xx */}
           {uid > 0 ? (
-            <p className="balance-negative"> Your current total transaction {transaction.amount*2}$</p>
+            <p className="balance-negative">
+              {" "}
+              Your current total transaction ${transaction.amount * 2}
+            </p>
           ) : (
-            <p className="balance-positive"> Your current total transaction { transaction.amount*2}$</p>
-
+            <p className="balance-positive">
+              {" "}
+              Your current total transaction ${transaction.amount * 2}
+            </p>
           )}
-
-
         </div>
 
-        <div className="recent-activities-text">Persons who share the transaction</div>
+        <div className="recent-activities-text">
+          Persons who share the transaction
+        </div>
 
         <div className="activity-wrapper">
-
-
-          <SharingDetail
-            sharings={Share}
-          />
-
+          <SharingDetail sharings={Share} />
         </div>
-
       </div>
     </div> // add activities list here
   );
