@@ -7,6 +7,7 @@ import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import AddGroups from "../components/AddGroups.jsx";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const GroupDetailPage = () => {
   const uid = localStorage.getItem("uid");
@@ -101,11 +102,43 @@ const GroupDetailPage = () => {
     setNewFriendName(e.target.value);
   };
   
-  const handleAddFriend = () => {
+  const handleAddFriend = async () => {
     // Implement the logic to add the new friend
     console.log("New friend name:", newFriendName);
     // Close the popup after adding the friend
-    handlePopupClose();
+    try {
+      // Fetch friend's ID by name
+      const friendResponse = await axios.get(`/user/id/of/${newFriendName}`);
+      const friendId = friendResponse.data.user_id;
+      console.log("Friend ID:", friendId);
+
+      const inviteData = {
+        id: uid,
+        groupId: gid,
+        friendId: friendId,
+      };
+
+      console.log("invite data is: ", inviteData);
+
+      // Make POST request to invite friend to group
+      const inviteResponse = await axios.post('/group/invite', inviteData);
+
+      if (inviteResponse.status === 200) {
+        // Update the group members list
+        const updatedMembers = [...groupMembers, newFriendName];
+        setGroupMembers(updatedMembers);
+        console.info("Successfully invited friend to group");
+      }
+
+      handlePopupClose();
+    } catch (error) {
+      Swal.fire(
+        "Error",
+        "Failed to add friend to the group. Please try again.",
+        "error"
+      );
+      console.error("Error inviting friend to group:", error);
+    }
   };
   // TODO: display transaction details between each group member
   return (
