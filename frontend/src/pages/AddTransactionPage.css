@@ -105,6 +105,7 @@
     height: 39px;
     text-align: center;
     margin:auto;
+    margin-top: 10px;
 }
 
 .vectorIcon {
@@ -132,12 +133,15 @@
 
 .confirm {
     border-radius: var(--br-26xl);
-    background-color: #cde8e5;
-    width: 167px;
-    height: 56px;
-    cursor: pointer;
-    margin: 20px auto;
-    text-align: center;
+  background-color: #cde8e5;
+  width: 167px;
+  height: 56px;
+  cursor: pointer;
+  margin: 20px auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .method-buttons {

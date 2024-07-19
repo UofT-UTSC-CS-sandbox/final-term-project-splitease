@@ -134,6 +134,7 @@ const GroupDetailPage = () => {
               src="/group.svg"
               onClick={handleAddUserClick}
             />
+          <div className="add-user-text">Add Friend</div>
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
         <div className="recent-activities-bar">
