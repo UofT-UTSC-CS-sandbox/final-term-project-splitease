@@ -19,7 +19,7 @@ const AddTransactionPage = () => {
   });
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-
+  const [splitMethod, setSplitMethod] = useState("Evenly"); // State for split method
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -57,6 +57,10 @@ const AddTransactionPage = () => {
 
   const handleTypeChange = (e) => {
     setType(e.target.value);
+  };
+
+  const handleSplitMethodChange = (method) => {
+    setSplitMethod(method);
   };
 
   const onConfirmTextClick = useCallback(async () => {
@@ -249,11 +253,20 @@ const AddTransactionPage = () => {
         <div className={"chooseAMethod"}>
           Choose a method to split this bill
         </div>
-        <select >
-          <option value="Evenly">Evenly</option>
-          <option value="Other">Other</option>
-        </select>
-
+        <div className="method-buttons">
+        <button
+          className={splitMethod === "Evenly" ? "active" : ""}
+          onClick={() => handleSplitMethodChange("Evenly")}
+        >
+          Evenly
+        </button>
+        <button
+          className={splitMethod === "Other" ? "active" : ""}
+          onClick={() => handleSplitMethodChange("Other")}
+        >
+          Other
+        </button>
+      </div>
       </div>
       <div className={"youWillPay"}>
         You will pay a total of ${parseFloat(payAmount).toFixed(2)}

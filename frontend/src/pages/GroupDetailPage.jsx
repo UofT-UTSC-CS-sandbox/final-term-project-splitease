@@ -5,6 +5,7 @@ import { parseTransactions } from "../components/Functions.jsx";
 import "./GroupDetailPage.css";
 import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
+import AddGroups from "../components/AddGroups.jsx";
 import axios from "axios";
 
 const GroupDetailPage = () => {
@@ -14,11 +15,13 @@ const GroupDetailPage = () => {
   //test data for group
   // Test data for group members
   const testGroupMembers = ["Alice", "Bob", "Charlie"];
-
+  const [isAddGroupsClicked, setIsAddGroupsClicked] = useState(false);
   // Get group details
   const [groupDetails, setGroupDetails] = useState({});
   const [groupMembers, setGroupMembers] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
+  const [newFriendName, setNewFriendName] = useState(""); // State for new friend's name
 
   useEffect(() => {
     const fetchGroupDetails = async () => {
@@ -85,6 +88,25 @@ const GroupDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
+  const handleAddUserClick = () => {
+    setShowPopup(true);
+  };
+  
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    setNewFriendName("");
+  };
+  
+  const handleFriendNameChange = (e) => {
+    setNewFriendName(e.target.value);
+  };
+  
+  const handleAddFriend = () => {
+    // Implement the logic to add the new friend
+    console.log("New friend name:", newFriendName);
+    // Close the popup after adding the friend
+    handlePopupClose();
+  };
   // TODO: display transaction details between each group member
   return (
     <div className="pageContainer">
@@ -106,6 +128,12 @@ const GroupDetailPage = () => {
               <div key={index} className="member-name">{member}</div>
             ))}
           </div>
+          <img
+              className="add-user-icon"
+              alt="Add User"
+              src="/group.svg"
+              onClick={handleAddUserClick}
+            />
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
         <div className="recent-activities-bar">
@@ -116,6 +144,23 @@ const GroupDetailPage = () => {
           />
         </div>
       </div>
+      {showPopup && (
+  <div className="popup">
+    <div className="popup-inner">
+      <h3>Add a new friend</h3>
+      <input
+        type="text"
+        placeholder="Enter friend's name"
+        value={newFriendName}
+        onChange={handleFriendNameChange}
+      />
+      <div className="popup-buttons">
+        <button onClick={handleAddFriend}>Add</button>
+        <button onClick={handlePopupClose}>Cancel</button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

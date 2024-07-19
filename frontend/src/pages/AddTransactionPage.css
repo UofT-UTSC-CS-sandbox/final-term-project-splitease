@@ -139,3 +139,24 @@
     margin: 20px auto;
     text-align: center;
 }
+
+.method-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .method-buttons button {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .method-buttons button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
