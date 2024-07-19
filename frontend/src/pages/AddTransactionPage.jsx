@@ -33,6 +33,7 @@ const AddTransactionPage = () => {
       try {
         const response = await axios.get(`/user/partial/${value}`);
         console.log("suggestions are: ", response.data);
+        console.log("suggestions are: ", response.data);
         const users = response.data.users || [];
         const userNames = users.map((user) => user.name);
         setSuggestions(userNames);
@@ -157,13 +158,16 @@ const AddTransactionPage = () => {
       }
     } catch (error) {
       console.error(
+        
         "Error fetching friend UID or creating transaction:",
+       
         error
+      
       );
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "An error occurred while processing the transaction.",
+        title: "Error!",
+        text: "Friend Not Found!",
       });
     }
   }, [inputValue, methodType, type, uid, navigate]);

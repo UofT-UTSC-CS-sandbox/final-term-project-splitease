@@ -81,6 +81,7 @@
     height: 38px;
     overflow: hidden;
     left: -10px;
+    cursor: pointer;
 }
 
 .arrowRightWrapper {
