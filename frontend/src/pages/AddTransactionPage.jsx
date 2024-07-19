@@ -310,16 +310,18 @@ const AddTransactionPage = () => {
         Confirm
       </div>
       <Modal
-        isOpen={isModalOpen}
-        onRequestClose={handleModalClose}
-        contentLabel="Custom Split"
-        ariaHideApp={false}
-        className="custom-modal"
-      >
-      <h2>Enter Split Details</h2>
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className="split-detail-row">
-          <input type="text" placeholder="Friend name" />
+          isOpen={isModalOpen}
+          onRequestClose={handleModalClose}
+          contentLabel="Custom Split"
+          ariaHideApp={false}
+          className="custom-modal"
+          >
+  {FGMethod === "Friend" ? (
+    <div>
+      <h2>Enter Split Details for Friend</h2>
+      {[...Array(1)].map((_, index) => (
+        <div key={index} className="split-detail-row">
+          <input type="text" placeholder="Friend Name" />
           <input type="text" placeholder="Amount" />
         </div>
       ))}
@@ -327,7 +329,24 @@ const AddTransactionPage = () => {
         <button onClick={handleModalClose}>Close</button>
         <button onClick={handleConfirmSplit}>Confirm</button>
       </div>
-        </Modal>
+    </div>
+      ) : (
+    <div>
+      <h2>Enter Split Details for Group</h2>
+      {[...Array(5)].map((_, index) => (
+        <div key={index} className="split-detail-row">
+          <input type="text" placeholder="Group member" />
+          <input type="text" placeholder="Amount" />
+        </div>
+      ))}
+      <div className="modal-buttons">
+        <button onClick={handleModalClose}>Close</button>
+        <button onClick={handleConfirmSplit}>Confirm</button>
+      </div>
+    </div>
+  )}
+</Modal>
+
         </div>
       );
     };
