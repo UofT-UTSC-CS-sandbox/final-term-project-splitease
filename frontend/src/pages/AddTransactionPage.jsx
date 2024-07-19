@@ -267,6 +267,7 @@ const AddTransactionPage = () => {
           Other
         </button>
       </div>
+
       </div>
       <div className={"youWillPay"}>
         You will pay a total of ${parseFloat(payAmount).toFixed(2)}

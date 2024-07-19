@@ -101,10 +101,10 @@
 }
 
 .chooseAMethod {
-    display: inline-block;
-    width: 542px;
+    width: 600px;
     height: 39px;
     text-align: center;
+    margin:auto;
 }
 
 .vectorIcon {
