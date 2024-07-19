@@ -4,6 +4,7 @@ import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Modal from "react-modal";
 
 const AddTransactionPage = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const AddTransactionPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [splitMethod, setSplitMethod] = useState("Evenly"); // State for split method
   const [FGMethod, setFGMethod] = useState("Friend"); // State for FG method
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -60,14 +62,25 @@ const AddTransactionPage = () => {
     setType(e.target.value);
   };
 
-  const handleSplitMethodChange = (method) => {
-    setSplitMethod(method);
-  };
-
   const handleFGChange = (method) => {
     setFGMethod(method);
   };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+  
+  const handleSplitMethodChange = (method) => {
+    setSplitMethod(method);
+    if (method === "Other") {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleConfirmSplit = () => {
+    // Handle confirm logic here 
+    setIsModalOpen(false);
+  };
   const onConfirmTextClick = useCallback(async () => {
     const amount = document.getElementById("amount").value;
     const newErrors = {};
@@ -223,7 +236,7 @@ const AddTransactionPage = () => {
       
       <img className={"lineIcon"} alt="" src="/line-1.svg" />
       <img className={"line"} alt="" />
-
+      
       <div className="selection-box">
         <div className="select">Choose a payment type</div>
         <select value={type} onChange={handleTypeChange}>
@@ -296,8 +309,27 @@ const AddTransactionPage = () => {
       <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
       </div>
-    </div>
-  );
-};
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleModalClose}
+        contentLabel="Custom Split"
+        ariaHideApp={false}
+        className="custom-modal"
+      >
+      <h2>Enter Split Details</h2>
+        {[...Array(5)].map((_, index) => (
+          <div key={index} className="split-detail-row">
+          <input type="text" placeholder="Friend name" />
+          <input type="text" placeholder="Amount" />
+        </div>
+      ))}
+      <div className="modal-buttons">
+        <button onClick={handleModalClose}>Close</button>
+        <button onClick={handleConfirmSplit}>Confirm</button>
+      </div>
+        </Modal>
+        </div>
+      );
+    };
 
 export default AddTransactionPage;
