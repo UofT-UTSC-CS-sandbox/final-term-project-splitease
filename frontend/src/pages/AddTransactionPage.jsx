@@ -20,6 +20,7 @@ const AddTransactionPage = () => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [splitMethod, setSplitMethod] = useState("Evenly"); // State for split method
+  const [FGMethod, setFGMethod] = useState("Friend"); // State for FG method
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -61,6 +62,10 @@ const AddTransactionPage = () => {
 
   const handleSplitMethodChange = (method) => {
     setSplitMethod(method);
+  };
+
+  const handleFGChange = (method) => {
+    setFGMethod(method);
   };
 
   const onConfirmTextClick = useCallback(async () => {
@@ -201,8 +206,24 @@ const AddTransactionPage = () => {
         )}
         {errors.inputValue && <div className="error">{errors.inputValue}</div>}
       </div>
+      <div className="method-buttons">
+          <button
+            className={FGMethod === "Friend" ? "active" : ""}
+            onClick={() => handleFGChange("Friend")}
+          >
+            Friend
+          </button>
+          <button
+            className={FGMethod === "Group" ? "active" : ""}
+            onClick={() => handleFGChange("Group")}
+          >
+            Group
+          </button>
+        </div>
+      
       <img className={"lineIcon"} alt="" src="/line-1.svg" />
       <img className={"line"} alt="" />
+
       <div className="selection-box">
         <div className="select">Choose a payment type</div>
         <select value={type} onChange={handleTypeChange}>
@@ -254,19 +275,19 @@ const AddTransactionPage = () => {
           Choose a method to split this bill
         </div>
         <div className="method-buttons">
-        <button
-          className={splitMethod === "Evenly" ? "active" : ""}
-          onClick={() => handleSplitMethodChange("Evenly")}
-        >
-          Evenly
-        </button>
-        <button
-          className={splitMethod === "Other" ? "active" : ""}
-          onClick={() => handleSplitMethodChange("Other")}
-        >
-          Other
-        </button>
-      </div>
+          <button
+            className={splitMethod === "Evenly" ? "active" : ""}
+            onClick={() => handleSplitMethodChange("Evenly")}
+          >
+            Evenly
+          </button>
+          <button
+            className={splitMethod === "Other" ? "active" : ""}
+            onClick={() => handleSplitMethodChange("Other")}
+          >
+            Input your split
+          </button>
+        </div>
 
       </div>
       <div className={"youWillPay"}>
