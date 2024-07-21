@@ -77,7 +77,6 @@
 }
 
 .amountText {
-    /* margin-top: 100px; */
     display: inline-block;
     width: 530px;
     height: 42px;
@@ -104,7 +103,7 @@
     width: 600px;
     height: 39px;
     text-align: center;
-    margin:auto;
+    margin: auto;
     margin-top: 10px;
 }
 
@@ -133,38 +132,39 @@
 
 .confirm {
     border-radius: var(--br-26xl);
-  background-color: #cde8e5;
-  width: 167px;
-  height: 56px;
-  cursor: pointer;
-  margin: 20px auto;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background-color: #cde8e5;
+    width: 167px;
+    height: 56px;
+    cursor: pointer;
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .method-buttons {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-  }
-  
-  .method-buttons button {
+}
+
+.method-buttons button {
     background-color: #f1f1f1;
     border: 1px solid #ccc;
     padding: 10px 20px;
     margin: 0 5px;
     cursor: pointer;
     font-size: 1em;
-  }
-  
-  .method-buttons button.active {
+}
+
+.method-buttons button.active {
     background-color: #007bff;
     color: white;
     border-color: #007bff;
-  }
-  .custom-modal {
+}
+
+.custom-modal {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -178,36 +178,36 @@
     outline: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     width: 400px;
-  }
-  
-  .split-detail-row {
+}
+
+.split-detail-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-  }
-  
-  .split-detail-row input {
+}
+
+.split-detail-row input {
     width: 48%;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  button {
+}
+
+button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     background-color: #007bff;
     color: white;
     cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+}
 
-  .modal-buttons {
+button:hover {
+    background-color: #0056b3;
+}
+
+.modal-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-  }
+}

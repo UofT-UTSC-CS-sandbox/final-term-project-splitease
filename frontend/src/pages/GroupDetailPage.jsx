@@ -60,7 +60,7 @@ const GroupDetailPage = () => {
       name: "Lunch at Joe's",
       payerId: "user1",
       payer: "Alice",
-      amount: 25.00,
+      amount: 25.0,
     },
     {
       id: 2,
@@ -68,7 +68,7 @@ const GroupDetailPage = () => {
       name: "Movie Tickets",
       payerId: "user2",
       payer: "Bob",
-      amount: -10.00,
+      amount: -10.0,
     },
     {
       id: 3,
@@ -76,7 +76,7 @@ const GroupDetailPage = () => {
       name: "Grocery Shopping",
       payerId: "user1",
       payer: "Alice",
-      amount: 50.00,
+      amount: 50.0,
     },
   ];
 
@@ -92,16 +92,16 @@ const GroupDetailPage = () => {
   const handleAddUserClick = () => {
     setShowPopup(true);
   };
-  
+
   const handlePopupClose = () => {
     setShowPopup(false);
     setNewFriendName("");
   };
-  
+
   const handleFriendNameChange = (e) => {
     setNewFriendName(e.target.value);
   };
-  
+
   const handleAddFriend = async () => {
     // Implement the logic to add the new friend
     console.log("New friend name:", newFriendName);
@@ -121,7 +121,7 @@ const GroupDetailPage = () => {
       console.log("invite data is: ", inviteData);
 
       // Make POST request to invite friend to group
-      const inviteResponse = await axios.post('/group/invite', inviteData);
+      const inviteResponse = await axios.post("/group/invite", inviteData);
 
       if (inviteResponse.status === 200) {
         // Update the group members list
@@ -151,26 +151,25 @@ const GroupDetailPage = () => {
           src="/delete.svg"
           onClick={onDeleteIconClick}
         />
+        <button className="adduser" onClick={handleAddUserClick}>
+          <img className="add-user-icon" alt="Add User" src="/group.svg" />
+          Add Friend
+        </button>
       </div>
-      <div className="group-members">
-        <div className="group-balance">
+      <div className="group-balance">
+        <div className="group-header">
           <img className="group-icon" alt="" src="/group.svg" />
           <h2>{groupDetails.name}</h2>
-          <div className="member-list">
-            {groupMembers.map((member, index) => (
-              <div key={index} className="member-name">{member}</div>
-            ))}
-          </div>
-          <img
-              className="add-user-icon"
-              alt="Add User"
-              src="/group.svg"
-              onClick={handleAddUserClick}
-            />
-          <div className="add-user-text">Add Friend</div>
         </div>
-        <div className="recent-activities-text">Recent shared activities</div>
-        <div className="recent-activities-bar">
+        {groupMembers.map((member, index) => (
+          <div key={index} className="member-name">
+            {member}
+          </div>
+        ))}
+      </div>
+      <div className="group-recent-activities-container">
+        <h2>Recent shared activities</h2>
+        <div className="group-recent-activities-bar">
           <TransactionActivity
             transactions={testTransactions}
             uid={UID_test}
@@ -178,23 +177,24 @@ const GroupDetailPage = () => {
           />
         </div>
       </div>
+
       {showPopup && (
-  <div className="popup">
-    <div className="popup-inner">
-      <h3>Add a new friend</h3>
-      <input
-        type="text"
-        placeholder="Enter friend's name"
-        value={newFriendName}
-        onChange={handleFriendNameChange}
-      />
-      <div className="popup-buttons">
-        <button onClick={handleAddFriend}>Add</button>
-        <button onClick={handlePopupClose}>Cancel</button>
-      </div>
-    </div>
-  </div>
-)}
+        <div className="popup">
+          <div className="popup-inner">
+            <h3>Add a new friend</h3>
+            <input
+              type="text"
+              placeholder="Enter friend's name"
+              value={newFriendName}
+              onChange={handleFriendNameChange}
+            />
+            <div className="popup-buttons">
+              <button onClick={handleAddFriend}>Add</button>
+              <button onClick={handlePopupClose}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

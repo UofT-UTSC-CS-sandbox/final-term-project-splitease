@@ -132,9 +132,6 @@ const LoginForm = ({ className = "" }) => {
           type="password"
         />
       </div>
-      {/* <div className="sign-up-wrapper">
-        <div className="sign-up">Sign up</div>
-      </div> */}
       <div className="login-button-wrapper-wrapper">
         <div className="login-button-wrapper">
           <div className="button-background" onClick={onButtonBackgroundClick}>

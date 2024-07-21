@@ -52,12 +52,11 @@
     overflow-y: auto;
     height: 400px;
     position: absolute;
-    top: 350px;
+    top: 400px;
 }
 
 .recent-activities-bar> :first-child {
     margin-top: -25px;
-    /* Adjust this value to move it higher */
 }
 
 .current-balance-bar {

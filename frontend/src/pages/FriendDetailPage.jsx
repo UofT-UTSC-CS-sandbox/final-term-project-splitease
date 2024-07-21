@@ -75,11 +75,7 @@ const FriendDetailPage = () => {
           )}
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
-        <div
-          className="recent-activities-bar"
-          // onClick={handleTransactionClick}
-          // style={{ cursor: "pointer" }}
-        >
+        <div className="recent-activities-bar">
           <TransactionActivity
             transactions={transactions}
             uid={uid}

@@ -1,8 +1,11 @@
 .addfriends {
     position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
     top: 68px;
     right: 9px;
-    width: 100px;
+    width: 115px;
     height: 24px;
     overflow: hidden;
     cursor: pointer;

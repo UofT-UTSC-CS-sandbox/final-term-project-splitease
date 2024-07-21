@@ -1,8 +1,11 @@
 .addgroups {
     position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
     top: 68px;
     right: 9px;
-    width: 150px;
+    width: 130px;
     height: 24px;
     overflow: hidden;
     cursor: pointer;

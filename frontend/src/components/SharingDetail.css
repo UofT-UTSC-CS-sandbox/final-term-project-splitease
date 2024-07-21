@@ -1,28 +1,20 @@
 .activity_share {
     display: flex;
     flex-direction: column;
-    /* 垂直排列每个活动项 */
     align-items: center;
     gap: 20px;
-    /* 增加每个活动项之间的间距 */
     padding: 15px;
     margin: 20px auto;
-    /* 调整外边距 */
     width: 400px;
-    /* 根据需要调整宽度 */
     box-sizing: border-box;
     background-color: transparent;
     overflow-y: auto;
     border: none;
-    /* 去掉边框 */
     box-shadow: none;
-    /* 去掉阴影 */
 }
-
 
 .avatar {
     width: 30px;
-    /* 保持头像尺寸为30px */
     height: 30px;
     border-radius: 1%;
     flex-shrink: 0;
@@ -32,7 +24,6 @@
 .activity-details {
     display: flex;
     align-items: center;
-    /* 确保内容垂直居中 */
     flex-grow: 1;
     margin-left: 10px;
 }
@@ -41,31 +32,23 @@
     font-weight: bold;
     margin: 0;
     white-space: nowrap;
-    /* 防止换行 */
     overflow: hidden;
-    /* 隐藏溢出的文本 */
     text-overflow: ellipsis;
-    /* 使用省略号表示被截断的文本 */
 }
 
 .activity-amount-positive {
     color: red;
     white-space: nowrap;
-    /* 防止换行 */
     font-weight: bold;
     margin-left: auto;
-    /* 确保金额对齐右边 */
 }
 
 .activity-amount-negative {
     color: green;
     white-space: nowrap;
-    /* 防止换行 */
     font-weight: bold;
     margin-left: auto;
-    /* 确保金额对齐右边 */
 }
-
 
 .activity-item {
     display: flex;
@@ -73,12 +56,10 @@
     justify-content: space-between;
     padding: 15px;
     margin-bottom: 20px;
-    /* 增加底部间距以分开项 */
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
-    /* 占据父容器的全部宽度 */
     box-sizing: border-box;
 }

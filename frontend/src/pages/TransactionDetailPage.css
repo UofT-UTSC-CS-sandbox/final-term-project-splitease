@@ -149,11 +149,10 @@
 
 .activity-wrapper> :first-child {
     margin-top: 14px;
-    /* Adjust this value to move it higher */
 }
 
 .payment-description {
     margin-top: 10px;
     font-size: 1em;
     color: #555;
-  }
+}
