@@ -70,7 +70,7 @@ const AddTransactionPage = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  
+
   const handleSplitMethodChange = (method) => {
     setSplitMethod(method);
     if (method === "Other") {
@@ -79,7 +79,7 @@ const AddTransactionPage = () => {
   };
 
   const handleConfirmSplit = () => {
-    // Handle confirm logic here 
+    // Handle confirm logic here
     setIsModalOpen(false);
   };
   const onConfirmTextClick = useCallback(async () => {
@@ -130,8 +130,7 @@ const AddTransactionPage = () => {
           text: "Friend not found!",
         });
         return;
-      }
-      else if (friendUid == uid) {
+      } else if (friendUid == uid) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -158,11 +157,9 @@ const AddTransactionPage = () => {
       }
     } catch (error) {
       console.error(
-        
         "Error fetching friend UID or creating transaction:",
-       
+
         error
-      
       );
       Swal.fire({
         icon: "error",
@@ -224,23 +221,23 @@ const AddTransactionPage = () => {
         {errors.inputValue && <div className="error">{errors.inputValue}</div>}
       </div>
       <div className="method-buttons">
-          <button
-            className={FGMethod === "Friend" ? "active" : ""}
-            onClick={() => handleFGChange("Friend")}
-          >
-            Friend
-          </button>
-          <button
-            className={FGMethod === "Group" ? "active" : ""}
-            onClick={() => handleFGChange("Group")}
-          >
-            Group
-          </button>
-        </div>
-      
+        <button
+          className={FGMethod === "Friend" ? "active" : ""}
+          onClick={() => handleFGChange("Friend")}
+        >
+          Friend
+        </button>
+        <button
+          className={FGMethod === "Group" ? "active" : ""}
+          onClick={() => handleFGChange("Group")}
+        >
+          Group
+        </button>
+      </div>
+
       <img className={"lineIcon"} alt="" src="/line-1.svg" />
       <img className={"line"} alt="" />
-      
+
       <div className="selection-box">
         <div className="select">Choose a payment type</div>
         <select value={type} onChange={handleTypeChange}>
@@ -272,9 +269,7 @@ const AddTransactionPage = () => {
       <img className={"lineIcon"} alt="" src="/line-1.svg" />
       <img className={"line"} alt="" />
       <div className="selection-box">
-        <div className={"chooseAMethod"}>
-          Choose a method to pay this bill
-        </div>
+        <div className={"chooseAMethod"}>Choose a method to pay this bill</div>
         <select value={methodType} onChange={handleMethodTypeChange}>
           <option value="">No selection</option>
           <option value="Cash">Cash</option>
@@ -305,54 +300,55 @@ const AddTransactionPage = () => {
             Input your split
           </button>
         </div>
-
       </div>
       <div className={"youWillPay"}>
-        You will pay a total of ${parseFloat(payAmount).toFixed(2)}
+        You will pay a total of $
+        {splitMethod == "Evenly"
+          ? (parseFloat(payAmount) / 2).toFixed(2)
+          : parseFloat(payAmount).toFixed(2)}
       </div>
       <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
       </div>
       <Modal
-          isOpen={isModalOpen}
-          onRequestClose={handleModalClose}
-          contentLabel="Custom Split"
-          ariaHideApp={false}
-          className="custom-modal"
-          >
-  {FGMethod === "Friend" ? (
-    <div>
-      <h2>Enter Split Details for Friend</h2>
-      {[...Array(1)].map((_, index) => (
-        <div key={index} className="split-detail-row">
-          <input type="text" placeholder="Friend Name" />
-          <input type="text" placeholder="Amount" />
-        </div>
-      ))}
-      <div className="modal-buttons">
-        <button onClick={handleModalClose}>Close</button>
-        <button onClick={handleConfirmSplit}>Confirm</button>
-      </div>
+        isOpen={isModalOpen}
+        onRequestClose={handleModalClose}
+        contentLabel="Custom Split"
+        ariaHideApp={false}
+        className="custom-modal"
+      >
+        {FGMethod === "Friend" ? (
+          <div>
+            <h2>Enter Split Details for Friend</h2>
+            {[...Array(1)].map((_, index) => (
+              <div key={index} className="split-detail-row">
+                <input type="text" placeholder="Friend Name" />
+                <input type="text" placeholder="Amount" />
+              </div>
+            ))}
+            <div className="modal-buttons">
+              <button onClick={handleModalClose}>Close</button>
+              <button onClick={handleConfirmSplit}>Confirm</button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h2>Enter Split Details for Group</h2>
+            {[...Array(5)].map((_, index) => (
+              <div key={index} className="split-detail-row">
+                <input type="text" placeholder="Group member" />
+                <input type="text" placeholder="Amount" />
+              </div>
+            ))}
+            <div className="modal-buttons">
+              <button onClick={handleModalClose}>Close</button>
+              <button onClick={handleConfirmSplit}>Confirm</button>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
-      ) : (
-    <div>
-      <h2>Enter Split Details for Group</h2>
-      {[...Array(5)].map((_, index) => (
-        <div key={index} className="split-detail-row">
-          <input type="text" placeholder="Group member" />
-          <input type="text" placeholder="Amount" />
-        </div>
-      ))}
-      <div className="modal-buttons">
-        <button onClick={handleModalClose}>Close</button>
-        <button onClick={handleConfirmSplit}>Confirm</button>
-      </div>
-    </div>
-  )}
-</Modal>
-
-        </div>
-      );
-    };
+  );
+};
 
 export default AddTransactionPage;
