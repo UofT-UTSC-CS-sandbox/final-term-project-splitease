@@ -13,7 +13,7 @@ const TransactionDetailPage = () => {
   const location = useLocation();
   const { transaction } = location.state || {};
   const trans_id = transaction.id;
-  console.log("Transaction detial of current:", transaction);
+  console.log("Transaction detail of current:", transaction);
   const uid = localStorage.getItem("uid");
   console.log("the uid is:", uid);
   const [transactionInfo, setTransactionInfo] = useState(null);
@@ -46,7 +46,15 @@ const TransactionDetailPage = () => {
               detail.payee === uid ? response.data.payerName : detail.payeeName,
             amount: detail.amount,
           }));
-          setShare(details);
+          // Adding description separately
+          const descriptions = response.data.description;
+          console.log("description:", descriptions);
+          // Assuming setShare expects the mapped details along with description
+          const detailedShare = details.map((detail) => ({
+            ...detail,
+            description: descriptions,
+          }));
+          setShare(detailedShare);
         })
         .catch((error) => {
           console.error("Error fetching transaction details:", error);
@@ -83,27 +91,21 @@ const TransactionDetailPage = () => {
       <div className="content">
         <div className="current-balance-bar">
           <h2>Transaction date: {transaction.date}</h2>
-          {/* TODO: Total amount is not necessarily twice the amount */}
-          {/* TODO: Add to fixed 2 to display $xx.xx */}
-          {/* {uid > 0 ? (
-            <p className="balance-negative">
-              {" "}
-              Your current total transaction ${}
-            </p>
-          ) : (
-            <p className="balance-positive">
-              {" "}
-              Your current total transaction ${}
-            </p>
-          )} */}
           {transactionInfo ? (
-            <p className={transactionInfo.amount < 0 ? "balance-negative" : "balance-positive"}>
-              Your current total transaction ${transactionInfo.amount.toFixed(2)}
+            <p
+              className={
+                transactionInfo.amount < 0
+                  ? "balance-negative"
+                  : "balance-positive"
+              }
+            >
+              Your current total transaction $
+              {transactionInfo.amount.toFixed(2)}
             </p>
           ) : (
             <p>Loading transaction amount...</p>
           )}
-            <p className="payment-description">Test desciption</p>
+          <p className="payment-description">Test desciption</p>
         </div>
 
         <div className="recent-activities-text">

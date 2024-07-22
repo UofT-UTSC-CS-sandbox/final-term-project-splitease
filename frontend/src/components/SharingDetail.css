@@ -26,6 +26,7 @@
     align-items: center;
     flex-grow: 1;
     margin-left: 10px;
+    height: 60px;
 }
 
 .activity-name {
@@ -62,4 +63,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
     box-sizing: border-box;
+}
+
+.activity-type {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
 }

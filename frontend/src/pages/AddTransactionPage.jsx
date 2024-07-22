@@ -23,13 +23,13 @@ const AddTransactionPage = () => {
   const [splitMethod, setSplitMethod] = useState("Evenly"); // State for split method
   const [FGMethod, setFGMethod] = useState("Friend"); // State for FG method
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [amounts, setAmounts] = useState(Array(5).fill(""));
+  const [showTotal, setShowTotal] = useState(false);
+
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
     if (value) {
-      // const filteredChoices = allChoices.filter((choice) =>
-      //   choice.toLowerCase().includes(value.toLowerCase())
-      // );
       try {
         const response = await axios.get(`/user/partial/${value}`);
         console.log("suggestions are: ", response.data);
@@ -71,7 +71,26 @@ const AddTransactionPage = () => {
     setIsModalOpen(false);
   };
 
+  const handleInputAmountChange = (index, event) => {
+    const newAmounts = [...amounts];
+    newAmounts[index] = event.target.value;
+    setAmounts(newAmounts);
+  };
+
+  const calculateTotalAmount = () => {
+    if (splitMethod === "Evenly") {
+      return (parseFloat(payAmount) / 2).toFixed(2);
+    } else {
+      const total = amounts.reduce((sum, amount) => {
+        const value = parseFloat(amount);
+        return sum + (isNaN(value) ? 0 : value);
+      }, 0);
+      return total.toFixed(2);
+    }
+  };
+
   const handleSplitMethodChange = (method) => {
+    setShowTotal(true);
     setSplitMethod(method);
     if (method === "Other") {
       setIsModalOpen(true);
@@ -81,6 +100,7 @@ const AddTransactionPage = () => {
   const handleConfirmSplit = () => {
     // Handle confirm logic here
     setIsModalOpen(false);
+    setShowTotal(true);
   };
   const onConfirmTextClick = useCallback(async () => {
     const amount = document.getElementById("amount").value;
@@ -301,12 +321,11 @@ const AddTransactionPage = () => {
           </button>
         </div>
       </div>
-      <div className={"youWillPay"}>
-        You will pay a total of $
-        {splitMethod == "Evenly"
-          ? (parseFloat(payAmount) / 2).toFixed(2)
-          : parseFloat(payAmount).toFixed(2)}
-      </div>
+      {showTotal && (
+        <div className="youWillPay">
+          You will pay a total of ${calculateTotalAmount()}
+        </div>
+      )}
       <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
       </div>
@@ -322,8 +341,13 @@ const AddTransactionPage = () => {
             <h2>Enter Split Details for Friend</h2>
             {[...Array(1)].map((_, index) => (
               <div key={index} className="split-detail-row">
-                <input type="text" placeholder="Friend Name" />
-                <input type="text" placeholder="Amount" />
+                <input type="text" placeholder="Group member" />
+                <input
+                  type="text"
+                  placeholder="Amount"
+                  value={amounts[index]}
+                  onChange={(e) => handleInputAmountChange(index, e)}
+                />
               </div>
             ))}
             <div className="modal-buttons">
@@ -337,13 +361,14 @@ const AddTransactionPage = () => {
             {[...Array(5)].map((_, index) => (
               <div key={index} className="split-detail-row">
                 <input type="text" placeholder="Group member" />
-                <input type="text" placeholder="Amount" />
+                <input
+                  type="text"
+                  placeholder="Amount"
+                  value={amounts[index]}
+                  onChange={(e) => handleInputAmountChange(index, e)}
+                />
               </div>
             ))}
-            <div className="modal-buttons">
-              <button onClick={handleModalClose}>Close</button>
-              <button onClick={handleConfirmSplit}>Confirm</button>
-            </div>
           </div>
         )}
       </Modal>
