@@ -16,13 +16,13 @@ const GroupDetailPage = () => {
   //test data for group
   // Test data for group members
   const testGroupMembers = ["Alice", "Bob", "Charlie"];
-  const [isAddGroupsClicked, setIsAddGroupsClicked] = useState(false);
   // Get group details
   const [groupDetails, setGroupDetails] = useState({});
   const [groupMembers, setGroupMembers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [newFriendName, setNewFriendName] = useState(""); // State for new friend's name
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchGroupDetails = async () => {
@@ -89,10 +89,6 @@ const GroupDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const handleAddUserClick = () => {
-    setShowPopup(true);
-  };
-
   const handlePopupClose = () => {
     setShowPopup(false);
     setNewFriendName("");
@@ -100,6 +96,20 @@ const GroupDetailPage = () => {
 
   const handleFriendNameChange = (e) => {
     setNewFriendName(e.target.value);
+  };
+
+  const handleAddUserClick = () => {
+    setShowPopup(true);
+  };
+
+  // TODO: Implement the logic to delete group
+  const handleDeleteGroupClick = () => {
+    // Handle delete group click
+    console.log("Delete Group clicked");
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleAddFriend = async () => {
@@ -151,10 +161,20 @@ const GroupDetailPage = () => {
           src="/delete.svg"
           onClick={onDeleteIconClick}
         />
-        <button className="adduser" onClick={handleAddUserClick}>
+        <button className="actions-button" onClick={toggleDropdown}>
           <img className="add-user-icon" alt="Add User" src="/group.svg" />
-          Add Friend
+          Actions
         </button>
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+            <div className="dropdown-item" onClick={handleAddUserClick}>
+              Add Friend
+            </div>
+            <div className="dropdown-item" onClick={handleDeleteGroupClick}>
+              Delete Group
+            </div>
+          </div>
+        )}
       </div>
       <div className="group-balance">
         <div className="group-header">

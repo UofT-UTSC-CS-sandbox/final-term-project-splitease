@@ -1,16 +1,3 @@
-.adduser {
-    position: absolute;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    top: 60px;
-    right: 9px;
-    width: 140px;
-    height: 30px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
 .group-balance {
     width: 50%;
     background-color: #eaf8e7;
@@ -107,4 +94,39 @@
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
+}
+
+.actions-button {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    top: 60px;
+    right: 9px;
+    width: 100px;
+    height: 35px;
+    overflow: hidden;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
 }
