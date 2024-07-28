@@ -1,5 +1,5 @@
 .button-group {
-    margin-top: -100px;
+    margin-top: -293px;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -9,15 +9,19 @@
     background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
     border: none;
     border-radius: var(--br-6xl);
-    width: 400px;
-    height: 80px;
+    width: 320px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+    /* front size */
+    color: #000000;
+    /* color */
+    font-weight: 450;
     cursor: pointer;
     transition: background 0.3s ease;
 }
