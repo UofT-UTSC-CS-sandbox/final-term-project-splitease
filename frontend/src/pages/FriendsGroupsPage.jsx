@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import "./FriendsGroupsPage.css";
+import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 
 const FriendsGroupsPage = () => {
@@ -17,9 +18,9 @@ const FriendsGroupsPage = () => {
   }, [navigate]);
 
   return (
-    <div className="friendsgroupspage">
-      <div className="friendsgroupspageChild" />
-      <div className="friendsAndGroups">Friends & Groups</div>
+    <div className="pageContainer">
+      <div className="headerBackground" />
+      <div className="headerText">Friends & Groups</div>
       <img
         className="deleteIcon"
         alt=""

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import "./SettingsLogoutPage.css";
+import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -25,15 +26,15 @@ const SettingsLogoutPage = () => {
   }, [navigate]);
 
   return (
-    <div className="settingslogoutpage">
-      <div className="settingslogoutpageChild" />
+    <div className="pageContainer">
+      <div className="headerBackground" />
+      <div className="headerText">Settings</div>
       <img
         className="deleteIcon"
         alt=""
         src="/delete.svg"
         onClick={onBackButtonClick}
       />
-      <div className="settings">Settings</div>
       <div className="accountSafetyBox">
         <div className="accountSafety" onClick={onAccountSafetyClick}>
           Account & Safety

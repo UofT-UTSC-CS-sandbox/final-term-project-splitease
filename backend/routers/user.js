@@ -6,6 +6,8 @@ import {
   registerUser,
   getAllUsers,
   verifyUserById,
+  getUserByPartialName,
+  changePassword,
 } from "../modules/user.js";
 import {
   getUserBalance,
@@ -22,6 +24,29 @@ export const userRouter = express.Router();
 userRouter.get("/", async function (req, res) {
   console.info("You've reached the user router!");
   res.status(200).json({ "user list": await getAllUsers() });
+});
+
+// Validate user id
+userRouter.get("/validate/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid user id" });
+    return;
+  }
+
+  // Validate user
+  try {
+    if (await verifyUserById(id)) {
+      res.status(200).json({ valid: true });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
 });
 
 // Get user id by name
@@ -264,6 +289,58 @@ userRouter.get("/timeline/:id", async function (req, res) {
         res.status(200).json(timeline);
       } else {
         res.status(401).json({ error: "Invalid user" });
+      }
+    } catch (e) {
+      console.error("e", e);
+      res.status(500).json({ error: `Unknown server error: ${e}` });
+    }
+  }
+});
+
+// Get user by partial name
+userRouter.get("/partial/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid name" });
+  }
+
+  // Get user by partial name
+  else {
+    try {
+      const users = await getUserByPartialName(name);
+      if (users) {
+        console.info("users", users);
+        res.status(200).json({ users: users });
+      } else {
+        res.status(401).json({ error: "User not found" });
+      }
+    } catch (e) {
+      console.error("e", e);
+      res.status(500).json({ error: `Unknown server error: ${e}` });
+    }
+  }
+});
+
+// Change password
+userRouter.post("/password/change", async function (req, res) {
+  const { uid, password } = req.body;
+
+  // Validate uid and password
+  if (!uid || !password) {
+    res.status(401).json({ error: "Invalid user id or password" });
+  }
+
+  // Change password
+  else {
+    try {
+      const status = await changePassword(uid, password);
+      if (status) {
+        console.info("password changed", status);
+        res.status(200).json({ status: status });
+      } else {
+        res.status(401).json({ error: "Password not changed" });
       }
     } catch (e) {
       console.error("e", e);

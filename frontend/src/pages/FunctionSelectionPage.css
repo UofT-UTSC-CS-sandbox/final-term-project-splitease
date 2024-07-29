@@ -1,49 +1,3 @@
-.functionselectionpage {
-    width: 100%;
-    position: relative;
-    background-color: var(--color-white);
-    height: 982px;
-    overflow: hidden;
-    text-align: left;
-    font-size: var(--font-size-xl);
-    color: var(--color-black);
-    font-family: var(--font-kanit);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.headerParent {
-    position: absolute;
-    top: 0;
-    left: -7px;
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    width: 100%;
-    height: 98px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.deleteIcon {
-    position: absolute;
-    top: 68px;
-    left: 9px;
-    width: 24px;
-    height: 24px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.deleteWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: var(--padding-10xs) 0 0;
-}
-
 .selectAnAction {
     position: absolute;
     top: 51px;
@@ -73,7 +27,6 @@
 .friendsGroupsChild {
     position: absolute;
     width: 307px;
-    /* top: 22px; */
     height: 47px;
 }
 
@@ -88,7 +41,7 @@
     z-index: 1;
 }
 
-.arrowRightIcon {
+.arrowRightIconFG {
     position: absolute;
     top: 0;
     left: 260px;
@@ -182,7 +135,7 @@
     z-index: 1;
 }
 
-.arrowRightIcon1 {
+.arrowRightIconT {
     position: absolute;
     top: 0;
     left: 190px;

@@ -1,12 +1,3 @@
-.frame-child2 {
-    height: 6.125rem;
-    width: 94.5rem;
-    position: relative;
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    display: none;
-    max-width: 100%;
-}
-
 .login {
     text-decoration: none;
     width: 11.375rem;
@@ -20,26 +11,8 @@
     z-index: 1;
 }
 
-.rectangle-container {
-    align-self: stretch;
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 3.062rem 37.25rem 1.187rem;
-    box-sizing: border-box;
-    top: 0;
-    z-index: 99;
-    position: sticky;
-    max-width: 100%;
-    text-align: left;
-    font-size: 1.25rem;
-    color: #000;
-    font-family: Kanit;
-}
-
-.frame-child3 {
+.logo {
+    margin-left: 80px;
     align-self: stretch;
     width: 15.938rem;
     position: relative;
@@ -47,7 +20,7 @@
     background-color: #fff;
 }
 
-.rectangle-wrapper {
+.logoWrapper {
     width: 28.063rem;
     flex: 1;
     flex-direction: row;
@@ -56,15 +29,15 @@
     box-sizing: border-box;
 }
 
-.frame-parent1,
-.LoginPage-1-inner,
-.rectangle-wrapper {
+.loginContainer,
+.loginPage,
+.logoWrapper {
     display: flex;
     align-items: flex-start;
     max-width: 100%;
 }
 
-.frame-parent1 {
+.loginContainer {
     align-self: stretch;
     width: 33.125rem;
     flex-direction: column;
@@ -72,7 +45,7 @@
     gap: 2.375rem;
 }
 
-.LoginPage-1-inner {
+.loginPage {
     width: 88.625rem;
     height: 32.188rem;
     flex-direction: row;
@@ -97,22 +70,8 @@
     letter-spacing: normal;
 }
 
-@media screen and (max-width: 1200px) {
-    .rectangle-container {
-        padding-left: 18.625rem;
-        padding-right: 18.625rem;
-        box-sizing: border-box;
-    }
-}
-
 @media screen and (max-width: 750px) {
-    .rectangle-container {
-        padding-left: 9.313rem;
-        padding-right: 9.313rem;
-        box-sizing: border-box;
-    }
-
-    .frame-parent1 {
+    .loginContainer {
         gap: 1.188rem;
     }
 
@@ -122,12 +81,6 @@
 }
 
 @media screen and (max-width: 450px) {
-    .rectangle-container {
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-        box-sizing: border-box;
-    }
-
     .LoginPage-1 {
         gap: 1.438rem;
     }

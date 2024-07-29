@@ -1,6 +1,7 @@
 .frameChild {
-    height: 100%;
-    width: 100%;
+    width: 500px;
+    height: 300px;
+    background: linear-gradient(86.28deg, rgba(205, 232, 229, 0.5), rgba(238, 247, 255, 0.5));
     position: absolute;
     margin: 0 !important;
     top: 0;
@@ -15,8 +16,8 @@
 }
 
 .userIcon {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     position: relative;
     border-radius: var(--br-71xl);
     object-fit: cover;
@@ -30,6 +31,7 @@
     align-items: flex-start;
     justify-content: flex-end;
     padding: 0 0 var(--padding-4xl);
+    margin-left: 10px;
 }
 
 .totalBalance {
@@ -78,7 +80,8 @@
     width: 38px;
     height: 38px;
     overflow: hidden;
-    left: 40px;
+    left: -10px;
+    cursor: pointer;
 }
 
 .arrowRightWrapper {
@@ -140,6 +143,7 @@
     align-items: flex-start;
     gap: var(--gap-4xs);
     min-width: 153px;
+    margin-left: 30px;
 }
 
 .vectorParent {

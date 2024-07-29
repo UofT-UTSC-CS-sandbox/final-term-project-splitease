@@ -1,59 +1,11 @@
-.friendspage {
-    width: 100%;
-    z-index: 1;
-    position: relative;
-    background-color: var(--color-white);
-    height: 982px;
-    overflow: hidden;
-    text-align: left;
-    font-size: var(--font-size-xl);
-    color: var(--color-black);
-    font-family: var(--font-kanit);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.friendspageChild {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: -7px;
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    width: 100%;
-    height: 98px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.friendsHeader {
-    position: absolute;
-    z-index: 2;
-    top: 51px;
-    text-align: center;
-    font-weight: 600;
-    display: inline-block;
-    width: 182px;
-    height: 27px;
-}
-
-.deleteIcon {
-    position: absolute;
-    top: 68px;
-    left: 9px;
-    width: 24px;
-    height: 24px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
 .addfriends {
     position: absolute;
+    display: flex;
+    text-align: center;
+    align-items: center;
     top: 68px;
     right: 9px;
-    width: 100px;
+    width: 115px;
     height: 24px;
     overflow: hidden;
     cursor: pointer;
@@ -92,7 +44,7 @@
 .friendItem {
     width: 300px;
     height: 150px;
-    margin-top: 100px;
+    margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,7 +54,6 @@
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    margin: 10px;
 }
 
 .closeButton {

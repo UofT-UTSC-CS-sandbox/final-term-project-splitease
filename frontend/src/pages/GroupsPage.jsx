@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./GroupsPage.css";
 import AddGroups from "../components/AddGroups";
+import "../components/Universal.css";
+import Swal from "sweetalert2";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
+  const [gids, setGroupIDs] = useState([]);
   const [isAddGroupsClicked, setIsAddGroupsClicked] = useState(false);
   const uid = localStorage.getItem("uid");
 
@@ -19,15 +22,48 @@ const GroupsPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  const onGroupClick = useCallback(() => {
-    // TODO: Display group details
-  }, [navigate]);
+  const onGroupClick = useCallback(
+    (e) => {
+      // TODO: Display group details
+      console.log("Group clicked:", e.currentTarget.id);
+      navigate("/groupdetailpage/" + e.currentTarget.id);
+    },
+    [navigate]
+  );
 
   const onCloseButton = (index) => {
-    // Filter out the group to be deleted
-    const updatedGroups = groups.filter((_, i) => i !== index);
-    // Update the state with the new groups array
-    setGroups(updatedGroups);
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to quit this group?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, quit",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const groupToQuit = gids[index];
+        console.log("the group going to be quit is:", groupToQuit);
+
+        axios({
+          method: "delete",
+          url: "/group/quit",
+          data: { uid, groupId: groupToQuit },
+        })
+          .then((res) => {
+            const updatedGroups = groups.filter((_, i) => i !== index);
+            setGroups(updatedGroups);
+            navigate(0, { replace: true });
+          })
+          .catch((error) => {
+            console.error("Error quiting group:", error);
+            Swal.fire(
+              "Error",
+              "Failed to quit group. Please try again.",
+              "error"
+            );
+          });
+      }
+    });
   };
 
   useEffect(() => {
@@ -37,6 +73,7 @@ const GroupsPage = () => {
         .then(async (response) => {
           console.log("Groups data:", response.data);
           const groupIds = response.data;
+          setGroupIDs(groupIds);
           console.log("Groupids are:", groupIds);
 
           // Fetch group names for each group ID
@@ -66,9 +103,9 @@ const GroupsPage = () => {
   }, [uid]);
 
   return (
-    <div className="groupspage">
-      <div className="groupspageChild">
-        <div className="groupsHeader">Groups</div>
+    <div className="pageContainer">
+      <div className="headerBackground">
+        <div className="headerText">Groups</div>
         <img
           className="deleteIcon"
           alt=""
@@ -90,7 +127,12 @@ const GroupsPage = () => {
           <>
             <div className="groupsListHeader">Your groups are:</div>
             {groups.map((group, index) => (
-              <div key={index} className="groupItem" onClick={onGroupClick}>
+              <div
+                key={index}
+                className="groupItem"
+                onClick={onGroupClick}
+                id={gids[index]}
+              >
                 <div
                   className="closeButton"
                   onClick={(e) => {

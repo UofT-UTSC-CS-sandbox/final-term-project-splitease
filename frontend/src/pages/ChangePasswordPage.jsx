@@ -22,9 +22,15 @@ const ChangePasswordPage = () => {
       setMessage("New password and confirm password do not match.");
       return;
     }
-    // TODO: Handle password change logic to backend
-    alert("Password changed successfully.");
-    navigate("/profilebufferpage");
+    Swal.fire({
+      title: "Success!",
+      text: "Password changed successfully.",
+      icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(-1);
+      }
+    });
   };
 
   const handleBack = () => {
@@ -37,7 +43,7 @@ const ChangePasswordPage = () => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/profilebufferpage");
+        navigate(-1);
       }
     });
   };

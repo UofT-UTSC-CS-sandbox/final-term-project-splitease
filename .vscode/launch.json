@@ -1,12 +1,49 @@
 {
     "version": "0.2.0",
-    "configurations": [ 
+    "configurations": [
         {
-            "name": "Edge",
-            "type": "msedge",
+            "name": "Start Frontend",
+            "type": "node",
             "request": "launch",
-            "url": "http://localhost:5173",
-            "webRoot": "${workspaceRoot}/src"
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "start"
+            ],
+            "cwd": "${workspaceFolder}/frontend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Start Backend",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "start"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Start Frontend & Backend (silent)",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "Start Frontend & Backend",
+            "problemMatcher": []
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Start Frontend & Backend (with bar)",
+            "configurations": [
+                "Start Frontend",
+                "Start Backend"
+            ]
         }
     ]
 }

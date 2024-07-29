@@ -1,81 +1,31 @@
-.settings-container {
-    width: 100%;
-    position: relative;
-    background-color: var(--color-white);
-    height: 982px;
-    overflow: hidden;
-    text-align: center;
-    font-size: var(--font-size-xl);
-    color: var(--color-black);
-    font-family: var(--font-kanit);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 150px;
-}
-
-.settings {
-    position: absolute;
-    top: 51px;
-    text-align: center;
-    font-weight: 600;
-    display: inline-block;
-    width: 182px;
-    height: 27px;
-}
-
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
 .button-group {
+    margin-top: -293px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.settingslogoutpageChild {
-    position: absolute;
-    top: 0;
-    left: -7px;
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    width: 100%;
-    height: 98px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 50px;
 }
 
 .settings-button {
     background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
     border: none;
     border-radius: var(--br-6xl);
-    width: 323px;
+    width: 320px;
     height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+    /* front size */
+    color: #000000;
+    /* color */
+    font-weight: 450;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 .settings-button:hover {
     background: linear-gradient(to right, #fed6e3, #a8edea);
-}
-
-.deleteIcon {
-    position: absolute;
-    top: 65px;
-    left: 13px;
-    width: 24px;
-    height: 24px;
-    overflow: hidden;
-    cursor: pointer;
 }

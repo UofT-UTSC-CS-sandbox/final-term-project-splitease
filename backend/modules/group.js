@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Group from "../models/Group.js";
+import { validateFriend } from "./friend.js";
 
 // Get all groups
 export const getAllGroups = async () => {
@@ -14,6 +15,17 @@ export const getGroups = async (id) => {
   }
   console.log("the user has prooblem");
   return null;
+};
+
+// Check if user is in this group
+export const validateGroup = async (uid, groupId, friendId) => {
+  const user = await User.findById(uid);
+  const group = await Group.findById(groupId);
+  const friendUser = await User.findById(friendId);
+  if (!user || !group || !friendUser) return false;
+  if (!group.members.includes(user._id.toString())) return false;
+  if (friendUser.groups.includes(groupId)) return false;
+  return true;
 };
 
 // Get group name by group id
@@ -104,27 +116,78 @@ export const createGroup = async (id, groupName, friends) => {
   return result._id;
 };
 
-// Remove a group from a user
-export const removeGroup = async (id, groupId) => {
+// Check group relationship
+export const checkGroupRelationship = async (id, groupId) => {
+  if (!id || !groupId)
+    return { result: false, error: "Invalid user id or group id" };
   const user = await User.findById(id);
-  if (user) {
-    // // Remove group from user (reduntant)
-    // user.groups.pull(groupId);
-    // await user.save();
+  const group = await Group.findById(groupId);
+  if (!user) return { result: false, error: "User not found" };
+  if (!group) return { result: false, error: "Group not found" };
+  if (!user.groups.includes(groupId) || !group.members.includes(id))
+    return { result: false, error: "User is not a member of the group" };
+  return { result: true, error: null };
+};
 
-    // Remove group from group members
-    members = Group.findById(groupId).members;
-    for (const memberId of members) {
-      const memberUser = await User.findById(memberId);
-      if (memberUser) {
-        memberUser.groups.pull(groupId);
-        await memberUser.save();
-      }
+// Remove a group from a user
+export const deleteGroup = async (id, groupId) => {
+  const { result, error } = await checkGroupRelationship(id, groupId);
+  if (!result) return { result: false, error };
+
+  // Remove group from group members
+  const members = group.members;
+  for (const memberId of members) {
+    const memberUser = await User.findById(memberId);
+    if (memberUser) {
+      memberUser.groups.pull(groupId);
+      await memberUser.save();
     }
-
-    // Remove group
-    await Group.deleteOne({ _id: groupId });
-    return true;
   }
-  return false;
+
+  // Remove group
+  await Group.deleteOne({ _id: groupId });
+  return { result: true, error: null };
+};
+
+// Quit a group
+export const quitGroup = async (id, groupId) => {
+  const { result, error } = await checkGroupRelationship(id, groupId);
+  if (!result) return { result: false, error };
+
+  // Remove group from user
+  const user = await User.findById(id);
+  user.groups.pull(groupId);
+  await user.save();
+
+  // Remove user from group
+  const group = await Group.findById(groupId);
+  group.members.pull(id);
+  await group.save();
+
+  return { result: true, error: null };
+};
+
+// Invite a friend to a group
+export const inviteFriend = async (id, groupId, friendId) => {
+  if (!(await validateGroup(id, groupId, friendId))) return false;
+
+  const user = await User.findById(id);
+  const group = await Group.findById(groupId);
+  if (!user || !group) return false;
+
+  const { isValid, _, friendUser } = await validateFriend(id, friendId);
+  if (!isValid) return false;
+
+  // Check if friend is already in the group
+  if (group.members.includes(friendUser._id)) return false;
+
+  // Add friend to group
+  group.members.push(friendUser._id);
+  await group.save();
+
+  // Add group to friend
+  friendUser.groups.push(groupId);
+  await friendUser.save();
+
+  return true;
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import "./AddGroups.css";
+import "../components/Universal.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -69,9 +70,6 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
       console.log("Form validation failed");
       return;
     }
-    // const userConfirmed = window.confirm(
-    //   "Are you sure you want to create this group?"
-    // );
     Swal.fire({
       title: "Are you sure?",
       text: "Are you sure you want to create this group?",
@@ -90,7 +88,17 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
           });
           if (response.status === 200) {
             console.log("Group created successfully:", response.data);
-            navigate(0, { replace: true });
+            Swal.fire({
+              title: "Success!",
+              text: "Group created successfully",
+              icon: "success",
+            }).then(async (result) => {
+              if (result.isConfirmed) { {
+                navigate(0, { replace: true });
+              }
+            }
+            });
+            // navigate(0, { replace: true });
           } else {
             console.error("Error creating group:", response.data.error);
           }

@@ -1,0 +1,45 @@
+.activity {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.activity-amount-positive {
+    font-weight: bold;
+    color: red;
+    margin: auto;
+}
+
+.activity-amount-negative {
+    font-weight: bold;
+    color: green;
+    margin: auto;
+}
+
+.activity-date {
+    width: 70px;
+    font-weight: bold;
+}
+
+.activity-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.activity-name {
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+.activity-split {
+    margin-top: 5px;
+    margin: 0 auto;
+}

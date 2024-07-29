@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
-import {
-  Routes,
-  Route,
-  useNavigationType,
-  useLocation,
-  Router,
-} from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import FunctionSelectionPage from "./pages/FunctionSelectionPage";
-import AddTransactionPage from "./pages/AddTransactionPage";
-import FriendsGroupsPage from "./pages/FriendsGroupsPage";
-import SettingsLogoutPage from "./pages/SettingsLogoutPage";
-import ProfileEditorPage from "./pages/ProfileEditorPage";
-import LoginPage from "./pages/LoginPage";
-import FriendsPage from "./pages/FriendsPage";
-import GroupsPage from "./pages/GroupsPage";
+import axios from "axios";
+import { Route, Routes } from "react-router-dom";
 import AddFriends from "./components/AddFriends";
 import AddGroups from "./components/AddGroups";
-import ProfileBufferPage from "./pages/ProfileBufferPage";
+import AddTransactionPage from "./pages/AddTransactionPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
-import FriendDetailPage from "./pages/FriendDetailPage"; //add
-import axios from "axios";
+import FriendDetailPage from "./pages/FriendDetailPage";
+import FriendsGroupsPage from "./pages/FriendsGroupsPage";
+import FriendsPage from "./pages/FriendsPage";
+import FunctionSelectionPage from "./pages/FunctionSelectionPage";
+import GroupDetailPage from "./pages/GroupDetailPage";
+import GroupsPage from "./pages/GroupsPage";
+import LoginPage from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
+import ProfileBufferPage from "./pages/ProfileBufferPage";
+import ProfileEditorPage from "./pages/ProfileEditorPage";
+import SettingsLogoutPage from "./pages/SettingsLogoutPage";
+import TransactionDetailPage from "./pages/TransactionDetailPage";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 
@@ -44,6 +39,11 @@ function App() {
       <Route path="/profilebufferpage" element={<ProfileBufferPage />} />
       <Route path="/changepasswordpage" element={<ChangePasswordPage />} />
       <Route path="/frienddetailpage/:fid" element={<FriendDetailPage />} />
+      <Route path="/groupdetailpage/:gid" element={<GroupDetailPage />} />
+      <Route
+        path="/transactiondetailpage"
+        element={<TransactionDetailPage />}
+      />
     </Routes>
   );
 }

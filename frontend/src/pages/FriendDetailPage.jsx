@@ -1,10 +1,10 @@
-import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
-import { getUserNameById } from "../components/Functions.jsx";
+import { React, useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
+import "../components/Universal.css";
 import axios from "axios";
+import TransactionActivity from "../components/TransactionActivity.jsx";
 
 const FriendDetailPage = () => {
   const { fid } = useParams();
@@ -25,22 +25,14 @@ const FriendDetailPage = () => {
       const friend = res.data;
       friend.friend.balance = friend.friend.balance.toFixed(2);
       friend.friend.fid = fid;
+
+      // reverse the order of transactions
+      // friend.friend.transactions = friend.friend.transactions.reverse();
       setFriendsInfo(friend.friend);
       console.info("Friend details:", friend);
 
       // Get transaction details
-      const transactions = await Promise.all(
-        await friend.friend.transactions.map(async (transaction) => {
-          return {
-            id: transaction._id,
-            date: transaction.date,
-            name: "TransactionNameFoo",
-            payer: await getUserNameById(transaction.payer),
-            payerId: transaction.payer,
-            amount: transaction.amount,
-          };
-        })
-      );
+      const transactions = await parseTransactions(friend.friend.transactions);
       setTransactions(transactions);
       console.info("Parsed Transactions:", transactions);
     });
@@ -50,10 +42,17 @@ const FriendDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
+  // const handleTransactionClick = useCallback(
+  //   (e) => {
+  //     const uid = e.currentTarget.uid;
+  //     navigate("/transactiondetailpage/");
+  //   },
+  //   [navigate]
+  // );
   return (
-    <div className="friend-detail-page">
-      <div className="detailpageheader">
-        <div className="friendsHeader">Friend Details</div>
+    <div className="pageContainer">
+      <div className="headerBackground">
+        <div className="headerText">Friend Details</div>
         <img
           className="deleteIcon"
           alt=""
@@ -77,30 +76,11 @@ const FriendDetailPage = () => {
         </div>
         <div className="recent-activities-text">Recent shared activities</div>
         <div className="recent-activities-bar">
-          {transactions.map((transaction) => (
-            <div className="activity" key={transaction.id}>
-              <div className="activity-date">{transaction.date}</div>
-              <div className="activity-details">
-                <div className="activity-name">{transaction.name}</div>
-                <div className="activity-split">
-                  Paid by:{" "}
-                  {transaction.payerId === uid
-                    ? transaction.payer + " (You)"
-                    : transaction.payer}
-                </div>
-                {(transaction.payer === friendsInfo.name) ^
-                (transaction.amount < 0) ? (
-                  <div className="activity-amount-negative">
-                    -${Math.abs(transaction.amount).toFixed(2)}
-                  </div>
-                ) : (
-                  <div className="activity-amount-positive">
-                    ${Math.abs(transaction.amount).toFixed(2)}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+          <TransactionActivity
+            transactions={transactions}
+            uid={uid}
+            friendsInfo={friendsInfo}
+          />
         </div>
       </div>
     </div>

@@ -6,65 +6,31 @@
     padding: 10px;
     border-radius: 8px;
 }
+
 .activity-text {
     font-weight: bold;
 }
+
 .activity-amount {
     font-weight: bold;
 }
+
 .activity-amount-positive {
     color: red;
+    margin: auto;
 }
+
 .activity-amount-negative {
     color: green;
+    margin: auto;
 }
 
 .balance-negative {
     color: green;
 }
+
 .balance-positive {
     color: red;
-}
-.friend-detail-page {
-    width: 100%;
-    position: relative;
-    background-color: var(--color-white);
-    overflow: hidden;
-    text-align: left;
-    height: 800px;
-    font-size: var(--font-size-xl);
-    color: var(--color-black);
-    font-family: var(--font-kanit);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.detailpageheader {
-    position: fixed; /* Does not scroll  */
-    z-index: 2;
-    top: 0;
-    left: 0; 
-    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
-    width: 100%;
-    height: 98px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.back-button,
-.add-friend-button {
-    background: none;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.friendsHeader {
-    font-size: 1.2em;
-    font-weight: bold;
 }
 
 .content {
@@ -83,25 +49,29 @@
     border-radius: 8px;
     margin-bottom: 20px;
     text-align: center;
-    overflow-y: auto; 
-    height: 400px; 
-    position: fixed;
-    top: 350px;
+    overflow-y: auto;
+    height: 400px;
+    position: absolute;
+    top: 400px;
+}
+
+.recent-activities-bar> :first-child {
+    margin-top: -25px;
 }
 
 .current-balance-bar {
-    width: 60%; 
-    background-color: #eaf8e7; 
+    width: 60%;
+    background-color: #eaf8e7;
     padding: 20px;
     border-radius: 8px;
-    margin: 0 auto; 
+    margin: 0 auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    position: fixed;
-    top: 100px; 
+    position: absolute;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .current-balance-bar h2 {
@@ -118,14 +88,16 @@
     margin-bottom: 20px;
     font-size: 1.2em;
 }
+
 .recent-activities-text {
     font-size: 1.3em;
-    position: fixed;
-    top: 280px; 
-    left: 50%; 
-    transform: translateX(-50%); 
+    position: absolute;
+    top: 280px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
 }
+
 .activity {
     width: 70%;
     margin: auto;
@@ -152,12 +124,14 @@
 
 .activity-name {
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .activity-cost,
 .activity-split,
 .activity-owe {
     margin-top: 5px;
+    margin: 0 auto;
 }
 
 .activity-owe {
