@@ -7,6 +7,7 @@ import {
   inviteFriend,
   deleteGroup,
   quitGroup,
+  getGroupsByName,
 } from "../modules/group.js";
 import { validateFriend } from "../modules/friend.js";
 import Group from "../models/Group.js";
@@ -49,6 +50,7 @@ groupRouter.get("/:id", async function (req, res) {
   }
 });
 
+// Get group name by id
 groupRouter.get("/name/of/:id", async function (req, res) {
   const { id } = req.params;
 
@@ -64,6 +66,31 @@ groupRouter.get("/name/of/:id", async function (req, res) {
     if (groupName) {
       console.info("group name", groupName);
       res.status(200).json({ group_name: groupName });
+    } else {
+      res.status(401).json({ error: "Group not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group names by partial name
+groupRouter.get("/partial/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid group name" });
+    return;
+  }
+
+  // Get group names by partial name
+  try {
+    const groups = await getGroupsByName(name);
+    if (groups) {
+      console.info("groups", groups);
+      res.status(200).json(groups);
     } else {
       res.status(401).json({ error: "Group not found" });
     }
