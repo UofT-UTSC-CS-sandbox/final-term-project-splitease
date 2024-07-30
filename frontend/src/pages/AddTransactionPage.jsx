@@ -27,6 +27,7 @@ const AddTransactionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amounts, setAmounts] = useState(Array(5).fill(""));
   const [showTotal, setShowTotal] = useState(false);
+  const [friendName, setFriendName] = useState("");
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
@@ -50,6 +51,7 @@ const AddTransactionPage = () => {
 
   const onSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
+    setFriendName(suggestion);
     setSuggestions([]);
   };
 
@@ -343,7 +345,7 @@ const AddTransactionPage = () => {
             <h2>Enter Split Details for Friend</h2>
             {[...Array(1)].map((_, index) => (
               <div key={index} className="split-detail-row">
-                <input type="text" placeholder="Group member" />
+                <input type="text" value={friendName} readOnly />
                 <input
                   type="text"
                   placeholder="Amount"

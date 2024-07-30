@@ -43,13 +43,6 @@ const FriendDetailPage = () => {
     navigate(-1);
   }, [navigate]);
 
-  // const handleTransactionClick = useCallback(
-  //   (e) => {
-  //     const uid = e.currentTarget.uid;
-  //     navigate("/transactiondetailpage/");
-  //   },
-  //   [navigate]
-  // );
   return (
     <div className="pageContainer">
       <div className="headerBackground">

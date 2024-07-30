@@ -14,9 +14,7 @@ const GroupDetailPage = () => {
   const uid = localStorage.getItem("uid");
   const { gid } = useParams();
   const navigate = useNavigate();
-  //test data for group
-  // Test data for group members
-  const testGroupMembers = ["Alice", "Bob", "Charlie"];
+
   // Get group details
   const [groupDetails, setGroupDetails] = useState({});
   const [groupMembers, setGroupMembers] = useState([]);
@@ -104,10 +102,10 @@ const GroupDetailPage = () => {
   };
 
   // TODO: Implement the logic to delete group
-  const handleDeleteGroupClick = () => {
-    // Handle delete group click
-    console.log("Delete Group clicked");
-  };
+  //   const handleDeleteGroupClick = () => {
+  //     // Handle delete group click
+  //     console.log("Delete Group clicked");
+  //   };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

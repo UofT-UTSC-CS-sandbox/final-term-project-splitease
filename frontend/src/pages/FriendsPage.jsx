@@ -57,6 +57,11 @@ const FriendsPage = () => {
           .then((res) => {
             const updatedFriends = friends.filter((_, i) => i !== index);
             setFriends(updatedFriends);
+            Swal.fire(
+              "Deleted!",
+              "The friend is deleted successfully!",
+              "success"
+            );
             navigate(0, { replace: true });
           })
           .catch((error) => {
