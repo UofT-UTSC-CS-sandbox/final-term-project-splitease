@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddFriends from "../components/AddFriends";
 import Swal from "sweetalert2";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const FriendsPage = () => {
+  validateUser();
   const navigate = useNavigate();
   const [isAddFriendsOpen, setIsAddFriendsOpen] = useState(false);
 

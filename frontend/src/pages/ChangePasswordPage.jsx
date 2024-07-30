@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import "./ChangePasswordPage.css";
 import Swal from "sweetalert2";
 
 const ChangePasswordPage = () => {
+  validateUser();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

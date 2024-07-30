@@ -1,12 +1,14 @@
 import { useCallback, useState } from "react";
 import "./AddTransactionPage.css";
 import "../components/Universal.css";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
 
 const AddTransactionPage = () => {
+  validateUser();
   const navigate = useNavigate();
   const uid = localStorage.getItem("uid");
   const [payAmount, setPayAmount] = useState("");

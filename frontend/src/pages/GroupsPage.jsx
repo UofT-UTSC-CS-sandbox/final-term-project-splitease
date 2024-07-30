@@ -5,8 +5,10 @@ import "./GroupsPage.css";
 import AddGroups from "../components/AddGroups";
 import "../components/Universal.css";
 import Swal from "sweetalert2";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const GroupsPage = () => {
+  validateUser();
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
   const [gids, setGroupIDs] = useState([]);

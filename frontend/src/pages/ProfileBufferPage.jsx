@@ -2,10 +2,11 @@ import { useCallback } from "react";
 import "./ProfileBufferPage.css";
 import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const ProfileBufferPage = () => {
   const navigate = useNavigate();
-
+  validateUser();
   const onChangeAvatarClick = useCallback(() => {
     navigate("/profileeditorpage");
   }, [navigate]);

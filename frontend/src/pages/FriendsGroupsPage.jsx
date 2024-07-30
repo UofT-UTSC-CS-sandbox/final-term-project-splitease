@@ -2,8 +2,10 @@ import { useCallback } from "react";
 import "./FriendsGroupsPage.css";
 import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const FriendsGroupsPage = () => {
+  validateUser();
   const navigate = useNavigate();
   const onBackButtonClick = useCallback(() => {
     navigate(-1);

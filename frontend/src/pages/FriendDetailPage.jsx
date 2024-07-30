@@ -1,12 +1,13 @@
 import { React, useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { parseTransactions } from "../components/Functions.jsx";
 import "./FriendDetailPage.css";
 import "../components/Universal.css";
 import axios from "axios";
 import TransactionActivity from "../components/TransactionActivity.jsx";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const FriendDetailPage = () => {
+  validateUser();
   const { fid } = useParams();
   console.info("Friend ID:", fid);
   const navigate = useNavigate();

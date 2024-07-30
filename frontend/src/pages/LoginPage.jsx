@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginComponent";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import "../components/Universal.css";
 import "./LoginPage.css";
 import axios from "axios";
 
 const LoginPage = () => {
+  validateUser();
   const navigate = useNavigate();
 
   // Check if the user is logged in

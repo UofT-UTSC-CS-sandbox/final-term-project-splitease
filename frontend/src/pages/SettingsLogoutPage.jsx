@@ -2,9 +2,11 @@ import { useCallback } from "react";
 import "./SettingsLogoutPage.css";
 import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import Swal from "sweetalert2";
 
 const SettingsLogoutPage = () => {
+  validateUser();
   const navigate = useNavigate();
 
   const onBackButtonClick = useCallback(() => {

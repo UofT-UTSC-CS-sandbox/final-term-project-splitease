@@ -1,15 +1,16 @@
 import { React, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { parseTransactions } from "../components/Functions.jsx";
 import "./GroupDetailPage.css";
 import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import AddGroups from "../components/AddGroups.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const GroupDetailPage = () => {
+  validateUser();
   const uid = localStorage.getItem("uid");
   const { gid } = useParams();
   const navigate = useNavigate();
