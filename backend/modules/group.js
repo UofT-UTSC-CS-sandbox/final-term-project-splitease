@@ -155,6 +155,8 @@ export const deleteGroup = async (id, groupId) => {
   if (!result) return { result: false, error };
 
   // Remove group from group members
+  const group = await Group.findById(groupId);
+  if (!group) return { result: false, error: "Group not found" };
   const members = group.members;
   for (const memberId of members) {
     const memberUser = await User.findById(memberId);
