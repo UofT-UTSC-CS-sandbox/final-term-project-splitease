@@ -1,18 +1,17 @@
 import express from "express";
+import Group from "../models/Group.js";
+import { validateFriend } from "../modules/friend.js";
 import {
   createGroup,
-  getGroups,
-  getGroupNameById,
-  getAllGroups,
-  inviteFriend,
   deleteGroup,
-  quitGroup,
+  getAllGroups,
+  getGroupNameById,
+  getGroups,
   getGroupsByName,
+  inviteFriend,
+  quitGroup,
 } from "../modules/group.js";
-import { validateFriend } from "../modules/friend.js";
-import Group from "../models/Group.js";
 import { getTransactionByGroup } from "../modules/transaction.js";
-
 export const groupRouter = express.Router();
 
 // Get all groups

@@ -1,5 +1,7 @@
 // import ObjectId from '../models/ObjectId.js';
 import { ObjectId } from "mongodb";
+import User from "../models/User.js";
+import Group from "../models/Group.js";
 import Transaction from "../models/Transaction.js";
 import TransactionInfo from "../models/TransactionInfo.js";
 import { getUserNameById, verifyUserById } from "./user.js";
@@ -30,8 +32,12 @@ const createTransactionInfo = async (info) => {
   return await transactionInfo.save();
 };
 
-export const addTransaction = async (uid, amount, description, friends) => {
-  const _id = new ObjectId();
+export const addTransactionFriends = async (
+  uid,
+  amount,
+  description,
+  friends
+) => {
   // Check if uid exists
   if (!(await verifyUserById(uid))) {
     return { success: false, error: "User not found" };
@@ -39,6 +45,7 @@ export const addTransaction = async (uid, amount, description, friends) => {
 
   amount = parseFloat(amount);
   const average = amount / (friends.length + 1); // Including the user
+  const _id = new ObjectId();
 
   const details = await Promise.all(
     friends.map(async (fid) => {
@@ -320,3 +327,42 @@ export async function getUserCost(uid) {
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
   return total_cost;
 }
+
+export const addTransactionGroup = async (
+  uid,
+  amount,
+  description,
+  groupId
+) => {
+  const user = await User.findById(uid);
+  const group = await Group.findById(groupId);
+  if (!user || !group) {
+    return { success: false, error: "User or group not found" };
+  }
+
+  amount = parseFloat(amount);
+  const average = amount / group.members.length;
+  const _id = new ObjectId();
+
+  const details = await Promise.all(
+    group.members.map(async (fid) => {
+      // Check if fid exists
+      if (!(await verifyUserById(fid))) {
+        return { success: false, error: "Friend not found" };
+      }
+
+      // Create transaction for each friend
+      const transaction = await createTransaction(uid, fid, average, _id);
+
+      return { amount: average, transactionId: transaction._id };
+    })
+  );
+  const info = { _id, payer: uid, amount, description, details };
+  const infoId = await createTransactionInfo(info);
+
+  // Add transaction info to group
+  group.transactionInfoId.push(infoId);
+  await group.save();
+
+  return { success: true, infoId };
+};

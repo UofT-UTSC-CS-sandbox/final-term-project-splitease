@@ -1,12 +1,13 @@
 import express from "express";
 import {
-  addTransaction,
+  addTransactionFriends,
+  addTransactionGroup,
   geAllTransactions,
   getAllTransactionInfo,
   getTransactionById,
-  getTransactionInfoByTid,
-  getTransactionInfoByInfoId,
   getTransactionDetails,
+  getTransactionInfoByInfoId,
+  getTransactionInfoByTid,
 } from "../modules/transaction.js";
 
 export const transactionRouter = express.Router();
@@ -75,7 +76,7 @@ transactionRouter.post("/add", async function (req, res) {
     res.status(401).json({ error: "Invalid parameters" });
   } else {
     try {
-      const { success, error, infoId } = await addTransaction(
+      const { success, error, infoId } = await addTransactionFriends(
         uid,
         amount,
         description,
@@ -104,6 +105,32 @@ transactionRouter.get("/detail/:info_id", async function (req, res) {
   try {
     const details = await getTransactionDetails(info_id);
     res.status(200).json(details);
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get transactions by group id
+transactionRouter.post("/add/group", async function (req, res) {
+  const { uid, amount, description, groupId } = req.body;
+
+  // Validate uid, amount, description, and groupId
+  if (!uid || !amount || !description || !groupId) {
+    res.status(401).json({ error: "Invalid parameters" });
+    return;
+  }
+
+  // Add transaction
+  try {
+    const { success, error, infoId } = await addTransactionGroup(
+      uid,
+      amount,
+      description,
+      groupId
+    );
+    if (!success) res.status(500).json({ error: error });
+    else res.status(200).json(infoId);
   } catch (e) {
     console.error("e", e);
     res.status(500).json({ error: `Unknown server error: ${e}` });

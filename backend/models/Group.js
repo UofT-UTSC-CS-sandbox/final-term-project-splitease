@@ -15,6 +15,12 @@ const groupSchema = new Schema({
     required: true,
     unique: true,
   },
+  transactionInfoId: [
+    {
+      type: ObjectId,
+      ref: "TransactionInfo",
+    },
+  ],
 });
 
 const Group = mongoose.model("Group", groupSchema);
