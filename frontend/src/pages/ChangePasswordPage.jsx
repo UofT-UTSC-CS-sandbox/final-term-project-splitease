@@ -3,37 +3,54 @@ import { useNavigate } from "react-router-dom";
 import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import "./ChangePasswordPage.css";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const ChangePasswordPage = () => {
   validateUser();
-  const [currentPassword, setCurrentPassword] = useState("");
+  const uid = localStorage.getItem("uid");
+  // const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  // const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleChangePassword = (e) => {
+  const handleChangePassword = async (e) => {
     e.preventDefault();
-    // TODO: validate current password == login password
     if (newPassword !== confirmPassword) {
       setMessage("New password and confirm password do not match.");
       return;
     }
-    Swal.fire({
-      title: "Success!",
-      text: "Password changed successfully.",
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate(-1);
-      }
-    });
-  };
+      // const response = await axios.get(`/user/name/of/${id}`);
+      // const username = response.data.name;
+      const username = localStorage.getItem("u_name");
+      console.log("the user name is: ", username);
+
+        // Update password
+        axios
+         .post("/user/password/change", { uid, password: newPassword })
+         .then((res) => {
+            if (res.status === 200) {
+              setMessage("Password changed successfully.");
+              Swal.fire("Password changed successfully!", "success").then(
+                () => {
+                  localStorage.clear();
+                  navigate("/login");
+                }
+              );
+            } else {
+              setMessage("Failed to change password.");
+            }
+          })
+         .catch((e) => {
+            console.error("Error changing password:", e);
+            setMessage("Failed to change password.");
+          });
+      } 
 
   const handleBack = () => {
     Swal.fire({
@@ -59,7 +76,7 @@ const ChangePasswordPage = () => {
         </div>
       </div>
       <form onSubmit={handleChangePassword}>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="current-password">Current Password</label>
           <div className="password-input">
             <input
@@ -76,7 +93,7 @@ const ChangePasswordPage = () => {
               {showCurrentPassword ? "Hide" : "Show"}
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="form-group">
           <label htmlFor="new-password">New Password</label>
           <div className="password-input">
