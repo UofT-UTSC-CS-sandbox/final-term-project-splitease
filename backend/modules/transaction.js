@@ -142,7 +142,7 @@ export const getTransactionByUserAndFriend = async (uid, fid) => {
 };
 
 export const getTransactionByGroup = async (gid) => {
-  return await TransactionInfo.find({ group_id: gid });
+  return await Group.findById(gid).populate("transactionInfoId");
 };
 
 export const getUserBalance = async (uid) => {
@@ -344,19 +344,19 @@ export const addTransactionGroup = async (
   const average = amount / group.members.length;
   const _id = new ObjectId();
 
-  const details = await Promise.all(
-    group.members.map(async (fid) => {
-      // Check if fid exists
-      if (!(await verifyUserById(fid))) {
-        return { success: false, error: "Friend not found" };
-      }
+  const details = [];
+  for (const fid of group.members) {
+    // Check if fid exists
+    if (!(await verifyUserById(fid))) {
+      return { success: false, error: "Friend not found" };
+    }
 
-      // Create transaction for each friend
-      const transaction = await createTransaction(uid, fid, average, _id);
+    // Create transaction for each friend
+    if (fid.toHexString() === uid) continue;
+    const transaction = await createTransaction(uid, fid, average, _id);
+    details.push({ amount: average, transactionId: transaction._id });
+  }
 
-      return { amount: average, transactionId: transaction._id };
-    })
-  );
   const info = { _id, payer: uid, amount, description, details };
   const infoId = await createTransactionInfo(info);
 

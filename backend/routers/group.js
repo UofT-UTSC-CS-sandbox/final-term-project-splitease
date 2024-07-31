@@ -255,3 +255,28 @@ groupRouter.delete("/quit", async function (req, res) {
     res.status(500).json({ error: `Unknown server error: ${e}` });
   }
 });
+
+// Get group transactions
+groupRouter.get("/transactions/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid group id" });
+    return;
+  }
+
+  // Get group transactions
+  try {
+    const transactions = await getTransactionByGroup(id);
+    if (transactions) {
+      console.info("transactions", transactions);
+      res.status(200).json(transactions);
+    } else {
+      res.status(401).json({ error: "Group transactions not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
