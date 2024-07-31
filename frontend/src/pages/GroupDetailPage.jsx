@@ -16,12 +16,20 @@ const GroupDetailPage = () => {
   const navigate = useNavigate();
 
   // Get group details
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [groupDetails, setGroupDetails] = useState({});
   const [groupMembers, setGroupMembers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [newFriendName, setNewFriendName] = useState(""); // State for new friend's name
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [errors, setErrors] = useState({
+    type: "",
+    inputValue: "",
+    amount: "",
+    methodType: "",
+  });
 
   useEffect(() => {
     const fetchGroupDetails = async () => {
@@ -84,18 +92,94 @@ const GroupDetailPage = () => {
   const friend_test = {
     name: "Bob",
   };
+
+  async function fetchFriendIds(uid) {
+    const response = await axios.get(`/friend/of/${uid}`);
+    console.log(response);
+    // if (!response.ok) {
+    //   throw new Error("Failed to fetch friend IDs");
+    // }
+    const data = await response.data.friends;
+    console.log("The friend id data is: ", data);
+    return data;
+  }
+  
+  async function fetchUserNameById(id) {
+    const response = await axios.get(`/user/name/of/${id}`);
+    // if (!response.ok) {
+    //   throw new Error("Failed to fetch user name");
+    // }
+    console.log("The reponse is:", response );
+    const data = await response.data;
+    return data.name;
+  }
+
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    if (value) {
+      try {
+        const response = await axios.get(`/friend/partial/${uid}/${value}`);
+        console.log("suggestions are: ", response.data);
+        console.log("suggestions are: ", response.data);
+        const users = response.data.friends || [];
+        console.log("users are: ", users);
+        const userNames = users.map((user) => user.name);
+        setSuggestions(userNames);
+      } catch (error) {
+        console.error("Error fetching user suggestions:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleClickChange = async () => {
+    // const value = e.target.value;
+    // setInputValue(value);
+    try {
+      // Get the list of friend IDs
+      const friendIds = await fetchFriendIds(uid);
+      console.log("FriendIds are:", friendIds);
+  
+      // Fetch all friend names concurrently
+      const friendNamesPromises = friendIds.map((id) => fetchUserNameById(id));
+      const friendNames = await Promise.all(friendNamesPromises);
+  
+      // Set the suggestions with the friend names
+      setSuggestions(friendNames);
+    } catch (error) {
+      console.error("Error setting friend suggestions:", error);
+    }
+  };
+
+  const handleEventChange = async (e) => {
+    if (inputValue === "") {
+      handleClickChange();
+    }
+    else {
+      handleInputChange(e);
+    }
+  }
+
+  const onSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
 
   const handlePopupClose = () => {
     setShowPopup(false);
-    setNewFriendName("");
+    setInputValue("");
   };
 
-  const handleFriendNameChange = (e) => {
-    setNewFriendName(e.target.value);
-  };
+  // const handleFriendNameChange = (e) => {
+  //   setNewFriendName(e.target.value);
+  // };
 
   const handleAddUserClick = () => {
     setShowPopup(true);
@@ -142,11 +226,11 @@ const GroupDetailPage = () => {
 
   const handleAddFriend = async () => {
     // Implement the logic to add the new friend
-    console.log("New friend name:", newFriendName);
+    console.log("New friend name:", inputValue);
     // Close the popup after adding the friend
     try {
       // Fetch friend's ID by name
-      const friendResponse = await axios.get(`/user/id/of/${newFriendName}`);
+      const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
       const friendId = friendResponse.data.user_id;
       console.log("Friend ID:", friendId);
 
@@ -163,7 +247,7 @@ const GroupDetailPage = () => {
 
       if (inviteResponse.status === 200) {
         // Update the group members list
-        const updatedMembers = [...groupMembers, newFriendName];
+        const updatedMembers = [...groupMembers, inputValue];
         setGroupMembers(updatedMembers);
         console.info("Successfully invited friend to group");
       }
@@ -230,12 +314,36 @@ const GroupDetailPage = () => {
         <div className="popup">
           <div className="popup-inner">
             <h3>Add a new friend</h3>
-            <input
+            {/* <input
               type="text"
               placeholder="Enter friend's name"
               value={newFriendName}
               onChange={handleFriendNameChange}
-            />
+            /> */}
+        <div className="autocomplete-container">
+        <input
+          type="text"
+          className="autocomplete-input"
+          value={inputValue}
+          onChange={handleInputChange}
+          onClick={handleEventChange}
+          placeholder="Enter friend's name"
+        />
+        {suggestions.length > 0 && (
+          <ul className="suggestions-list">
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                className="suggestion-item"
+                onClick={() => onSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+        {errors.inputValue && <div className="error">{errors.inputValue}</div>}
+      </div>
             <div className="popup-buttons">
               <button onClick={handleAddFriend}>Add</button>
               <button onClick={handlePopupClose}>Cancel</button>

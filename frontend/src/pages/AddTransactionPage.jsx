@@ -32,7 +32,7 @@ const AddTransactionPage = () => {
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
-    if (value) {
+    if (value && FGMethod == "Friend") {
       try {
         const response = await axios.get(`/user/partial/${value}`);
         console.log("suggestions are: ", response.data);
@@ -44,8 +44,18 @@ const AddTransactionPage = () => {
         console.error("Error fetching user suggestions:", error);
         setSuggestions([]);
       }
-    } else {
-      setSuggestions([]);
+    } else if (value && FGMethod == "Group") {
+      try {
+        const response = await axios.get(`/group/partial/${value}`);
+        console.log("suggestions are: ", response.data);
+        console.log("suggestions are: ", response.data);
+        const groups = response.data || [];
+        const groupNames = groups.map((group) => group.name);
+        setSuggestions(groupNames);
+      } catch (error) {
+        console.error("Error fetching gruop suggestions:", error);
+        setSuggestions([]);
+      }
     }
   };
 
