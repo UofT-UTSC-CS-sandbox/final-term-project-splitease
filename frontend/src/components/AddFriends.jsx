@@ -10,13 +10,8 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  // const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
-
-  // const handleUsernameChange = (e) => {
-  //   setUsername(e.target.value);
-  // };
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
@@ -40,7 +35,6 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
 
   const onSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
-    // setFriendName(suggestion);
     setSuggestions([]);
   };
 
@@ -165,36 +159,31 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
         </div>
       </div>
       <form className="add-friends-form" onSubmit={handleSubmit}>
-        {/* <input
-          type="text"
-          className="add-friends-email"
-          placeholder="Enter username"
-          value={username}
-          onChange={handleUsernameChange}
-        /> */}
-        <div className="autocomplete-container">
-        <input
-          type="text"
-          className="autocomplete-input"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Start typing to search..."
-        />
-        {suggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {suggestions.map((suggestion, index) => (
-              <li
-                key={index}
-                className="suggestion-item"
-                onClick={() => onSuggestionClick(suggestion)}
-              >
-                {suggestion}
-              </li>
-            ))}
-          </ul>
-        )}
-        {errors.inputValue && <div className="error">{errors.inputValue}</div>}
-      </div>
+        <div className="friends-autocomplete-container">
+          <input
+            type="text"
+            className="friends-autocomplete-input"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Start typing to search..."
+          />
+          {suggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className="suggestion-item"
+                  onClick={() => onSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
+          {errors.inputValue && (
+            <div className="error">{errors.inputValue}</div>
+          )}
+        </div>
 
         {errors.username && <div className="error">{errors.username}</div>}
         <textarea

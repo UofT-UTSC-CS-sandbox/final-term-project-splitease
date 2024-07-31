@@ -231,10 +231,10 @@ const AddTransactionPage = () => {
       <div className={"selectATeam"}>
         Choose a friend or group to share this bill
       </div>
-      <div className="autocomplete-container">
+      <div className="transaction-autocomplete-container">
         <input
           type="text"
-          className="autocomplete-input"
+          className="transaction-autocomplete-input"
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Start typing to search..."

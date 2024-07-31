@@ -19,7 +19,6 @@ const FriendsPage = () => {
   const [fids, setFriendIDs] = useState([]);
 
   const onAddFriendsClick = useCallback(() => {
-    // navigate("/addfriends");
     setIsAddFriendsOpen(true);
   }, [navigate]);
 
@@ -29,7 +28,6 @@ const FriendsPage = () => {
 
   const onFriendClick = useCallback(
     (e) => {
-      // TODO: Display friend details in a dedicated page
       const fid = e.currentTarget.id;
       navigate("/frienddetailpage/" + fid);
     },

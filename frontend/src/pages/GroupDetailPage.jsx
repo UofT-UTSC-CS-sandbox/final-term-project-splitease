@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./GroupDetailPage.css";
 import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
-import AddGroups from "../components/AddGroups.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { parseTransactions, validateUser } from "../components/Functions.jsx";
@@ -22,7 +21,6 @@ const GroupDetailPage = () => {
   const [groupMembers, setGroupMembers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
-  const [newFriendName, setNewFriendName] = useState(""); // State for new friend's name
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [errors, setErrors] = useState({
     type: "",
@@ -96,20 +94,16 @@ const GroupDetailPage = () => {
   async function fetchFriendIds(uid) {
     const response = await axios.get(`/friend/of/${uid}`);
     console.log(response);
-    // if (!response.ok) {
-    //   throw new Error("Failed to fetch friend IDs");
-    // }
+
     const data = await response.data.friends;
     console.log("The friend id data is: ", data);
     return data;
   }
-  
+
   async function fetchUserNameById(id) {
     const response = await axios.get(`/user/name/of/${id}`);
-    // if (!response.ok) {
-    //   throw new Error("Failed to fetch user name");
-    // }
-    console.log("The reponse is:", response );
+
+    console.log("The reponse is:", response);
     const data = await response.data;
     return data.name;
   }
@@ -136,17 +130,15 @@ const GroupDetailPage = () => {
   };
 
   const handleClickChange = async () => {
-    // const value = e.target.value;
-    // setInputValue(value);
     try {
       // Get the list of friend IDs
       const friendIds = await fetchFriendIds(uid);
       console.log("FriendIds are:", friendIds);
-  
+
       // Fetch all friend names concurrently
       const friendNamesPromises = friendIds.map((id) => fetchUserNameById(id));
       const friendNames = await Promise.all(friendNamesPromises);
-  
+
       // Set the suggestions with the friend names
       setSuggestions(friendNames);
     } catch (error) {
@@ -157,11 +149,10 @@ const GroupDetailPage = () => {
   const handleEventChange = async (e) => {
     if (inputValue === "") {
       handleClickChange();
-    }
-    else {
+    } else {
       handleInputChange(e);
     }
-  }
+  };
 
   const onSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
@@ -177,34 +168,29 @@ const GroupDetailPage = () => {
     setInputValue("");
   };
 
-  // const handleFriendNameChange = (e) => {
-  //   setNewFriendName(e.target.value);
-  // };
-
   const handleAddUserClick = () => {
     setShowPopup(true);
   };
 
-  // TODO: Implement the logic to delete group
-    const handleDeleteGroupClick = () => {
-      // Handle delete group click
-      console.log("Delete Group clicked");
-      Swal.fire({
-        title: "Warning!",
-        text: "Are you sure you want to delete this group?",
-        icon: "warning",
-        showCancelButton: true,
-        cancelButtonText: "No",
-        confirmButtonText: "Yes, delete",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Delete the group
-          axios({
-            method: "delete",
-            url: "/group/delete/",
-            data: {uid, groupId: gid},
-          })
-          .then ((res) => {
+  const handleDeleteGroupClick = () => {
+    // Handle delete group click
+    console.log("Delete Group clicked");
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to delete this group?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Delete the group
+        axios({
+          method: "delete",
+          url: "/group/delete/",
+          data: { uid, groupId: gid },
+        })
+          .then((res) => {
             console.log("The result is: ", res);
             navigate(-1); // Redirect to groups page
           })
@@ -216,9 +202,9 @@ const GroupDetailPage = () => {
               "error"
             );
           });
-        }
-      });
-    };
+      }
+    });
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -314,36 +300,32 @@ const GroupDetailPage = () => {
         <div className="popup">
           <div className="popup-inner">
             <h3>Add a new friend</h3>
-            {/* <input
-              type="text"
-              placeholder="Enter friend's name"
-              value={newFriendName}
-              onChange={handleFriendNameChange}
-            /> */}
-        <div className="autocomplete-container">
-        <input
-          type="text"
-          className="autocomplete-input"
-          value={inputValue}
-          onChange={handleInputChange}
-          onClick={handleEventChange}
-          placeholder="Enter friend's name"
-        />
-        {suggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {suggestions.map((suggestion, index) => (
-              <li
-                key={index}
-                className="suggestion-item"
-                onClick={() => onSuggestionClick(suggestion)}
-              >
-                {suggestion}
-              </li>
-            ))}
-          </ul>
-        )}
-        {errors.inputValue && <div className="error">{errors.inputValue}</div>}
-      </div>
+            <div className="group-autocomplete-container">
+              <input
+                type="text"
+                className="group-autocomplete-input"
+                value={inputValue}
+                onChange={handleInputChange}
+                onClick={handleEventChange}
+                placeholder="Enter friend's name"
+              />
+              {suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      className="suggestion-item"
+                      onClick={() => onSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {errors.inputValue && (
+                <div className="error">{errors.inputValue}</div>
+              )}
+            </div>
             <div className="popup-buttons">
               <button onClick={handleAddFriend}>Add</button>
               <button onClick={handlePopupClose}>Cancel</button>

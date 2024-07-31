@@ -6,7 +6,7 @@
     text-align: center;
 }
 
-.autocomplete-container {
+.transaction-autocomplete-container {
     width: 300px;
     margin: 0 auto;
     position: relative;
@@ -14,7 +14,7 @@
     margin-bottom: 10px;
 }
 
-.autocomplete-input {
+.transaction-autocomplete-input {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
