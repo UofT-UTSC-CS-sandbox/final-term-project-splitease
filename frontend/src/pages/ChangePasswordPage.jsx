@@ -11,7 +11,7 @@ const ChangePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  //   const [message, setMessage] = useState("");
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -19,14 +19,33 @@ const ChangePasswordPage = () => {
 
   const navigate = useNavigate();
 
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to change your password?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleChangePassword(e);
+      }
+    });
+  };
+
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage("New password and confirm password do not match.");
+      Swal.fire({
+        title: "Error!",
+        text: "New password and confirm password do not match!",
+        icon: "error",
+      });
       return;
     }
-    // const response = await axios.get(`/user/name/of/${id}`);
-    // const username = response.data.name;
+
     const username = localStorage.getItem("u_name");
     console.log("the user name is: ", username);
 
@@ -42,27 +61,46 @@ const ChangePasswordPage = () => {
             .post("/user/password/change", { uid, password: newPassword })
             .then((res) => {
               if (res.status === 200) {
-                setMessage("Password changed successfully.");
-                Swal.fire("Password changed successfully!", "", "success").then(
-                  () => {
-                    localStorage.clear();
-                    navigate("/login", { replace: true });
-                  }
-                );
+                Swal.fire({
+                  title: "Success!",
+                  text: "Password changed successfully!",
+                  icon: "success",
+                }).then(() => {
+                  localStorage.clear();
+                  navigate("/login", { replace: true });
+                });
               } else {
-                setMessage("Something went wrong. Please try again later.");
+                Swal.fire({
+                  title: "Error!",
+                  text: "Please enter a different password!",
+                  icon: "error",
+                });
               }
             })
             .catch((e) => {
               console.error("Error changing password:", e);
-              setMessage("Something went wrong. Please try again later.");
+              Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again later!",
+                icon: "error",
+              });
             });
         },
         (error) => {
           console.error("Error logging in:", error);
-          if (error.response.status === 401)
-            setMessage("Current password is incorrect.");
-          else setMessage("Something went wrong. Please try again later.");
+          if (error.response.status === 401) {
+            Swal.fire({
+              title: "Error!",
+              text: "Current password is incorrect!",
+              icon: "error",
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong. Please try again later!",
+              icon: "error",
+            });
+          }
         }
       );
   };
@@ -145,9 +183,11 @@ const ChangePasswordPage = () => {
             </button>
           </div>
         </div>
-        <button type="submit">Change Password</button>
+        <button type="submit" onClick={onSubmitClick}>
+          Change Password
+        </button>
       </form>
-      {message && <p className="message">{message}</p>}
+      {/* {message && <p className="message">{message}</p>} */}
     </div>
   );
 };

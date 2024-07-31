@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = ({ className = "" }) => {
+const LoginComponent = ({ className = "" }) => {
   const navigate = useNavigate();
   const [suggestedNames, setSuggestions] = useState([]);
 
@@ -14,7 +14,11 @@ const LoginForm = ({ className = "" }) => {
     const username = document.querySelector(".username-field").value;
     const password = document.querySelector(".password-field").value;
     if (!username || !password) {
-      Swal.fire("Error", "Please enter a username and password", "error");
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a username and password!",
+        icon: "error",
+      });
       return;
     }
 
@@ -29,11 +33,13 @@ const LoginForm = ({ className = "" }) => {
         if (response.status === 200) {
           localStorage.setItem("u_name", username);
           localStorage.setItem("uid", response.data.user_id);
-          Swal.fire("Logged in!", "You are now logged in.", "success").then(
-            () => {
-              navigate("/");
-            }
-          );
+          Swal.fire({
+            title: "Logged in!",
+            text: "You are now logged in!",
+            icon: "success",
+          }).then(() => {
+            navigate("/");
+          });
         } else {
           console.error("response", response);
         }
@@ -45,7 +51,7 @@ const LoginForm = ({ className = "" }) => {
         // User not found, register
         if (response.status === 404) {
           Swal.fire({
-            title: "User not found",
+            title: "User not found!",
             text: "Do you want to register?",
             icon: "warning",
             showCancelButton: true,
@@ -54,19 +60,27 @@ const LoginForm = ({ className = "" }) => {
           }).then(async (result) => {
             if (result.isConfirmed) {
               await registerUser(username, password);
-              Swal.fire(
-                "Registered!",
-                "You are now registered and logged in.",
-                "success"
-              ).then(() => {
+              Swal.fire({
+                title: "Registered!",
+                text: "You are now registered and logged in!",
+                icon: "success",
+              }).then(() => {
                 navigate("/");
               });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-              Swal.fire("Cancelled", "You are not registered", "error");
+              Swal.fire({
+                title: "Cancelled!",
+                text: "You are not registered!",
+                icon: "error",
+              });
             }
           });
         } else if (response.status === 401) {
-          Swal.fire("Error", response.data.error, "error");
+          Swal.fire({
+            title: "Error",
+            text: response.data.error,
+            icon: "error",
+          });
         }
       });
   }, []);
@@ -143,11 +157,11 @@ const LoginForm = ({ className = "" }) => {
   );
 };
 
-LoginForm.propTypes = {
+LoginComponent.propTypes = {
   className: PropTypes.string,
 };
 
-export default LoginForm;
+export default LoginComponent;
 async function registerUser(username, password) {
   axios
     .post("user/register", {

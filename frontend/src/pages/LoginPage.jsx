@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginForm from "../components/LoginComponent";
+import LoginComponent from "../components/LoginComponent";
 import "../components/Universal.css";
 import "./LoginPage.css";
 import axios from "axios";
@@ -39,7 +39,7 @@ const LoginPage = () => {
               src="/SplitEaseLogo.png"
             />
           </div>
-          <LoginForm />
+          <LoginComponent />
         </div>
       </section>
     </div>

@@ -204,8 +204,8 @@ const GroupDetailPage = () => {
           .catch((error) => {
             console.error("Error deleting group:", error);
             Swal.fire(
-              "Error",
-              "Failed to delete group. Please try again.",
+              "Error!",
+              "Failed to delete group. Please try again!",
               "error"
             );
           });
@@ -248,8 +248,8 @@ const GroupDetailPage = () => {
       handlePopupClose();
     } catch (error) {
       Swal.fire(
-        "Error",
-        "Failed to add friend to the group. Please try again.",
+        "Error!",
+        "Failed to add friend to the group. Please try again!",
         "error"
       );
       console.error("Error inviting friend to group:", error);

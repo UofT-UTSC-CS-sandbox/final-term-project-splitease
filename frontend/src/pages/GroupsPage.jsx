@@ -58,11 +58,11 @@ const GroupsPage = () => {
           })
           .catch((error) => {
             console.error("Error quiting group:", error);
-            Swal.fire(
-              "Error",
-              "Failed to quit group. Please try again.",
-              "error"
-            );
+            Swal.fire({
+              title: "Error",
+              text: "Failed to quit group. Please try again.",
+              icon: "error",
+            });
           });
       }
     });

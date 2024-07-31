@@ -65,8 +65,8 @@ const FriendsPage = () => {
           .catch((error) => {
             console.error("Error deleting friend:", error);
             Swal.fire(
-              "Error",
-              "Failed to delete friend. Please try again.",
+              "Error!",
+              "Failed to delete friend. Please try again!",
               "error"
             );
           });
