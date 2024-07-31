@@ -102,10 +102,39 @@ const GroupDetailPage = () => {
   };
 
   // TODO: Implement the logic to delete group
-  //   const handleDeleteGroupClick = () => {
-  //     // Handle delete group click
-  //     console.log("Delete Group clicked");
-  //   };
+    const handleDeleteGroupClick = () => {
+      // Handle delete group click
+      console.log("Delete Group clicked");
+      Swal.fire({
+        title: "Warning!",
+        text: "Are you sure you want to delete this group?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "No",
+        confirmButtonText: "Yes, delete",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Delete the group
+          axios({
+            method: "delete",
+            url: "/group/delete/",
+            data: {uid, groupId: gid},
+          })
+          .then ((res) => {
+            console.log("The result is: ", res);
+            navigate(-1); // Redirect to groups page
+          })
+          .catch((error) => {
+            console.error("Error deleting group:", error);
+            Swal.fire(
+              "Error",
+              "Failed to delete group. Please try again.",
+              "error"
+            );
+          });
+        }
+      });
+    };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

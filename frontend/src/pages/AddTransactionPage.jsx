@@ -5,7 +5,7 @@ import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Modal from "react-modal";
+ import Modal from "react-modal";
 
 const AddTransactionPage = () => {
   validateUser();
