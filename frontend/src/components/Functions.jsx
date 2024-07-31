@@ -104,6 +104,25 @@ export async function parseTransactions(transactions) {
   );
 }
 
+export async function parseTransactionsbyInfo(transactions) {
+  return await Promise.all(
+    transactions.map(async (transaction) => {
+
+      // Get date in MM DD, YY format
+      let formattedDate = formatDate(transaction.createdAt, false);
+
+      return {
+        id: transaction._id,
+        date: formattedDate,
+        name: transaction.description,
+        payer: await getUserNameById(transaction.payer),
+        payerId: transaction.payer,
+        amount: transaction.amount,
+      };
+    })
+  );
+}
+
 export function validateUser() {
   const navigate = useNavigate();
   const uid = localStorage.getItem("uid");

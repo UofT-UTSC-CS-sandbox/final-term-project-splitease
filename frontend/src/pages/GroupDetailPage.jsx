@@ -6,7 +6,7 @@ import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { parseTransactions, validateUser } from "../components/Functions.jsx";
+import { parseTransactionsbyInfo, validateUser } from "../components/Functions.jsx";
 
 const GroupDetailPage = () => {
   validateUser();
@@ -34,6 +34,7 @@ const GroupDetailPage = () => {
       try {
         // Fetch group details
         const groupResponse = await axios.get(`/group/details/${gid}`);
+        console.log("Group response: ", groupResponse);
         const groupData = groupResponse.data;
 
         // Fetch members' names
@@ -44,9 +45,15 @@ const GroupDetailPage = () => {
           })
         );
 
+        const groupTrans = await axios.get(`/group/transactions/${gid}`);
+        console.log("Group trans are: ", groupTrans.data.transactionInfoId
+        );
+
+        const transInfo = await parseTransactionsbyInfo(groupTrans.data.transactionInfoId);
+
         setGroupDetails(groupData);
         setGroupMembers(memberNames);
-        setTransactions(groupData.transactions);
+        setTransactions(transInfo);
       } catch (error) {
         console.error("Error fetching group details:", error);
       }
@@ -289,8 +296,8 @@ const GroupDetailPage = () => {
         <h2>Recent shared activities</h2>
         <div className="group-recent-activities-bar">
           <TransactionActivity
-            transactions={testTransactions}
-            uid={UID_test}
+            transactions={transactions}
+            uid={uid}
             friendsInfo={friend_test}
           />
         </div>
