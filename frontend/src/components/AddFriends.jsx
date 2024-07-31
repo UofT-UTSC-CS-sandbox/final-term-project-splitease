@@ -77,10 +77,9 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
             .then((res) => {
               console.log("Response:", res.data);
               if (res.data.success) {
-                console.log("Friend added successfully");
                 Swal.fire({
                   title: "Success!",
-                  text: "Friend added successfully",
+                  text: "Friend added successfully!",
                   icon: "success",
                 }).then((result) => {
                   if (result.isConfirmed) {
@@ -94,7 +93,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
                 console.error("Error adding friend:", res.data.error);
                 Swal.fire({
                   title: "Error!",
-                  text: res.data.error,
+                  text: "Something went wrong. Please try again later!",
                   icon: "error",
                 });
               }
@@ -113,7 +112,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
           console.error("Friend ID not found");
           Swal.fire({
             title: "Error!",
-            text: "Friend not found",
+            text: "Friend not found!",
             icon: "error",
           });
         }
@@ -123,7 +122,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
         if (err.response) {
           Swal.fire({
             title: "Error!",
-            text: err.response.data.error,
+            text: "Error fetching friend ID!",
             icon: "error",
           });
         }

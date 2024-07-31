@@ -30,7 +30,7 @@
 
 .add-friends-form {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .add-friends-email {
@@ -67,11 +67,10 @@
 }
 
 .friends-autocomplete-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     width: 100%;
-    margin-top: 10px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 10px;
 }
 
 .friends-autocomplete-input {

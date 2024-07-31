@@ -5,7 +5,7 @@ import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
- import Modal from "react-modal";
+import Modal from "react-modal";
 
 const AddTransactionPage = () => {
   validateUser();
@@ -143,9 +143,9 @@ const AddTransactionPage = () => {
 
     if (!uid) {
       Swal.fire({
-        icon: "error",
         title: "Oops...",
         text: "You need to log in first!",
+        icon: "error",
       }).then(() => {
         navigate("/login");
       });
@@ -159,16 +159,16 @@ const AddTransactionPage = () => {
 
       if (!friendUid) {
         Swal.fire({
-          icon: "error",
           title: "Oops...",
           text: "Friend not found!",
+          icon: "error",
         });
         return;
       } else if (friendUid == uid) {
         Swal.fire({
-          icon: "error",
           title: "Oops...",
-          text: "You cannot add yourself as a friend.",
+          text: "You cannot add yourself as a friend!",
+          icon: "error",
         });
         return;
       }
@@ -192,13 +192,12 @@ const AddTransactionPage = () => {
     } catch (error) {
       console.error(
         "Error fetching friend UID or creating transaction:",
-
         error
       );
       Swal.fire({
-        icon: "error",
         title: "Error!",
         text: "Friend Not Found!",
+        icon: "error",
       });
     }
   }, [inputValue, methodType, type, uid, navigate]);
@@ -206,7 +205,7 @@ const AddTransactionPage = () => {
   const onBackButtonClick = useCallback(() => {
     Swal.fire({
       title: "Warning!",
-      text: "Are you sure you want to quit? Your changes will not be saved.",
+      text: "Are you sure you want to quit? Your changes will not be saved!",
       icon: "warning",
       showCancelButton: true,
       cancelButtonText: "No",
@@ -231,10 +230,10 @@ const AddTransactionPage = () => {
       <div className={"selectATeam"}>
         Choose a friend or group to share this bill
       </div>
-      <div className="transaction-autocomplete-container">
+      <div className="autocomplete-container">
         <input
           type="text"
-          className="transaction-autocomplete-input"
+          className="autocomplete-input"
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Start typing to search..."

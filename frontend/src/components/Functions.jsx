@@ -109,9 +109,9 @@ export function validateUser() {
   const uid = localStorage.getItem("uid");
   if (!uid) {
     Swal.fire({
-      icon: "error",
       title: "Oops...",
       text: "You are not logged in!",
+      icon: "error",
     }).then(() => {
       navigate("/login");
     });
@@ -120,9 +120,9 @@ export function validateUser() {
   axios.get(`/user/validate/${uid}`).catch((e) => {
     console.error("Error validating user:", e);
     Swal.fire({
-      icon: "error",
       title: "Oops...",
       text: "Your session has expired. Please log in again!",
+      icon: "error",
     }).then(() => {
       navigate("/login");
     });

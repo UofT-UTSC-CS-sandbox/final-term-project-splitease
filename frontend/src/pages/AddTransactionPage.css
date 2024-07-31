@@ -6,23 +6,6 @@
     text-align: center;
 }
 
-.transaction-autocomplete-container {
-    width: 300px;
-    margin: 0 auto;
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin-bottom: 10px;
-}
-
-.transaction-autocomplete-input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
 .suggestions-list {
     list-style: none;
     margin: 0;

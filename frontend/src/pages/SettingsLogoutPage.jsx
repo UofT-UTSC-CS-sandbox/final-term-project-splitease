@@ -22,7 +22,11 @@ const SettingsLogoutPage = () => {
     localStorage.clear();
 
     // Navigate to login page
-    Swal.fire("Logged out!", "You are now logged out.", "success").then(() => {
+    Swal.fire({
+      title: "Logged out!",
+      text: "You are now logged out.",
+      icon: "success",
+    }).then(() => {
       navigate("/login");
     });
   }, [navigate]);
