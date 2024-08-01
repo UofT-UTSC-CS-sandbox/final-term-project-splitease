@@ -10,6 +10,7 @@ import {
   getGroupsByName,
   inviteFriend,
   quitGroup,
+  getGroupIdByName,
 } from "../modules/group.js";
 import { getTransactionByGroup } from "../modules/transaction.js";
 export const groupRouter = express.Router();
@@ -65,6 +66,31 @@ groupRouter.get("/name/of/:id", async function (req, res) {
     if (groupName) {
       console.info("group name", groupName);
       res.status(200).json({ group_name: groupName });
+    } else {
+      res.status(401).json({ error: "Group not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group id by name
+groupRouter.get("/id/of/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid name" });
+    return;
+  }
+
+  // Get user id by name
+  try {
+    const gid = await getGroupIdByName(name);
+    if (gid) {
+      console.info("group id", gid);
+      res.status(200).json({ group_id: gid });
     } else {
       res.status(401).json({ error: "Group not found" });
     }

@@ -152,6 +152,9 @@ const AddTransactionPage = () => {
       return;
     }
 
+    console.log("method is: ", FGMethod);
+
+    if (FGMethod === "Friend") {
     try {
       // Fetch the friend's UID using inputValue
       const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
@@ -200,6 +203,49 @@ const AddTransactionPage = () => {
         icon: "error",
       });
     }
+  } else if (FGMethod === "Group") {
+    try {
+      // Fetch the friend's UID using inputValue
+      const groupResponse = await axios.get(`/group/id/of/${inputValue}`);
+      const groupId = groupResponse.data.group_id;
+      console.log("groupid is: ", groupId);
+
+      if (!groupId) {
+        Swal.fire({
+          title: "Oops...",
+          text: "Group not found!",
+          icon: "error",
+        });
+        return;
+      } 
+
+      // Post the transaction data
+      const response = await axios.post(`/transaction/add/group`, {
+        uid,
+        amount,
+        description,
+        groupId,
+      });
+
+      console.log("response is: ", response);
+
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        navigate("/"); // Redirect to the main page
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching groupid or creating transaction:",
+        error
+      );
+      Swal.fire({
+        title: "Error!",
+        text: "group Not Found!",
+        icon: "error",
+      });
+    }
+  }
   }, [inputValue, methodType, type, uid, navigate]);
 
   const onBackButtonClick = useCallback(() => {

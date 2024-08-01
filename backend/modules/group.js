@@ -42,6 +42,15 @@ export const getGroupNameById = async (id) => {
   }
 };
 
+// Get group id by name
+export const getGroupIdByName = async (name) => {
+  const group = await Group.findOne({ name });
+  if (group) {
+    return group._id;
+  }
+  return null;
+};
+
 // Get group names by partial name
 export const getGroupsByName = async (name) => {
   // Match jump chars
