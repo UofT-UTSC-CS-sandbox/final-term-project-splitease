@@ -93,12 +93,10 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
               text: "Group created successfully",
               icon: "success",
             }).then(async (result) => {
-              if (result.isConfirmed) { {
+              if (result.isConfirmed) {
                 navigate(0, { replace: true });
               }
-            }
             });
-            // navigate(0, { replace: true });
           } else {
             console.error("Error creating group:", response.data.error);
           }

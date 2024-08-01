@@ -107,7 +107,6 @@ export async function parseTransactions(transactions) {
 export async function parseTransactionsbyInfo(transactions) {
   return await Promise.all(
     transactions.map(async (transaction) => {
-
       // Get date in MM DD, YY format
       let formattedDate = formatDate(transaction.createdAt, false);
 
@@ -149,8 +148,3 @@ export function validateUser() {
 
   return true;
 }
-
-// export function withUserValidation(Component) {
-//   validateUser(); // ! why not use useEffect?
-//   return <Component />;
-// }

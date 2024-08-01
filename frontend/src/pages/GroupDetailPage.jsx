@@ -6,7 +6,10 @@ import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { parseTransactionsbyInfo, validateUser } from "../components/Functions.jsx";
+import {
+  parseTransactionsbyInfo,
+  validateUser,
+} from "../components/Functions.jsx";
 
 const GroupDetailPage = () => {
   validateUser();
@@ -22,12 +25,6 @@ const GroupDetailPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [errors, setErrors] = useState({
-    type: "",
-    inputValue: "",
-    amount: "",
-    methodType: "",
-  });
 
   useEffect(() => {
     const fetchGroupDetails = async () => {
@@ -46,10 +43,11 @@ const GroupDetailPage = () => {
         );
 
         const groupTrans = await axios.get(`/group/transactions/${gid}`);
-        console.log("Group trans are: ", groupTrans.data.transactionInfoId
-        );
+        console.log("Group trans are: ", groupTrans.data.transactionInfoId);
 
-        const transInfo = await parseTransactionsbyInfo(groupTrans.data.transactionInfoId);
+        const transInfo = await parseTransactionsbyInfo(
+          groupTrans.data.transactionInfoId
+        );
 
         setGroupDetails(groupData);
         setGroupMembers(memberNames);
@@ -203,11 +201,11 @@ const GroupDetailPage = () => {
           })
           .catch((error) => {
             console.error("Error deleting group:", error);
-            Swal.fire(
-              "Error!",
-              "Failed to delete group. Please try again!",
-              "error"
-            );
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete group. Please try again!",
+              icon: "error",
+            });
           });
       }
     });
@@ -218,7 +216,6 @@ const GroupDetailPage = () => {
   };
 
   const handleAddFriend = async () => {
-    // Implement the logic to add the new friend
     console.log("New friend name:", inputValue);
     // Close the popup after adding the friend
     try {
@@ -243,15 +240,19 @@ const GroupDetailPage = () => {
         const updatedMembers = [...groupMembers, inputValue];
         setGroupMembers(updatedMembers);
         console.info("Successfully invited friend to group");
+        Swal.fire({
+          title: "Success!",
+          text: "Friend added successfully",
+          icon: "success",
+        });
       }
-
       handlePopupClose();
     } catch (error) {
-      Swal.fire(
-        "Error!",
-        "Failed to add friend to the group. Please try again!",
-        "error"
-      );
+      Swal.fire({
+        title: "Error!",
+        text: "Error adding friend. Please try again!",
+        icon: "error",
+      });
       console.error("Error inviting friend to group:", error);
     }
   };
@@ -292,17 +293,18 @@ const GroupDetailPage = () => {
           </div>
         ))}
       </div>
-      <div className="group-recent-activities-container">
-        <h2>Recent shared activities</h2>
-        <div className="group-recent-activities-bar">
-          <TransactionActivity
-            transactions={transactions}
-            uid={uid}
-            friendsInfo={friend_test}
-          />
+      <div className="group-container">
+        <div className="group-recent-activities-container">
+          <h2>Recent shared activities</h2>
+          <div className="group-recent-activities-bar">
+            <TransactionActivity
+              transactions={transactions}
+              uid={uid}
+              friendsInfo={friend_test}
+            />
+          </div>
         </div>
       </div>
-
       {showPopup && (
         <div className="popup">
           <div className="popup-inner">
@@ -328,9 +330,6 @@ const GroupDetailPage = () => {
                     </li>
                   ))}
                 </ul>
-              )}
-              {errors.inputValue && (
-                <div className="error">{errors.inputValue}</div>
               )}
             </div>
             <div className="popup-buttons">
