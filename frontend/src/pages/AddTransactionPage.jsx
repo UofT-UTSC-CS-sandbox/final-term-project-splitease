@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useEffect } from "react";
 import "./AddTransactionPage.css";
 import "../components/Universal.css";
 import { parseTransactions, validateUser } from "../components/Functions.jsx";
@@ -28,6 +29,10 @@ const AddTransactionPage = () => {
   const [amounts, setAmounts] = useState(Array(5).fill(""));
   const [showTotal, setShowTotal] = useState(false);
   const [friendName, setFriendName] = useState("");
+  const [memberCount, setMemberCount] = useState(0);
+  const [inputCount, setInputCount] = useState(0);
+  const [groupID, setGroupID] = useState("");
+  const [totalAmount, setTotalAmount] = useState((0).toFixed(2));
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
@@ -83,23 +88,67 @@ const AddTransactionPage = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    setTotalAmount((0).toFixed(2));
   };
 
   const handleInputAmountChange = (index, event) => {
     const newAmounts = [...amounts];
     newAmounts[index] = event.target.value;
     setAmounts(newAmounts);
+    setTotalAmount(
+      newAmounts
+        .reduce((sum, amount) => {
+          const value = parseFloat(amount);
+          return sum + (isNaN(value) ? 0 : value);
+        }, 0)
+        .toFixed(2)
+    );
   };
 
-  const calculateTotalAmount = () => {
-    if (splitMethod === "Evenly") {
-      return (parseFloat(payAmount) / 2).toFixed(2);
+  const fetchGroupID = async (groupName) => {
+    try {
+      const response = await axios.get(`/group/id/of/${groupName}`);
+      console.log("group id is: ", response.data);
+      return response.data.group_id;
+    } catch (error) {
+      console.error("Error fetching group id:", error);
+      return null;
+    }
+  };
+
+  const fetchMemberCount = async (groupId) => {
+    try {
+      const response = await axios.get(`/group/details/${groupId}`);
+      console.log("group details are: ", response.data);
+      const group = response.data;
+      return group.members.length;
+    } catch (error) {
+      console.error("Error fetching group details:", error);
+      return 0;
+    }
+  };
+
+  const calculateTotalAmount = async (memberCount) => {
+    if (FGMethod === "Friend") {
+      if (splitMethod === "Evenly") {
+        return (parseFloat(payAmount) / 2).toFixed(2);
+      } else {
+        const total = amounts.reduce((sum, amount) => {
+          const value = parseFloat(amount);
+          return sum + (isNaN(value) ? 0 : value);
+        }, 0);
+        return total.toFixed(2);
+      }
     } else {
-      const total = amounts.reduce((sum, amount) => {
-        const value = parseFloat(amount);
-        return sum + (isNaN(value) ? 0 : value);
-      }, 0);
-      return total.toFixed(2);
+      if (splitMethod === "Evenly") {
+        return (parseFloat(payAmount) / memberCount).toFixed(2);
+      } else {
+        const total = amounts.reduce((sum, amount) => {
+          const value = parseFloat(amount);
+          return sum + (isNaN(value) ? 0 : value);
+        }, 0);
+        return total.toFixed(2);
+      }
     }
   };
 
@@ -116,6 +165,7 @@ const AddTransactionPage = () => {
     setIsModalOpen(false);
     setShowTotal(true);
   };
+
   const onConfirmTextClick = useCallback(async () => {
     const amount = document.getElementById("amount").value;
     const newErrors = {};
@@ -155,97 +205,94 @@ const AddTransactionPage = () => {
     console.log("method is: ", FGMethod);
 
     if (FGMethod === "Friend") {
-    try {
-      // Fetch the friend's UID using inputValue
-      const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
-      const friendUid = friendResponse.data.user_id;
+      try {
+        // Fetch the friend's UID using inputValue
+        const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
+        const friendUid = friendResponse.data.user_id;
 
-      if (!friendUid) {
+        if (!friendUid) {
+          Swal.fire({
+            title: "Oops...",
+            text: "Friend not found!",
+            icon: "error",
+          });
+          return;
+        } else if (friendUid == uid) {
+          Swal.fire({
+            title: "Oops...",
+            text: "You cannot add yourself as a friend!",
+            icon: "error",
+          });
+          return;
+        }
+
+        // Create the transaction data with both UIDs
+        const friends = [friendUid];
+
+        // Post the transaction data
+        const response = await axios.post(`/transaction/add`, {
+          uid,
+          amount,
+          description,
+          friends,
+        });
+
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          navigate("/"); // Redirect to the main page
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching friend UID or creating transaction:",
+          error
+        );
         Swal.fire({
-          title: "Oops...",
+          title: "Error!",
           text: "Friend not found!",
           icon: "error",
         });
-        return;
-      } else if (friendUid == uid) {
-        Swal.fire({
-          title: "Oops...",
-          text: "You cannot add yourself as a friend!",
-          icon: "error",
+      }
+    } else if (FGMethod === "Group") {
+      try {
+        // Fetch the friend's UID using inputValue
+        const groupResponse = await axios.get(`/group/id/of/${inputValue}`);
+        const groupId = groupResponse.data.group_id;
+        console.log("groupid is: ", groupId);
+
+        if (!groupId) {
+          Swal.fire({
+            title: "Oops...",
+            text: "Group not found!",
+            icon: "error",
+          });
+          return;
+        }
+
+        // Post the transaction data
+        const response = await axios.post(`/transaction/add/group`, {
+          uid,
+          amount,
+          description,
+          groupId,
         });
-        return;
-      }
 
-      // Create the transaction data with both UIDs
-      const friends = [friendUid];
+        console.log("response is: ", response);
 
-      // Post the transaction data
-      const response = await axios.post(`/transaction/add`, {
-        uid,
-        amount,
-        description,
-        friends,
-      });
-
-      if (response.data.error) {
-        alert(response.data.error);
-      } else {
-        navigate("/"); // Redirect to the main page
-      }
-    } catch (error) {
-      console.error(
-        "Error fetching friend UID or creating transaction:",
-        error
-      );
-      Swal.fire({
-        title: "Error!",
-        text: "Friend Not Found!",
-        icon: "error",
-      });
-    }
-  } else if (FGMethod === "Group") {
-    try {
-      // Fetch the friend's UID using inputValue
-      const groupResponse = await axios.get(`/group/id/of/${inputValue}`);
-      const groupId = groupResponse.data.group_id;
-      console.log("groupid is: ", groupId);
-
-      if (!groupId) {
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          navigate("/"); // Redirect to the main page
+        }
+      } catch (error) {
+        console.error("Error fetching groupid or creating transaction:", error);
         Swal.fire({
-          title: "Oops...",
+          title: "Error!",
           text: "Group not found!",
           icon: "error",
         });
-        return;
-      } 
-
-      // Post the transaction data
-      const response = await axios.post(`/transaction/add/group`, {
-        uid,
-        amount,
-        description,
-        groupId,
-      });
-
-      console.log("response is: ", response);
-
-      if (response.data.error) {
-        alert(response.data.error);
-      } else {
-        navigate("/"); // Redirect to the main page
       }
-    } catch (error) {
-      console.error(
-        "Error fetching groupid or creating transaction:",
-        error
-      );
-      Swal.fire({
-        title: "Error!",
-        text: "group Not Found!",
-        icon: "error",
-      });
     }
-  }
   }, [inputValue, methodType, type, uid, navigate]);
 
   const onBackButtonClick = useCallback(() => {
@@ -262,6 +309,23 @@ const AddTransactionPage = () => {
       }
     });
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const groupID = await fetchGroupID(inputValue);
+      setGroupID(groupID);
+
+      if (groupID) {
+        const count = await fetchMemberCount(groupID);
+        setMemberCount(count);
+        setInputCount(count - 1);
+        const total = await calculateTotalAmount(count);
+        setTotalAmount(total.toFixed(2));
+      }
+    };
+
+    fetchData();
+  }, [inputValue, FGMethod, splitMethod, payAmount, amounts]);
 
   return (
     <div className={"pageContainer"}>
@@ -293,6 +357,15 @@ const AddTransactionPage = () => {
                 onClick={() => onSuggestionClick(suggestion)}
               >
                 {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+        {memberCount.length > 0 && (
+          <ul>
+            {memberCount.map((group) => (
+              <li key={group.groupId}>
+                {group.groupName} - {group.memberCount} members
               </li>
             ))}
           </ul>
@@ -381,9 +454,7 @@ const AddTransactionPage = () => {
         </div>
       </div>
       {showTotal && (
-        <div className="youWillPay">
-          You will pay a total of ${calculateTotalAmount()}
-        </div>
+        <div className="youWillPay">You will pay a total of ${totalAmount}</div>
       )}
       <div className={"confirm"} onClick={onConfirmTextClick}>
         Confirm
@@ -417,7 +488,7 @@ const AddTransactionPage = () => {
         ) : (
           <div>
             <h2>Enter Split Details for Group</h2>
-            {[...Array(5)].map((_, index) => (
+            {[...Array(inputCount)].map((_, index) => (
               <div key={index} className="split-detail-row">
                 <input type="text" placeholder="Group member" />
                 <input
@@ -428,6 +499,10 @@ const AddTransactionPage = () => {
                 />
               </div>
             ))}
+            <div className="modal-buttons">
+              <button onClick={handleModalClose}>Close</button>
+              <button onClick={handleConfirmSplit}>Confirm</button>
+            </div>
           </div>
         )}
       </Modal>
