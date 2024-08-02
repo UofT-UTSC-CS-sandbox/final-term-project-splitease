@@ -166,7 +166,7 @@ const AddTransactionPage = () => {
     setShowTotal(true);
   };
 
-  const onConfirmTextClick = useCallback(async () => {
+  const onConfirmClick = useCallback(async () => {
     const amount = document.getElementById("amount").value;
     const newErrors = {};
 
@@ -204,95 +204,109 @@ const AddTransactionPage = () => {
 
     console.log("method is: ", FGMethod);
 
-    if (FGMethod === "Friend") {
-      try {
-        // Fetch the friend's UID using inputValue
-        const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
-        const friendUid = friendResponse.data.user_id;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to create this transaction?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (FGMethod === "Friend") {
+          try {
+            // Fetch the friend's UID using inputValue
+            const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
+            const friendUid = friendResponse.data.user_id;
 
-        if (!friendUid) {
-          Swal.fire({
-            title: "Oops...",
-            text: "Friend not found!",
-            icon: "error",
-          });
-          return;
-        } else if (friendUid == uid) {
-          Swal.fire({
-            title: "Oops...",
-            text: "You cannot add yourself as a friend!",
-            icon: "error",
-          });
-          return;
+            if (!friendUid) {
+              Swal.fire({
+                title: "Oops...",
+                text: "Friend not found!",
+                icon: "error",
+              });
+              return;
+            } else if (friendUid == uid) {
+              Swal.fire({
+                title: "Oops...",
+                text: "You cannot add yourself as a friend!",
+                icon: "error",
+              });
+              return;
+            }
+
+            // Create the transaction data with both UIDs
+            const friends = [friendUid];
+
+            // Post the transaction data
+            const response = await axios.post(`/transaction/add`, {
+              uid,
+              amount,
+              description,
+              friends,
+            });
+
+            if (response.data.error) {
+              alert(response.data.error);
+            } else {
+              navigate("/"); // Redirect to the main page
+            }
+          } catch (error) {
+            console.error(
+              "Error fetching friend UID or creating transaction:",
+              error
+            );
+            Swal.fire({
+              title: "Error!",
+              text: "Friend not found!",
+              icon: "error",
+            });
+          }
+        } else if (FGMethod === "Group") {
+          try {
+            // Fetch the friend's UID using inputValue
+            const groupResponse = await axios.get(`/group/id/of/${inputValue}`);
+            const groupId = groupResponse.data.group_id;
+            console.log("groupid is: ", groupId);
+
+            if (!groupId) {
+              Swal.fire({
+                title: "Oops...",
+                text: "Group not found!",
+                icon: "error",
+              });
+              return;
+            }
+
+            // Post the transaction data
+            const response = await axios.post(`/transaction/add/group`, {
+              uid,
+              amount,
+              description,
+              groupId,
+            });
+
+            console.log("response is: ", response);
+
+            if (response.data.error) {
+              alert(response.data.error);
+            } else {
+              navigate("/"); // Redirect to the main page
+            }
+          } catch (error) {
+            console.error(
+              "Error fetching groupid or creating transaction:",
+              error
+            );
+            Swal.fire({
+              title: "Error!",
+              text: "Group not found!",
+              icon: "error",
+            });
+          }
         }
-
-        // Create the transaction data with both UIDs
-        const friends = [friendUid];
-
-        // Post the transaction data
-        const response = await axios.post(`/transaction/add`, {
-          uid,
-          amount,
-          description,
-          friends,
-        });
-
-        if (response.data.error) {
-          alert(response.data.error);
-        } else {
-          navigate("/"); // Redirect to the main page
-        }
-      } catch (error) {
-        console.error(
-          "Error fetching friend UID or creating transaction:",
-          error
-        );
-        Swal.fire({
-          title: "Error!",
-          text: "Friend not found!",
-          icon: "error",
-        });
       }
-    } else if (FGMethod === "Group") {
-      try {
-        // Fetch the friend's UID using inputValue
-        const groupResponse = await axios.get(`/group/id/of/${inputValue}`);
-        const groupId = groupResponse.data.group_id;
-        console.log("groupid is: ", groupId);
-
-        if (!groupId) {
-          Swal.fire({
-            title: "Oops...",
-            text: "Group not found!",
-            icon: "error",
-          });
-          return;
-        }
-
-        // Post the transaction data
-        const response = await axios.post(`/transaction/add/group`, {
-          uid,
-          amount,
-          description,
-          groupId,
-        });
-
-        console.log("response is: ", response);
-
-        if (response.data.error) {
-          alert(response.data.error);
-        } else {
-          navigate("/"); // Redirect to the main page
-        }
-      } catch (error) {
-        console.error("Error fetching groupid or creating transaction:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Group not found!",
-          icon: "error",
-        });
-      }
-    }
+    });
   }, [inputValue, methodType, type, uid, navigate]);
 
   const onBackButtonClick = useCallback(() => {
@@ -315,13 +329,11 @@ const AddTransactionPage = () => {
       const groupID = await fetchGroupID(inputValue);
       setGroupID(groupID);
 
-      if (groupID) {
-        const count = await fetchMemberCount(groupID);
-        setMemberCount(count);
-        setInputCount(count - 1);
-        const total = await calculateTotalAmount(count);
-        setTotalAmount(total.toFixed(2));
-      }
+      const count = await fetchMemberCount(groupID);
+      setMemberCount(count);
+      setInputCount(count - 1);
+      const total = await calculateTotalAmount(count);
+      setTotalAmount(total);
     };
 
     fetchData();
@@ -456,7 +468,7 @@ const AddTransactionPage = () => {
       {showTotal && (
         <div className="youWillPay">You will pay a total of ${totalAmount}</div>
       )}
-      <div className={"confirm"} onClick={onConfirmTextClick}>
+      <div className={"confirm"} onClick={onConfirmClick}>
         Confirm
       </div>
       <Modal
