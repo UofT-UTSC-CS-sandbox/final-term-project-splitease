@@ -5,14 +5,17 @@ import {
   createGroup,
   deleteGroup,
   getAllGroups,
+  getGroupIdByName,
   getGroupNameById,
   getGroups,
   getGroupsByName,
   inviteFriend,
   quitGroup,
-  getGroupIdByName,
 } from "../modules/group.js";
-import { getTransactionByGroup } from "../modules/transaction.js";
+import {
+  getGroupBalanceForMe,
+  getTransactionByGroup,
+} from "../modules/transaction.js";
 export const groupRouter = express.Router();
 
 // Get all groups
@@ -193,6 +196,31 @@ groupRouter.post("/invite", async function (req, res) {
         error_str = "Friend is already a member of the group";
       res.status(401).json({ error: error_str });
       return;
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group balance to me
+groupRouter.get("/balance/:uid/:gid", async function (req, res) {
+  const { uid, gid } = req.params;
+
+  // Validate id
+  if (!uid) {
+    res.status(401).json({ error: "Invalid group id" });
+    return;
+  }
+
+  // Get group balance
+  try {
+    const balance = await getGroupBalanceForMe(uid, gid);
+    console.info("balance", balance);
+    if (balance) {
+      res.status(200).json(balance);
+    } else {
+      res.status(401).json({ error: "Group balance not found" });
     }
   } catch (e) {
     console.error("e", e);

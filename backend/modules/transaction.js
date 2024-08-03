@@ -137,7 +137,6 @@ export const getTransactionDetails = async (id) => {
   return parsedTransactionInfo;
 };
 
-
 export const getTransactionByUserAndFriend = async (uid, fid) => {
   // Both cost and pay should be returned
   const cost = await Transaction.find({ payer: uid, payee: fid });
@@ -195,6 +194,46 @@ export const getUserAndFriendBalance = async (uid, fid) => {
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
   const total_pay = pay.length === 0 ? 0 : pay[0].totalAmount;
   return total_cost - total_pay;
+};
+
+// Get group balance for me
+export const getGroupBalanceForMe = async (uid, gid) => {
+  // Get group object
+  const group = await Group.findById(gid);
+  if (!group) return null;
+
+  // Get all transactionInfoId
+  const transactionInfoIds = group.transactionInfoId;
+
+  // Get all transactionInfo objects
+  const transactionInfos = await Promise.all(
+    transactionInfoIds.map(async (id) => await getTransactionInfoByInfoId(id))
+  );
+
+  // Get all transactions
+  const transactions = await Promise.all(
+    transactionInfos
+      .map((info) =>
+        info.details.map((detail) => Transaction.findById(detail.transactionId))
+      )
+      .flat()
+  );
+
+  // Get all transactions related to me
+  const myTransactions = transactions.filter(
+    (transaction) =>
+      transaction.payee.toHexString() === uid ||
+      transaction.payer.toHexString() === uid
+  );
+
+  // Calculate balance
+  const balance = myTransactions.reduce((acc, transaction) => {
+    if (transaction.payee.toHexString() === uid)
+      return acc + transaction.amount;
+    return acc - transaction.amount;
+  }, 0);
+
+  return balance;
 };
 
 export const getUserList = async (uid) => {
