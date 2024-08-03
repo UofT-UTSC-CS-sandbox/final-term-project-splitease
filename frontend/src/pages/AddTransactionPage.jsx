@@ -36,6 +36,7 @@ const AddTransactionPage = () => {
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
+    fetchData();
     if (value && FGMethod == "Friend") {
       try {
         const response = await axios.get(`/user/partial/${value}`);
@@ -323,19 +324,15 @@ const AddTransactionPage = () => {
     });
   }, [navigate]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const groupID = await fetchGroupID(inputValue);
-      setGroupID(groupID);
+  const fetchData = async () => {
+    const groupID = await fetchGroupID(inputValue);
+    setGroupID(groupID);
 
-      const count = await fetchMemberCount(groupID);
-      setMemberCount(count);
-      const total = await calculateTotalAmount(count);
-      setTotalAmount(total);
-    };
-
-    fetchData();
-  }, [inputValue, FGMethod, splitMethod, payAmount, amounts]);
+    const count = await fetchMemberCount(groupID);
+    setMemberCount(count);
+    const total = await calculateTotalAmount(count);
+    setTotalAmount(total);
+  };
 
   return (
     <div className={"pageContainer"}>
@@ -498,17 +495,19 @@ const AddTransactionPage = () => {
         ) : (
           <div>
             <h2>Enter Split Details for Group</h2>
-            {[...Array(memberCount > 0 ? memberCount - 1 : 0)].map((_, index) => (
-              <div key={index} className="split-detail-row">
-                <input type="text" placeholder="Group member" />
-                <input
-                  type="text"
-                  placeholder="Amount"
-                  value={amounts[index]}
-                  onChange={(e) => handleInputAmountChange(index, e)}
-                />
-              </div>
-            ))}
+            {[...Array(memberCount > 0 ? memberCount - 1 : 0)].map(
+              (_, index) => (
+                <div key={index} className="split-detail-row">
+                  <input type="text" placeholder="Group member" />
+                  <input
+                    type="text"
+                    placeholder="Amount"
+                    value={amounts[index]}
+                    onChange={(e) => handleInputAmountChange(index, e)}
+                  />
+                </div>
+              )
+            )}
             <div className="modal-buttons">
               <button onClick={handleModalClose}>Close</button>
               <button onClick={handleConfirmSplit}>Confirm</button>
