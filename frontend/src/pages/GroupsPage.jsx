@@ -78,15 +78,31 @@ const GroupsPage = () => {
           setGroupIDs(groupIds);
           console.log("Groupids are:", groupIds);
 
-          // Fetch group names for each group ID
-          const groupNames = await Promise.all(
+          // Fetch group name & balance for each group ID
+          const groupNameBalance = await Promise.all(
             groupIds.map(async (groupId) => {
               try {
-                const res = await axios.get(`/group/name/of/${groupId}`);
-                return res.data.group_name;
+                let res = await axios.get(`/group/name/of/${groupId}`);
+                console.log("Group balance response:", res.data);
+                const group_name = res.data.group_name;
+
+                let balance = 0;
+
+                try {
+                  res = await axios.get(`/group/balance/${uid}/${groupId}`);
+                  console.log("Group name response:", res.data);
+                  balance = res.data;
+                } catch (error) {
+                  console.error(
+                    `Error fetching group balance for group ID ${groupId}:`,
+                    error
+                  );
+                  balance = 0;
+                }
+                return { group_name, balance };
               } catch (error) {
                 console.error(
-                  `Error fetching group name for group ID ${groupId}:`,
+                  `Error fetching group name/balance for group ID ${groupId}:`,
                   error
                 );
                 return null;
@@ -95,7 +111,9 @@ const GroupsPage = () => {
           );
 
           // Filter out any null values in case of errors
-          const validGroupNames = groupNames.filter((name) => name !== null);
+          const validGroupNames = groupNameBalance.filter(
+            (group) => group !== null
+          );
           setGroups(validGroupNames);
         })
         .catch((error) => {
@@ -144,7 +162,18 @@ const GroupsPage = () => {
                 >
                   x
                 </div>
-                <div className="groupText">{group}</div>
+                <div className="groupText">{group.group_name}</div>
+                <div className="balanceText">
+                  {group.balance < 0 ? (
+                    <span style={{ color: "green" }}>
+                      -${Math.abs(group.balance).toFixed(2)}
+                    </span>
+                  ) : (
+                    <span style={{ color: "red" }}>
+                      ${group.balance.toFixed(2)}
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
           </>

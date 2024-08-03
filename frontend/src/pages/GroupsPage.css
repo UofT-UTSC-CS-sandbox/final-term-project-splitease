@@ -1,3 +1,14 @@
+.balanceText {
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    width: 100px;
+    height: 40px;
+    top: 100px;
+    text-align: center;
+    align-items: center;
+}
+
 .addgroups {
     position: absolute;
     display: flex;
