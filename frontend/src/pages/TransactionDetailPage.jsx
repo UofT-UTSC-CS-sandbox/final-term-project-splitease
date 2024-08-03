@@ -29,6 +29,7 @@ const TransactionDetailPage = () => {
         .get(`/transaction/getInfoByTid/${trans_id}`)
         .then((response) => {
           const info = response.data;
+          console.log("the info is:", info);
           setTransactionInfo(info);
           return info._id; // Return the info ID to chain the next API call
         })

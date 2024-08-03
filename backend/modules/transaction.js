@@ -101,23 +101,29 @@ export const getTransactionByUser = async (id) => {
 // Get parsed transaction details by info id
 export const getTransactionDetails = async (id) => {
   const transactionInfo = await getTransactionInfoByInfoId(id);
-  // console.log("transactionInfo", transactionInfo);
+  console.log("transactionInfo", transactionInfo);
   if (!transactionInfo)
     return { success: false, error: "Transaction info not found" };
 
-  const detail = transactionInfo.details[0];
-  const { _, transactionId } = detail;
+  const details = transactionInfo.details;
   const transactions = await Promise.all(
-    transactionId.map(async (tid) => {
-      const transaction = await getTransactionById(tid);
-      return {
-        id: transaction._id,
-        payee: transaction.payee,
-        payeeName: await getUserNameById(transaction.payee),
-        amount: transaction.amount,
-      };
+    details.map(async (detail) => {
+      const { transactionId } = detail; // Extract transactionId from each detail
+      const transactionDetails = await Promise.all(
+        transactionId.map(async (tid) => {
+          const transaction = await getTransactionById(tid);
+          return {
+            id: transaction._id,
+            payee: transaction.payee,
+            payeeName: await getUserNameById(transaction.payee),
+            amount: transaction.amount,
+          };
+        })
+      );
+      return transactionDetails;
     })
   );
+
   const parsedTransactionInfo = {
     id: transactionInfo._id,
     payer: transactionInfo.payer,
@@ -125,11 +131,12 @@ export const getTransactionDetails = async (id) => {
     payee: transactionInfo.payee,
     amount: transactionInfo.amount,
     description: transactionInfo.description,
-    details: transactions,
+    details: transactions.flat(), // Flatten the array to combine all transaction details
   };
-  // console.log("parsedTransactionInfo", parsedTransactionInfo);
+
   return parsedTransactionInfo;
 };
+
 
 export const getTransactionByUserAndFriend = async (uid, fid) => {
   // Both cost and pay should be returned

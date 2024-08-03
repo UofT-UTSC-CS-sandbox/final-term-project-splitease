@@ -43,11 +43,17 @@ const GroupDetailPage = () => {
         );
 
         const groupTrans = await axios.get(`/group/transactions/${gid}`);
-        console.log("Group trans are: ", groupTrans.data.transactionInfoId);
+        const info = groupTrans.data.transactionInfoId;
+        console.log("Group trans are: ", info);
+
+        // const tids = await axios.get(`/transaction/detail/${gid}`);
+        // console.log("Transaction IDs are: ", tids.data);
 
         const transInfo = await parseTransactionsbyInfo(
           groupTrans.data.transactionInfoId
         );
+
+        console.log("Transaction info are ", transInfo);
 
         setGroupDetails(groupData);
         setGroupMembers(memberNames);

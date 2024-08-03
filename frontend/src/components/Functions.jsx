@@ -109,9 +109,10 @@ export async function parseTransactionsbyInfo(transactions) {
     transactions.map(async (transaction) => {
       // Get date in MM DD, YY format
       let formattedDate = formatDate(transaction.createdAt, false);
+      // let res = await getTransactionDetails(transaction._id);
 
       return {
-        id: transaction._id,
+        id: transaction.details[0].transactionId[0],
         date: formattedDate,
         name: transaction.description,
         payer: await getUserNameById(transaction.payer),
