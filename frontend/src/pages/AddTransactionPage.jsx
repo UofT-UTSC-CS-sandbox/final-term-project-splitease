@@ -30,7 +30,6 @@ const AddTransactionPage = () => {
   const [showTotal, setShowTotal] = useState(false);
   const [friendName, setFriendName] = useState("");
   const [memberCount, setMemberCount] = useState(0);
-  const [inputCount, setInputCount] = useState(0);
   const [groupID, setGroupID] = useState("");
   const [totalAmount, setTotalAmount] = useState((0).toFixed(2));
 
@@ -331,7 +330,6 @@ const AddTransactionPage = () => {
 
       const count = await fetchMemberCount(groupID);
       setMemberCount(count);
-      setInputCount(count - 1);
       const total = await calculateTotalAmount(count);
       setTotalAmount(total);
     };
@@ -500,7 +498,7 @@ const AddTransactionPage = () => {
         ) : (
           <div>
             <h2>Enter Split Details for Group</h2>
-            {[...Array(inputCount)].map((_, index) => (
+            {[...Array(memberCount > 0 ? memberCount - 1 : 0)].map((_, index) => (
               <div key={index} className="split-detail-row">
                 <input type="text" placeholder="Group member" />
                 <input
