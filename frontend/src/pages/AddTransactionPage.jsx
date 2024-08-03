@@ -36,7 +36,6 @@ const AddTransactionPage = () => {
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setInputValue(value);
-    fetchData();
     if (value && FGMethod == "Friend") {
       try {
         const response = await axios.get(`/user/partial/${value}`);
@@ -176,8 +175,8 @@ const AddTransactionPage = () => {
     if (!inputValue) {
       newErrors.inputValue = "Please select a group or friend.";
     }
-    if (!amount) {
-      newErrors.amount = "Please enter an amount.";
+    if (!amount || amount < 0) {
+      newErrors.amount = "Please enter a valid amount.";
     }
     if (!methodType) {
       newErrors.methodType = "Please select a method.";
@@ -324,15 +323,19 @@ const AddTransactionPage = () => {
     });
   }, [navigate]);
 
-  const fetchData = async () => {
-    const groupID = await fetchGroupID(inputValue);
-    setGroupID(groupID);
+  useEffect(() => {
+    const fetchData = async () => {
+      const groupID = await fetchGroupID(inputValue);
+      setGroupID(groupID);
 
-    const count = await fetchMemberCount(groupID);
-    setMemberCount(count);
-    const total = await calculateTotalAmount(count);
-    setTotalAmount(total);
-  };
+      const count = await fetchMemberCount(groupID);
+      setMemberCount(count);
+      const total = await calculateTotalAmount(count);
+      setTotalAmount(total);
+    };
+
+    fetchData();
+  }, [inputValue, FGMethod, splitMethod, payAmount, amounts]);
 
   return (
     <div className={"pageContainer"}>
