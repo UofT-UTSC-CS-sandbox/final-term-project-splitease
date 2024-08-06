@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import User from "../models/User.js";
 
 // Get all users
@@ -35,7 +35,7 @@ export const getUserNameById = async (id) => {
 export const checkUserPassword = async (name, password) => {
   const user = await User.findOne({ name });
   if (user) {
-    const match = await bcrypt.compare(password, user.password);
+    const match = await bcryptjs.compare(password, user.password);
     if (match) {
       return user._id;
     }
@@ -46,7 +46,7 @@ export const checkUserPassword = async (name, password) => {
 
 // Register a new user
 export const registerUser = async (name, password) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcryptjs.hash(password, 10);
   const user = new User({
     name,
     password: hashedPassword,
@@ -78,9 +78,9 @@ export const getUserByPartialName = async (name) => {
 
 // Change password
 export const changePassword = async (id, password) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcryptjs.hash(password, 10);
   const user = await User.findById(id);
-  if (await bcrypt.compare(password, user.password)) {
+  if (await bcryptjs.compare(password, user.password)) {
     return false;
   }
   user.password = hashedPassword;
