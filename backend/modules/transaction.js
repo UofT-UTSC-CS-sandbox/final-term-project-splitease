@@ -229,8 +229,8 @@ export const getGroupBalanceForMe = async (uid, gid) => {
   // Calculate balance
   const balance = myTransactions.reduce((acc, transaction) => {
     if (transaction.payee.toHexString() === uid)
-      return acc + transaction.amount;
-    return acc - transaction.amount;
+      return acc - transaction.amount;
+    return acc + transaction.amount;
   }, 0);
 
   return balance;
