@@ -19,7 +19,6 @@ const AddTransactionPage = () => {
     type: "",
     inputValue: "",
     amount: "",
-    methodType: "",
   });
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -178,9 +177,6 @@ const AddTransactionPage = () => {
     if (!amount || amount < 0) {
       newErrors.amount = "Please enter a valid amount.";
     }
-    if (!methodType) {
-      newErrors.methodType = "Please select a method.";
-    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -306,7 +302,7 @@ const AddTransactionPage = () => {
         }
       }
     });
-  }, [inputValue, methodType, type, uid, navigate]);
+  }, [inputValue, type, uid, navigate]);
 
   const onBackButtonClick = useCallback(() => {
     Swal.fire({
@@ -444,7 +440,6 @@ const AddTransactionPage = () => {
           <option value="WeChat Pay">WeChat Pay</option>
           <option value="Other">Other</option>
         </select>
-        {errors.methodType && <div className="error">{errors.methodType}</div>}
         <div className={"chooseAMethod"}>
           Choose a method to split this bill
         </div>
@@ -464,7 +459,9 @@ const AddTransactionPage = () => {
         </div>
       </div>
       {showTotal && (
-        <div className="youWillPay">You will pay a total of ${totalAmount}</div>
+        <div className="youWillPay">
+          Your friend will pay you ${totalAmount}
+        </div>
       )}
       <div className={"confirm"} onClick={onConfirmClick}>
         Confirm
