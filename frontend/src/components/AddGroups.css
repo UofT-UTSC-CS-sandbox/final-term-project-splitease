@@ -58,6 +58,15 @@
     flex: 1;
 }
 
+.select-member {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
 .add-groups-member .remove-member {
     color: red;
     cursor: pointer;

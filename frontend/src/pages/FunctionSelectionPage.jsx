@@ -2,8 +2,10 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FunctionSelectionPage.css";
 import "../components/Universal.css";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const FunctionSelectionPage = () => {
+  validateUser();
   const navigate = useNavigate();
 
   const onBackButtonClick = useCallback(() => {

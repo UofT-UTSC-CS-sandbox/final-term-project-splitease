@@ -2,8 +2,10 @@ import { useState, useCallback } from "react";
 import "./ProfileEditorPage.css";
 import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const ProfileEditor = () => {
+  validateUser();
   const [avatar, setAvatar] = useState("https://via.placeholder.com/245");
 
   // Function to handle the input of an avatar

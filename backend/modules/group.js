@@ -42,6 +42,35 @@ export const getGroupNameById = async (id) => {
   }
 };
 
+// Get group id by name
+export const getGroupIdByName = async (name) => {
+  const group = await Group.findOne({ name });
+  if (group) {
+    return group._id;
+  }
+  return null;
+};
+
+// Get group names by partial name
+export const getGroupsByName = async (name) => {
+  // Match jump chars
+  const regex = new RegExp(name.split("").join(".*"), "i");
+  const groups = await Group.find({ name: regex });
+
+  // Mask members
+  const maskedGroups = [];
+  for (const group of groups) {
+    maskedGroups.push({
+      _id: group._id,
+      name: group.name,
+      members: undefined,
+      memberCount: group.members.length,
+    });
+  }
+
+  return maskedGroups;
+};
+
 // Add/Create a group to a user
 export const createGroup = async (id, groupName, friends) => {
   // Check if users are friends with the user
@@ -135,6 +164,8 @@ export const deleteGroup = async (id, groupId) => {
   if (!result) return { result: false, error };
 
   // Remove group from group members
+  const group = await Group.findById(groupId);
+  if (!group) return { result: false, error: "Group not found" };
   const members = group.members;
   for (const memberId of members) {
     const memberUser = await User.findById(memberId);

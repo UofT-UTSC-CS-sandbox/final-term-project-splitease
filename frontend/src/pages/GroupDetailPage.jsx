@@ -1,27 +1,29 @@
 import { React, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { parseTransactions } from "../components/Functions.jsx";
 import "./GroupDetailPage.css";
 import "../components/Universal.css";
 import TransactionActivity from "../components/TransactionActivity.jsx";
-import AddGroups from "../components/AddGroups.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {
+  parseTransactionsbyInfo,
+  validateUser,
+} from "../components/Functions.jsx";
 
 const GroupDetailPage = () => {
+  validateUser();
   const uid = localStorage.getItem("uid");
   const { gid } = useParams();
   const navigate = useNavigate();
-  //test data for group
-  // Test data for group members
-  const testGroupMembers = ["Alice", "Bob", "Charlie"];
+
   // Get group details
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [groupDetails, setGroupDetails] = useState({});
   const [groupMembers, setGroupMembers] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
-  const [newFriendName, setNewFriendName] = useState(""); // State for new friend's name
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const GroupDetailPage = () => {
       try {
         // Fetch group details
         const groupResponse = await axios.get(`/group/details/${gid}`);
+        console.log("Group response: ", groupResponse);
         const groupData = groupResponse.data;
 
         // Fetch members' names
@@ -39,9 +42,22 @@ const GroupDetailPage = () => {
           })
         );
 
+        const groupTrans = await axios.get(`/group/transactions/${gid}`);
+        const info = groupTrans.data.transactionInfoId;
+        console.log("Group trans are: ", info);
+
+        // const tids = await axios.get(`/transaction/detail/${gid}`);
+        // console.log("Transaction IDs are: ", tids.data);
+
+        const transInfo = await parseTransactionsbyInfo(
+          groupTrans.data.transactionInfoId
+        );
+
+        console.log("Transaction info are ", transInfo);
+
         setGroupDetails(groupData);
         setGroupMembers(memberNames);
-        setTransactions(groupData.transactions);
+        setTransactions(transInfo);
       } catch (error) {
         console.error("Error fetching group details:", error);
       }
@@ -85,27 +101,120 @@ const GroupDetailPage = () => {
   const friend_test = {
     name: "Bob",
   };
+
+  async function fetchFriendIds(uid) {
+    const response = await axios.get(`/friend/of/${uid}`);
+    console.log(response);
+
+    const data = await response.data.friends;
+    console.log("The friend id data is: ", data);
+    return data;
+  }
+
+  async function fetchUserNameById(id) {
+    const response = await axios.get(`/user/name/of/${id}`);
+
+    console.log("The reponse is:", response);
+    const data = await response.data;
+    return data.name;
+  }
+
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    if (value) {
+      try {
+        const response = await axios.get(`/friend/partial/${uid}/${value}`);
+        console.log("suggestions are: ", response.data);
+        console.log("suggestions are: ", response.data);
+        const users = response.data.friends || [];
+        console.log("users are: ", users);
+        const userNames = users.map((user) => user.name);
+        setSuggestions(userNames);
+      } catch (error) {
+        console.error("Error fetching user suggestions:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleClickChange = async () => {
+    try {
+      // Get the list of friend IDs
+      const friendIds = await fetchFriendIds(uid);
+      console.log("FriendIds are:", friendIds);
+
+      // Fetch all friend names concurrently
+      const friendNamesPromises = friendIds.map((id) => fetchUserNameById(id));
+      const friendNames = await Promise.all(friendNamesPromises);
+
+      // Set the suggestions with the friend names
+      setSuggestions(friendNames);
+    } catch (error) {
+      console.error("Error setting friend suggestions:", error);
+    }
+  };
+
+  const handleEventChange = async (e) => {
+    if (inputValue === "") {
+      handleClickChange();
+    } else {
+      handleInputChange(e);
+    }
+  };
+
+  const onSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
+  };
+
   const onDeleteIconClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
 
   const handlePopupClose = () => {
     setShowPopup(false);
-    setNewFriendName("");
-  };
-
-  const handleFriendNameChange = (e) => {
-    setNewFriendName(e.target.value);
+    setInputValue("");
   };
 
   const handleAddUserClick = () => {
     setShowPopup(true);
   };
 
-  // TODO: Implement the logic to delete group
   const handleDeleteGroupClick = () => {
     // Handle delete group click
     console.log("Delete Group clicked");
+    Swal.fire({
+      title: "Warning!",
+      text: "Are you sure you want to delete this group?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "No",
+      confirmButtonText: "Yes, delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Delete the group
+        axios({
+          method: "delete",
+          url: "/group/delete/",
+          data: { uid, groupId: gid },
+        })
+          .then((res) => {
+            console.log("The result is: ", res);
+            navigate(-1); // Redirect to groups page
+          })
+          .catch((error) => {
+            console.error("Error deleting group:", error);
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete group. Please try again!",
+              icon: "error",
+            });
+          });
+      }
+    });
   };
 
   const toggleDropdown = () => {
@@ -113,12 +222,11 @@ const GroupDetailPage = () => {
   };
 
   const handleAddFriend = async () => {
-    // Implement the logic to add the new friend
-    console.log("New friend name:", newFriendName);
+    console.log("New friend name:", inputValue);
     // Close the popup after adding the friend
     try {
       // Fetch friend's ID by name
-      const friendResponse = await axios.get(`/user/id/of/${newFriendName}`);
+      const friendResponse = await axios.get(`/user/id/of/${inputValue}`);
       const friendId = friendResponse.data.user_id;
       console.log("Friend ID:", friendId);
 
@@ -135,18 +243,22 @@ const GroupDetailPage = () => {
 
       if (inviteResponse.status === 200) {
         // Update the group members list
-        const updatedMembers = [...groupMembers, newFriendName];
+        const updatedMembers = [...groupMembers, inputValue];
         setGroupMembers(updatedMembers);
         console.info("Successfully invited friend to group");
+        Swal.fire({
+          title: "Success!",
+          text: "Friend added successfully",
+          icon: "success",
+        });
       }
-
       handlePopupClose();
     } catch (error) {
-      Swal.fire(
-        "Error",
-        "Failed to add friend to the group. Please try again.",
-        "error"
-      );
+      Swal.fire({
+        title: "Error!",
+        text: "Error adding friend. Please try again!",
+        icon: "error",
+      });
       console.error("Error inviting friend to group:", error);
     }
   };
@@ -187,27 +299,45 @@ const GroupDetailPage = () => {
           </div>
         ))}
       </div>
-      <div className="group-recent-activities-container">
-        <h2>Recent shared activities</h2>
-        <div className="group-recent-activities-bar">
-          <TransactionActivity
-            transactions={testTransactions}
-            uid={UID_test}
-            friendsInfo={friend_test}
-          />
+      <div className="group-container">
+        <div className="group-recent-activities-container">
+          <h2>Recent shared activities</h2>
+          <div className="group-recent-activities-bar">
+            <TransactionActivity
+              transactions={transactions}
+              uid={uid}
+              friendsInfo={friend_test}
+            />
+          </div>
         </div>
       </div>
-
       {showPopup && (
         <div className="popup">
           <div className="popup-inner">
             <h3>Add a new friend</h3>
-            <input
-              type="text"
-              placeholder="Enter friend's name"
-              value={newFriendName}
-              onChange={handleFriendNameChange}
-            />
+            <div className="group-autocomplete-container">
+              <input
+                type="text"
+                className="group-autocomplete-input"
+                value={inputValue}
+                onChange={handleInputChange}
+                onClick={handleEventChange}
+                placeholder="Enter friend's name"
+              />
+              {suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      className="suggestion-item"
+                      onClick={() => onSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <div className="popup-buttons">
               <button onClick={handleAddFriend}>Add</button>
               <button onClick={handlePopupClose}>Cancel</button>

@@ -13,6 +13,26 @@ export const getFriends = async (id) => {
   return null;
 };
 
+// Get friends by partial name
+export const getFriendsByPartialName = async (uid, name) => {
+  const user = await User.findById(uid);
+  if (!user) return null;
+
+  const regex = new RegExp(name.split("").join(".*"), "i");
+  const friends = await User.find({
+    name: regex,
+    _id: { $in: user.friends },
+  });
+
+  for (const friend of friends) {
+    friend.password = undefined;
+    friend.friends = undefined;
+    friend.groups = undefined;
+  }
+
+  return friends;
+};
+
 // Check if a user is friends with another user
 export const isFriend = async (uid, fid) => {
   const user = await User.findById(uid);

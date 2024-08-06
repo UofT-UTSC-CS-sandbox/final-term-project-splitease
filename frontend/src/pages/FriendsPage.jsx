@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddFriends from "../components/AddFriends";
 import Swal from "sweetalert2";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 
 const FriendsPage = () => {
+  validateUser();
   const navigate = useNavigate();
   const [isAddFriendsOpen, setIsAddFriendsOpen] = useState(false);
 
@@ -17,7 +19,6 @@ const FriendsPage = () => {
   const [fids, setFriendIDs] = useState([]);
 
   const onAddFriendsClick = useCallback(() => {
-    // navigate("/addfriends");
     setIsAddFriendsOpen(true);
   }, [navigate]);
 
@@ -27,7 +28,6 @@ const FriendsPage = () => {
 
   const onFriendClick = useCallback(
     (e) => {
-      // TODO: Display friend details in a dedicated page
       const fid = e.currentTarget.id;
       navigate("/frienddetailpage/" + fid);
     },
@@ -55,13 +55,18 @@ const FriendsPage = () => {
           .then((res) => {
             const updatedFriends = friends.filter((_, i) => i !== index);
             setFriends(updatedFriends);
+            Swal.fire(
+              "Deleted!",
+              "The friend is deleted successfully!",
+              "success"
+            );
             navigate(0, { replace: true });
           })
           .catch((error) => {
             console.error("Error deleting friend:", error);
             Swal.fire(
-              "Error",
-              "Failed to delete friend. Please try again.",
+              "Error!",
+              "Failed to delete friend. Please try again!",
               "error"
             );
           });

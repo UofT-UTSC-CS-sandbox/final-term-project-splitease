@@ -1,17 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import "./AddGroups.css";
 import "../components/Universal.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Select from "react-select";
 
 const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState("");
   const [members, setMembers] = useState([{ name: "", email: "" }]);
   const [groupType, setGroupType] = useState("");
+  const [friendsOptions, setFriendsOptions] = useState([]);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      const uid = localStorage.getItem("uid");
+      try {
+        const response = await axios.get(`/friend/of/${uid}`);
+        const friends = response.data.friends || [];
+        const friendDetailPromises = friends.map(async (friend) => {
+          const friendResponse = await axios.get(`/user/name/of/${friend}`);
+          return friendResponse.data;
+        });
+        const friendDetails = await Promise.all(friendDetailPromises);
+        const friendOptions = friendDetails.map((friend) => ({
+          id: response.data.friends[friendDetails.indexOf(friend)],
+          label: friend.name,
+        }));
+        console.log("friendOptions: ", friendOptions);
+        setFriendsOptions(friendOptions);
+      } catch (error) {
+        console.error("Error fetching friends:", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Error fetching friends!",
+          icon: "error",
+        });
+      }
+    };
+
+    fetchFriends();
+  }, []);
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
@@ -19,7 +51,8 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
 
   const handleMemberChange = (index, field, value) => {
     const newMembers = members.slice();
-    newMembers[index][field] = value;
+    if (field === "name") newMembers[index][field] = value ? value.label : "";
+    else newMembers[index][field] = value;
     setMembers(newMembers);
   };
 
@@ -93,12 +126,10 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
               text: "Group created successfully",
               icon: "success",
             }).then(async (result) => {
-              if (result.isConfirmed) { {
+              if (result.isConfirmed) {
                 navigate(0, { replace: true });
               }
-            }
             });
-            // navigate(0, { replace: true });
           } else {
             console.error("Error creating group:", response.data.error);
           }
@@ -160,20 +191,25 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
           <div>GROUP MEMBERS</div>
           {members.map((member, index) => (
             <div key={index} className="add-groups-member">
-              <input
-                type="text"
-                placeholder="Name"
-                value={member.name}
-                onChange={(e) =>
-                  handleMemberChange(index, "name", e.target.value)
-                }
-              />
-              {errors[`memberName${index}`] && (
-                <div className="error">{errors[`memberName${index}`]}</div>
-              )}
+              <div className="autocomplete-container">
+                <Select
+                  options={friendsOptions}
+                  value={member.friend}
+                  className="select-member"
+                  onChange={(selectedOption) =>
+                    handleMemberChange(index, "name", selectedOption)
+                  }
+                  placeholder="Select a friend"
+                  isClearable
+                  style={{ flex: 1, marginRight: "8px" }}
+                />
+                {errors[`memberName${index}`] && (
+                  <div className="error">{errors[`memberName${index}`]}</div>
+                )}
+              </div>
               <input
                 type="email"
-                placeholder="Email address (optional)"
+                placeholder="Email (optional)"
                 value={member.email}
                 onChange={(e) =>
                   handleMemberChange(index, "email", e.target.value)
@@ -191,7 +227,7 @@ const AddGroups = ({ isAddGroupsClicked, setIsAddGroupsClicked }) => {
             </div>
           ))}
           <div className="add-groups-add-member" onClick={addMember}>
-            + Add a person
+            + Add a member
           </div>
         </div>
         <div className="add-groups-group-type">

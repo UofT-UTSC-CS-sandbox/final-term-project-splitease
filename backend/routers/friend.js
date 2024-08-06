@@ -5,6 +5,7 @@ import {
   getFriendDetails,
   deleteFriend,
   validateFriend,
+  getFriendsByPartialName,
 } from "../modules/friend.js";
 import { getUserAndFriendBalance } from "../modules/transaction.js";
 
@@ -74,6 +75,21 @@ friendRouter.get("/of/:uid", async function (req, res) {
       res.status(500).json({ error: `Unknown server error: ${e}` });
     }
   }
+});
+
+// Get friends list by partial name
+friendRouter.get("/partial/:uid/:name", async function (req, res) {
+  const { uid, name } = req.params;
+
+  // Validate id and name
+  if (!uid || !name) {
+    res.status(401).json({ error: "Invalid user id or name" });
+    return;
+  }
+
+  // Get friends list by partial name
+  const friends = await getFriendsByPartialName(uid, name);
+  res.status(200).json({ friends: friends });
 });
 
 // Add a friend

@@ -1,5 +1,7 @@
 // import ObjectId from '../models/ObjectId.js';
 import { ObjectId } from "mongodb";
+import User from "../models/User.js";
+import Group from "../models/Group.js";
 import Transaction from "../models/Transaction.js";
 import TransactionInfo from "../models/TransactionInfo.js";
 import { getUserNameById, verifyUserById } from "./user.js";
@@ -30,8 +32,12 @@ const createTransactionInfo = async (info) => {
   return await transactionInfo.save();
 };
 
-export const addTransaction = async (uid, amount, description, friends) => {
-  const _id = new ObjectId();
+export const addTransactionFriends = async (
+  uid,
+  amount,
+  description,
+  friends
+) => {
   // Check if uid exists
   if (!(await verifyUserById(uid))) {
     return { success: false, error: "User not found" };
@@ -39,6 +45,7 @@ export const addTransaction = async (uid, amount, description, friends) => {
 
   amount = parseFloat(amount);
   const average = amount / (friends.length + 1); // Including the user
+  const _id = new ObjectId();
 
   const details = await Promise.all(
     friends.map(async (fid) => {
@@ -94,23 +101,29 @@ export const getTransactionByUser = async (id) => {
 // Get parsed transaction details by info id
 export const getTransactionDetails = async (id) => {
   const transactionInfo = await getTransactionInfoByInfoId(id);
-  // console.log("transactionInfo", transactionInfo);
+  console.log("transactionInfo", transactionInfo);
   if (!transactionInfo)
     return { success: false, error: "Transaction info not found" };
 
-  const detail = transactionInfo.details[0];
-  const { _, transactionId } = detail;
+  const details = transactionInfo.details;
   const transactions = await Promise.all(
-    transactionId.map(async (tid) => {
-      const transaction = await getTransactionById(tid);
-      return {
-        id: transaction._id,
-        payee: transaction.payee,
-        payeeName: await getUserNameById(transaction.payee),
-        amount: transaction.amount,
-      };
+    details.map(async (detail) => {
+      const { transactionId } = detail; // Extract transactionId from each detail
+      const transactionDetails = await Promise.all(
+        transactionId.map(async (tid) => {
+          const transaction = await getTransactionById(tid);
+          return {
+            id: transaction._id,
+            payee: transaction.payee,
+            payeeName: await getUserNameById(transaction.payee),
+            amount: transaction.amount,
+          };
+        })
+      );
+      return transactionDetails;
     })
   );
+
   const parsedTransactionInfo = {
     id: transactionInfo._id,
     payer: transactionInfo.payer,
@@ -118,9 +131,9 @@ export const getTransactionDetails = async (id) => {
     payee: transactionInfo.payee,
     amount: transactionInfo.amount,
     description: transactionInfo.description,
-    details: transactions,
+    details: transactions.flat(), // Flatten the array to combine all transaction details
   };
-  // console.log("parsedTransactionInfo", parsedTransactionInfo);
+
   return parsedTransactionInfo;
 };
 
@@ -135,7 +148,7 @@ export const getTransactionByUserAndFriend = async (uid, fid) => {
 };
 
 export const getTransactionByGroup = async (gid) => {
-  return await TransactionInfo.find({ group_id: gid });
+  return await Group.findById(gid).populate("transactionInfoId");
 };
 
 export const getUserBalance = async (uid) => {
@@ -181,6 +194,46 @@ export const getUserAndFriendBalance = async (uid, fid) => {
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
   const total_pay = pay.length === 0 ? 0 : pay[0].totalAmount;
   return total_cost - total_pay;
+};
+
+// Get group balance for me
+export const getGroupBalanceForMe = async (uid, gid) => {
+  // Get group object
+  const group = await Group.findById(gid);
+  if (!group) return null;
+
+  // Get all transactionInfoId
+  const transactionInfoIds = group.transactionInfoId;
+
+  // Get all transactionInfo objects
+  const transactionInfos = await Promise.all(
+    transactionInfoIds.map(async (id) => await getTransactionInfoByInfoId(id))
+  );
+
+  // Get all transactions
+  const transactions = await Promise.all(
+    transactionInfos
+      .map((info) =>
+        info.details.map((detail) => Transaction.findById(detail.transactionId))
+      )
+      .flat()
+  );
+
+  // Get all transactions related to me
+  const myTransactions = transactions.filter(
+    (transaction) =>
+      transaction.payee.toHexString() === uid ||
+      transaction.payer.toHexString() === uid
+  );
+
+  // Calculate balance
+  const balance = myTransactions.reduce((acc, transaction) => {
+    if (transaction.payee.toHexString() === uid)
+      return acc - transaction.amount;
+    return acc + transaction.amount;
+  }, 0);
+
+  return balance;
 };
 
 export const getUserList = async (uid) => {
@@ -320,3 +373,42 @@ export async function getUserCost(uid) {
   const total_cost = cost.length === 0 ? 0 : cost[0].totalAmount;
   return total_cost;
 }
+
+export const addTransactionGroup = async (
+  uid,
+  amount,
+  description,
+  groupId
+) => {
+  const user = await User.findById(uid);
+  const group = await Group.findById(groupId);
+  if (!user || !group) {
+    return { success: false, error: "User or group not found" };
+  }
+
+  amount = parseFloat(amount);
+  const average = amount / group.members.length;
+  const _id = new ObjectId();
+
+  const details = [];
+  for (const fid of group.members) {
+    // Check if fid exists
+    if (!(await verifyUserById(fid))) {
+      return { success: false, error: "Friend not found" };
+    }
+
+    // Create transaction for each friend
+    if (fid.toHexString() === uid) continue;
+    const transaction = await createTransaction(uid, fid, average, _id);
+    details.push({ amount: average, transactionId: transaction._id });
+  }
+
+  const info = { _id, payer: uid, amount, description, details };
+  const infoId = await createTransactionInfo(info);
+
+  // Add transaction info to group
+  group.transactionInfoId.push(infoId);
+  await group.save();
+
+  return { success: true, infoId };
+};

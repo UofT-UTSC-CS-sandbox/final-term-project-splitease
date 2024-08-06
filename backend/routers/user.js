@@ -13,7 +13,7 @@ import {
   getUserBalance,
   getUserCost,
   getUserPay,
-  addTransaction,
+  addTransactionFriends,
   getTransactionByUser,
   getTransactionByUserAndFriend,
 } from "../modules/transaction.js";
@@ -253,7 +253,7 @@ userRouter.post("/transaction/add/:uid", async function (req, res) {
   // Create transaction
   else {
     try {
-      const { tid, status } = await addTransaction(
+      const { tid, status } = await addTransactionFriends(
         uid,
         description,
         transactions

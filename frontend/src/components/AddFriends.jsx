@@ -8,12 +8,34 @@ import Swal from "sweetalert2";
 
 const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    if (value) {
+      try {
+        const response = await axios.get(`/user/partial/${value}`);
+        console.log("suggestions are: ", response.data);
+        console.log("suggestions are: ", response.data);
+        const users = response.data.users || [];
+        const userNames = users.map((user) => user.name);
+        setSuggestions(userNames);
+      } catch (error) {
+        console.error("Error fetching user suggestions:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const onSuggestionClick = (suggestion) => {
+    setInputValue(suggestion);
+    setSuggestions([]);
   };
 
   const handleMessageChange = (e) => {
@@ -24,7 +46,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
     let formIsValid = true;
     let errors = {};
 
-    if (!username) {
+    if (!inputValue) {
       formIsValid = false;
       errors["username"] = "Username is required";
     }
@@ -44,7 +66,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
 
     // First, fetch the friend's user ID by username
     axios
-      .get(`/user/id/of/${username}`)
+      .get(`/user/id/of/${inputValue}`)
       .then((response) => {
         const friendId = response.data.user_id;
 
@@ -55,10 +77,9 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
             .then((res) => {
               console.log("Response:", res.data);
               if (res.data.success) {
-                console.log("Friend added successfully");
                 Swal.fire({
                   title: "Success!",
-                  text: "Friend added successfully",
+                  text: "Friend added successfully!",
                   icon: "success",
                 }).then((result) => {
                   if (result.isConfirmed) {
@@ -72,7 +93,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
                 console.error("Error adding friend:", res.data.error);
                 Swal.fire({
                   title: "Error!",
-                  text: res.data.error,
+                  text: "Something went wrong. Please try again later!",
                   icon: "error",
                 });
               }
@@ -91,7 +112,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
           console.error("Friend ID not found");
           Swal.fire({
             title: "Error!",
-            text: "Friend not found",
+            text: "Friend not found!",
             icon: "error",
           });
         }
@@ -101,7 +122,7 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
         if (err.response) {
           Swal.fire({
             title: "Error!",
-            text: err.response.data.error,
+            text: "Error fetching friend ID!",
             icon: "error",
           });
         }
@@ -137,13 +158,32 @@ const AddFriends = ({ isAddFriendsOpen, setIsAddFriendsOpen }) => {
         </div>
       </div>
       <form className="add-friends-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="add-friends-email"
-          placeholder="Enter username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
+        <div className="friends-autocomplete-container">
+          <input
+            type="text"
+            className="friends-autocomplete-input"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Start typing to search..."
+          />
+          {suggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className="suggestion-item"
+                  onClick={() => onSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
+          {errors.inputValue && (
+            <div className="error">{errors.inputValue}</div>
+          )}
+        </div>
+
         {errors.username && <div className="error">{errors.username}</div>}
         <textarea
           className="add-friends-message"

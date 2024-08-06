@@ -104,14 +104,33 @@ export async function parseTransactions(transactions) {
   );
 }
 
+export async function parseTransactionsbyInfo(transactions) {
+  return await Promise.all(
+    transactions.map(async (transaction) => {
+      // Get date in MM DD, YY format
+      let formattedDate = formatDate(transaction.createdAt, false);
+      // let res = await getTransactionDetails(transaction._id);
+
+      return {
+        id: transaction.details[0].transactionId[0],
+        date: formattedDate,
+        name: transaction.description,
+        payer: await getUserNameById(transaction.payer),
+        payerId: transaction.payer,
+        amount: transaction.amount,
+      };
+    })
+  );
+}
+
 export function validateUser() {
   const navigate = useNavigate();
   const uid = localStorage.getItem("uid");
   if (!uid) {
     Swal.fire({
-      icon: "error",
       title: "Oops...",
       text: "You are not logged in!",
+      icon: "error",
     }).then(() => {
       navigate("/login");
     });
@@ -120,9 +139,9 @@ export function validateUser() {
   axios.get(`/user/validate/${uid}`).catch((e) => {
     console.error("Error validating user:", e);
     Swal.fire({
-      icon: "error",
       title: "Oops...",
       text: "Your session has expired. Please log in again!",
+      icon: "error",
     }).then(() => {
       navigate("/login");
     });
@@ -130,8 +149,3 @@ export function validateUser() {
 
   return true;
 }
-
-// export function withUserValidation(Component) {
-//   validateUser(); // ! why not use useEffect?
-//   return <Component />;
-// }

@@ -2,9 +2,11 @@ import { useCallback } from "react";
 import "./SettingsLogoutPage.css";
 import "../components/Universal.css";
 import { useNavigate } from "react-router-dom";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import Swal from "sweetalert2";
 
 const SettingsLogoutPage = () => {
+  validateUser();
   const navigate = useNavigate();
 
   const onBackButtonClick = useCallback(() => {
@@ -20,7 +22,11 @@ const SettingsLogoutPage = () => {
     localStorage.clear();
 
     // Navigate to login page
-    Swal.fire("Logged out!", "You are now logged out.", "success").then(() => {
+    Swal.fire({
+      title: "Logged out!",
+      text: "You are now logged out.",
+      icon: "success",
+    }).then(() => {
       navigate("/login");
     });
   }, [navigate]);

@@ -2,13 +2,14 @@ import { React, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import { parseTransactions } from "../components/Functions.jsx";
+import { parseTransactions, validateUser } from "../components/Functions.jsx";
 import "./TransactionDetailPage.css";
 import "../components/Universal.css";
 import axios from "axios";
 import SharingDetail from "../components/SharingDetail.jsx";
 
 const TransactionDetailPage = () => {
+  validateUser();
   const location = useLocation();
   const { transaction } = location.state || {};
   const trans_id = transaction.id;
@@ -28,6 +29,7 @@ const TransactionDetailPage = () => {
         .get(`/transaction/getInfoByTid/${trans_id}`)
         .then((response) => {
           const info = response.data;
+          console.log("the info is:", info);
           setTransactionInfo(info);
           return info._id; // Return the info ID to chain the next API call
         })

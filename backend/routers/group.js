@@ -1,17 +1,21 @@
 import express from "express";
+import Group from "../models/Group.js";
+import { validateFriend } from "../modules/friend.js";
 import {
   createGroup,
-  getGroups,
-  getGroupNameById,
-  getAllGroups,
-  inviteFriend,
   deleteGroup,
+  getAllGroups,
+  getGroupIdByName,
+  getGroupNameById,
+  getGroups,
+  getGroupsByName,
+  inviteFriend,
   quitGroup,
 } from "../modules/group.js";
-import { validateFriend } from "../modules/friend.js";
-import Group from "../models/Group.js";
-import { getTransactionByGroup } from "../modules/transaction.js";
-
+import {
+  getGroupBalanceForMe,
+  getTransactionByGroup,
+} from "../modules/transaction.js";
 export const groupRouter = express.Router();
 
 // Get all groups
@@ -49,6 +53,7 @@ groupRouter.get("/:id", async function (req, res) {
   }
 });
 
+// Get group name by id
 groupRouter.get("/name/of/:id", async function (req, res) {
   const { id } = req.params;
 
@@ -64,6 +69,56 @@ groupRouter.get("/name/of/:id", async function (req, res) {
     if (groupName) {
       console.info("group name", groupName);
       res.status(200).json({ group_name: groupName });
+    } else {
+      res.status(401).json({ error: "Group not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group id by name
+groupRouter.get("/id/of/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid name" });
+    return;
+  }
+
+  // Get user id by name
+  try {
+    const gid = await getGroupIdByName(name);
+    if (gid) {
+      console.info("group id", gid);
+      res.status(200).json({ group_id: gid });
+    } else {
+      res.status(401).json({ error: "Group not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group names by partial name
+groupRouter.get("/partial/:name", async function (req, res) {
+  const { name } = req.params;
+
+  // Validate name
+  if (!name) {
+    res.status(401).json({ error: "Invalid group name" });
+    return;
+  }
+
+  // Get group names by partial name
+  try {
+    const groups = await getGroupsByName(name);
+    if (groups) {
+      console.info("groups", groups);
+      res.status(200).json(groups);
     } else {
       res.status(401).json({ error: "Group not found" });
     }
@@ -148,6 +203,31 @@ groupRouter.post("/invite", async function (req, res) {
   }
 });
 
+// Get group balance to me
+groupRouter.get("/balance/:uid/:gid", async function (req, res) {
+  const { uid, gid } = req.params;
+
+  // Validate id
+  if (!uid) {
+    res.status(401).json({ error: "Invalid group id" });
+    return;
+  }
+
+  // Get group balance
+  try {
+    const balance = await getGroupBalanceForMe(uid, gid);
+    console.info("balance", balance);
+    if (balance) {
+      res.status(200).json(balance);
+    } else {
+      res.status(401).json({ error: "Group balance not found" });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
 // Get group details (name, members, recent transactions)
 groupRouter.get("/details/:id", async function (req, res) {
   const { id } = req.params;
@@ -223,6 +303,31 @@ groupRouter.delete("/quit", async function (req, res) {
       console.error("Failed to quit group");
       console.error("error", error);
       res.status(401).json({ error: error });
+    }
+  } catch (e) {
+    console.error("e", e);
+    res.status(500).json({ error: `Unknown server error: ${e}` });
+  }
+});
+
+// Get group transactions
+groupRouter.get("/transactions/:id", async function (req, res) {
+  const { id } = req.params;
+
+  // Validate id
+  if (!id) {
+    res.status(401).json({ error: "Invalid group id" });
+    return;
+  }
+
+  // Get group transactions
+  try {
+    const transactions = await getTransactionByGroup(id);
+    if (transactions) {
+      console.info("transactions", transactions);
+      res.status(200).json(transactions);
+    } else {
+      res.status(401).json({ error: "Group transactions not found" });
     }
   } catch (e) {
     console.error("e", e);
