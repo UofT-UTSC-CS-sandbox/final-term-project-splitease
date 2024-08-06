@@ -46,6 +46,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run:
-          docker pull ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
-          docker run -d -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
+      - name: Run Docker container
+        run: docker run -d -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
