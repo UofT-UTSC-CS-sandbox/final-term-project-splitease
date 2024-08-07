@@ -52,4 +52,8 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-        run: docker run -d -p 3000:3000 --env DB_HOST=${{ secrets.DB_HOST }} --env DB_USER=${{ secrets.DB_USER }} --env DB_PASS=${{ secrets.DB_PASS }} ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
+        run: docker run -d -p 3000:3000 \
+          --env DB_HOST=${{ secrets.DB_HOST }} \
+          --env DB_USER=${{ secrets.DB_USER }} \
+          --env DB_PASS=${{ secrets.DB_PASS }} \
+          ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
