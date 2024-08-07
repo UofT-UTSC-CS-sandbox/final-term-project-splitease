@@ -51,5 +51,5 @@ jobs:
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_PASS: ${{ secrets.DB_PASS }}
         run: docker run -d -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/split-the-bill-backend:latest
