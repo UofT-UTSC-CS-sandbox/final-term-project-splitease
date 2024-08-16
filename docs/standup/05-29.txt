@@ -1,0 +1,53 @@
+05-28 Standup
+
+---
+
+Name: Longqirui Chen
+What have you done since yesterday?
+                                - Adding more figma pages, written prototype commands
+What are you planning on doing today?
+	- Adding more figma pages, written prototype commands
+                                  Want to finish wrapping up UI
+Any impediments or stumbling blocks?
+	- The group needs to decide a signature color theme together
+
+---
+
+Name: Zheyuan Wei
+What have you done since yesterday
+	- Adding more figma pages, written prototype commands
+What are you planning on doing today?
+	- Help with Figma prototype
+	- Finish up all deliverables and upload to GitHub
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Sam Wang
+What have you done since yesterday?
+	- Upload readme.md
+What are you planning on doing today?
+	- Research on project features.
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Zhao Han Huang
+What have you done since yesterday?
+                                - None. All finished
+What are you planning on doing today?
+	- discuss some nosql,react self prepaare
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Yiran Yu
+What have you done since yesterday?
+	- Finished Figma page for Friends and Groups
+What are you planning on doing today?
+	- Help to add more contents to Figma according to user stories
+Any impediments or stumbling blocks?
+	- None

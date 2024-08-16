@@ -1,0 +1,31 @@
+.button-group {
+    margin-top: -293px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.settings-button {
+    background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
+    border: none;
+    border-radius: var(--br-6xl);
+    width: 320px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+    /* front size */
+    color: #000000;
+    /* color */
+    font-weight: 450;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.settings-button:hover {
+    background: linear-gradient(to right, #fed6e3, #a8edea);
+}

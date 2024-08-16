@@ -1,0 +1,196 @@
+.selectATeam {
+    margin-top: 100px;
+    display: inline-block;
+    width: 530px;
+    height: 42px;
+    text-align: center;
+}
+
+.suggestions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.selection-box {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.selection-box select {
+    width: 542px;
+    height: 45px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.line,
+.lineIcon {
+    position: relative;
+    width: 600px;
+    height: 0.1px;
+    object-fit: contain;
+    margin: 10px auto;
+}
+
+.line {
+    margin-top: 0px;
+    height: 1.4px;
+}
+
+.amountText {
+    display: inline-block;
+    width: 530px;
+    height: 42px;
+    text-align: center;
+}
+
+.amountInput {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.input {
+    border-radius: var(--br-26xl);
+    background-color: var(--color-lightcyan-100);
+    width: 300px;
+    height: 50px;
+    font-size: var(--font-size-xl);
+}
+
+.chooseAMethod {
+    width: 600px;
+    height: 39px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.vectorIcon {
+    height: 0.92%;
+    width: 1.26%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+.youWillPay {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ff6347;
+    background-color: #fffbea;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 2px solid #ff6347;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirm {
+    border-radius: var(--br-26xl);
+    background-color: #cde8e5;
+    width: 167px;
+    height: 56px;
+    cursor: pointer;
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.method-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.method-buttons button {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.method-buttons button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.custom-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 400px;
+}
+
+.split-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.split-detail-row input {
+    width: 48%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}

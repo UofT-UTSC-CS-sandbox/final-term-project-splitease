@@ -1,0 +1,90 @@
+.password-field,
+.username-field {
+    width: 29.063rem;
+    border: 0;
+    outline: 0;
+    background-color: #fff;
+    height: 4.5rem;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 1.187rem 0 1.437rem;
+    box-sizing: border-box;
+    font-family: Kanit;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #000;
+    max-width: 100%;
+}
+
+.password-field {
+    height: 4.125rem;
+    padding: 1.25rem 0 1rem;
+}
+
+.sign-up {
+    width: 8.063rem;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.sign-up-wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 0 0 0.187rem;
+}
+
+.button-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 45px;
+    background-color: #cde8e5;
+    cursor: pointer;
+    padding: 15%;
+    text-align: center;
+    width: 150%;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.login-button-wrapper-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.login-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 5%;
+    margin: 5%;
+}
+
+.username-field-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+    font-size: 1.063rem;
+    color: #000;
+    font-family: Kanit;
+}
+
+@media screen and (max-width: 450px) {
+    .login {
+        font-size: 1rem;
+    }
+}

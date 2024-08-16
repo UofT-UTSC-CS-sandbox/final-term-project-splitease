@@ -1,0 +1,72 @@
+.activity_share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    margin: 20px auto;
+    width: 400px;
+    box-sizing: border-box;
+    background-color: transparent;
+    overflow-y: auto;
+    border: none;
+    box-shadow: none;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 1%;
+    flex-shrink: 0;
+    margin: auto;
+}
+
+.activity-details {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 10px;
+    height: 60px;
+}
+
+.activity-name {
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activity-amount-positive {
+    color: red;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.activity-amount-negative {
+    color: green;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.activity-type {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+}

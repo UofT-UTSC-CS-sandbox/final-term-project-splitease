@@ -1,0 +1,55 @@
+05-28 Standup
+
+---
+
+Name: Yiran Yu
+What have you done since yesterday?
+	- Updated the contents of backlog.txt to be reviewed and revised
+	- Created basic template for Figma page: Friends, Groups
+What are you planning on doing today?
+	- Continue finishing Figma page: Friends, Groups
+	- Add more contents in Figma
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Longqirui Chen
+What have you done since yesterday?
+	- Finishing up figma page design
+What are you planning on doing today?
+	- Finishing up figma page design
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Zheyuan Wei
+What have you done since yesterday?
+                                - None. All finished
+
+What are you planning on doing today?
+	- Help choosing theme colors
+
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Sam Wang
+What have you done since yesterday?
+	- Finish up readme.md
+What are you planning on doing today?
+	- Upload readme.md
+Any impediments or stumbling blocks?
+	- None
+
+---
+
+Name: Zhao Han Huang
+What have you done since yesterday?
+                                - None. All finished
+What are you planning on doing today?
+	- discuss future plans of project,  discuss a little on tut materials
+Any impediments or stumbling blocks?
+	- None

@@ -1,0 +1,71 @@
+.pageContainer {
+    width: 100%;
+    position: relative;
+    background-color: var(--color-white);
+    height: 982px;
+    overflow: hidden;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-kanit);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.headerBackground {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    background: linear-gradient(87.07deg, #cde8e5, #f8ffee);
+    width: 100%;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerText {
+    position: absolute;
+    top: 51px;
+    text-align: center;
+    font-weight: 600;
+    display: inline-block;
+    width: 300px;
+    height: 27px;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 68px;
+    left: 9px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.autocomplete-container {
+    width: 300px;
+    margin: 0 auto;
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+.autocomplete-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}

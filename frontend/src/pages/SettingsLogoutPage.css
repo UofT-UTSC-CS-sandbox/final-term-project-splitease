@@ -1,0 +1,71 @@
+.accountSafetyBox {
+    position: relative;
+    top: -150px;
+    background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
+    border-radius: var(--br-6xl);
+    width: 323px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.accountSafety,
+.notifications,
+.deleteAccount,
+.logOut {
+    position: relative;
+    font-weight: 500;
+    display: inline-block;
+    width: 271px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.notificationsBox {
+    position: relative;
+    top: -90px;
+    background: linear-gradient(88.3deg, #cde8e5, #eef7ff);
+    border-radius: var(--br-6xl);
+    width: 323px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteAccountBox {
+    position: relative;
+    top: 120px;
+    background: rgba(211, 211, 211, 0.417);
+    border-radius: var(--br-6xl);
+    width: 323px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logOutBox {
+    position: relative;
+    top: 170px;
+    background: rgba(211, 211, 211, 0.417);
+    border-radius: var(--br-6xl);
+    width: 323px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logOut,
+.deleteAccount {
+    color: #dc0c0c;
+}

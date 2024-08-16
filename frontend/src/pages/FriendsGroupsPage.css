@@ -1,0 +1,70 @@
+.friendsBox {
+    position: relative;
+    top: -132px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.friendsarrowRightIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.friends {
+    margin-left: -100px;
+    margin-top: -20px;
+    font-weight: 600;
+    display: inline-block;
+    width: auto;
+    height: 29px;
+    text-align: center;
+}
+
+.groupsBox {
+    position: relative;
+    top: 80px;
+    border-radius: var(--br-6xl);
+    background: linear-gradient(86.28deg,
+            rgba(205, 232, 229, 0.5),
+            rgba(238, 247, 255, 0.5));
+    width: 353px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.groupsarrowRightIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 47px;
+    height: 47px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.groups {
+    margin-left: -100px;
+    margin-top: -20px;
+    font-weight: 600;
+    display: inline-block;
+    width: auto;
+    height: 29px;
+    text-align: center;
+}

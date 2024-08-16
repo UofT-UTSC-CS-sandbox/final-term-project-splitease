@@ -1,0 +1,87 @@
+.login {
+    text-decoration: none;
+    width: 11.375rem;
+    position: absolute;
+    top: 20%;
+    left: 49%;
+    font-weight: 600;
+    color: inherit;
+    display: inline-block;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.logo {
+    margin-left: 80px;
+    align-self: stretch;
+    width: 15.938rem;
+    position: relative;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+}
+
+.logoWrapper {
+    width: 28.063rem;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+}
+
+.loginContainer,
+.loginPage,
+.logoWrapper {
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+}
+
+.loginContainer {
+    align-self: stretch;
+    width: 33.125rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2.375rem;
+}
+
+.loginPage {
+    width: 88.625rem;
+    height: 32.188rem;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+}
+
+.LoginPage-1 {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 0.437rem 17.187rem 0;
+    box-sizing: border-box;
+    gap: 5.875rem;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+@media screen and (max-width: 750px) {
+    .loginContainer {
+        gap: 1.188rem;
+    }
+
+    .LoginPage-1 {
+        gap: 2.938rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .LoginPage-1 {
+        gap: 1.438rem;
+    }
+}
